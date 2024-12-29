@@ -1,0 +1,66 @@
+{
+  "name": "@carped99/react-ol",
+  "private": false,
+  "type": "module",
+  "version": "0.0.4-alpha.12",
+  "description": "React Components for OpenLayers",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.es.js",
+  "main": "./dist/index.cjs.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -b && vite build",
+    "dev": "pnpm dev",
+    "test": "vitest",
+    "lint": "pnpm lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "clean": "pnpx rimraf --glob **/node_modules **/dist"
+  },
+  "peerDependencies": {
+    "ol": "^10",
+    "ol-ext": "^4.0.24",
+    "react": ">=19",
+    "react-dom": ">=19"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@testing-library/react": "^16.1.0",
+    "@types/node": "^18.19.68",
+    "@types/ol-ext": "npm:@siedlerchr/types-ol-ext@^3.6.0",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.14.0",
+    "jsdom": "^25.0.1",
+    "ol": "^10.3.1",
+    "ol-ext": "^4.0.24",
+    "prettier": "^3.4.2",
+    "rimraf": "^6.0.1",
+    "rollup-plugin-analyzer": "^4.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.2",
+    "vite": "^6.0.6",
+    "vite-plugin-dts": "^4.4.0",
+    "vitest": "^2.1.8"
+  },
+  "packageManager": "pnpm@9.15.1",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  },
+  "dependencies": {
+    "type-fest": "^4.31.0"
+  }
+}
