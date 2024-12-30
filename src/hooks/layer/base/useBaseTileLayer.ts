@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useLayer } from '@src/hooks/layer/base/useLayer';
 import TileSource from 'ol/source/Tile';
 
-export const useBaseTileLayer = <S extends TileSource>(layer: BaseTileLayer<S, any>, options: Options<S>) => {
+export const useBaseTileLayer = <S extends TileSource>(layer: BaseTileLayer<S, any>, options: Readonly<Options<S>>) => {
   useLayer(layer, options);
 
   useEffect(() => {

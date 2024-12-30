@@ -7,7 +7,7 @@ import { useLayer } from '@src/hooks/layer/base/useLayer';
 
 export const useBaseVectorLayer = <F extends FeatureLike, S extends VectorSource<F> | VectorTile<F>>(
   layer: BaseVectorLayer<F, S, any>,
-  options: Options<F, S>,
+  options: Readonly<Options<F, S>>,
 ) => {
   useLayer(layer, options);
 

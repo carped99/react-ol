@@ -9,16 +9,16 @@ export type OSMLayerOptions = Omit<Options<TileSource>, 'source'> & {
 };
 
 /**
- * OSM {@link TileLayer}를 생성한다.
+ * {@link https://www.openstreetmap.org/ OSM} {@link TileLayer}를 생성한다.
  * @param options {@link OSMLayerOptions}
  */
-export const useOSMLayer = (options?: OSMLayerOptions) => {
-  const osmSource = useMemo(() => {
+export const useOSMLayer = (options?: Readonly<OSMLayerOptions>) => {
+  const source = useMemo(() => {
     return new OSM(options?.source);
   }, [options?.source]);
 
   return useTileLayer({
     ...options,
-    source: osmSource,
+    source,
   });
 };

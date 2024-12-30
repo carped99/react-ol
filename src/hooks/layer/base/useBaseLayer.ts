@@ -3,9 +3,13 @@ import BaseLayer, { Options as BaseOptions } from 'ol/layer/Base';
 import { equals as equalsExtent } from 'ol/extent';
 import { usePrevious } from '@src/hooks/usePrevious';
 import { deepEqual } from 'fast-equals';
+import { getLogger } from '@src/utils/logger';
 
 export const useBaseLayer = (layer: BaseLayer, options: Readonly<BaseOptions>) => {
+
   useDebugValue(layer);
+
+  getLogger('Layer').trace(() => 'useBaseLayer', layer, options);
 
   const prevProperties = usePrevious(options.properties);
 

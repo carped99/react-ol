@@ -10,7 +10,7 @@ export type GraticuleLayerOptions = Options & {};
  * {@link Graticule}를 생성한다.
  * @param options {@link GraticuleLayerOptions}
  */
-export const useGraticuleLayer = (options: GraticuleLayerOptions) => {
+export const useGraticuleLayer = (options: Readonly<GraticuleLayerOptions>) => {
   const layer = useMemo(() => {
     return new Graticule(options);
 

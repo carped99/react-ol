@@ -16,7 +16,7 @@ export type HeatmapLayerOptions<
  * @param options {@link HeatmapLayerOptions}
  */
 export const useHeatmapLayer = <F extends FeatureLike = Feature<Geometry>, S extends VectorSource<F> = VectorSource<F>>(
-  options: HeatmapLayerOptions<F, S>,
+  options: Readonly<HeatmapLayerOptions<F, S>>,
 ) => {
   const layer = useMemo(() => {
     return new Heatmap<F, S>(options);

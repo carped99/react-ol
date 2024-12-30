@@ -8,7 +8,7 @@ export type WebGLTileLayerOptions = Options;
  * {@link WebGLTileLayer}를 생성한다.
  * @param options {@link WebGLTileLayerOptions}
  */
-export const useWebGLTileLayer = (options: WebGLTileLayerOptions) => {
+export const useWebGLTileLayer = (options: Readonly<WebGLTileLayerOptions>) => {
   const layer = useMemo(() => {
     return new WebGLTileLayer(options);
     // eslint-disable-next-line react-hooks/exhaustive-deps

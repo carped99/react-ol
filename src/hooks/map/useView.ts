@@ -1,25 +1,14 @@
 import View, { ViewOptions as OLViewOptions } from 'ol/View';
 import { useEffect, useRef, useState } from 'react';
 import { equals } from 'ol/coordinate';
-import { Map } from 'ol';
-import RenderEvent from 'ol/render/Event';
-import BaseEvent from 'ol/events/Event';
-import { ObjectEvent } from 'ol/Object';
 import { useEventHandler } from '@src/hooks/map/useEventHandler';
-
-interface ViewEvents {
-  onError?: (this: Map, e: RenderEvent) => boolean | void;
-  onPropertyChange?: (this: Map, e: ObjectEvent) => boolean | void;
-  onChange?: (this: View, e: BaseEvent) => void;
-  onChangeCenter?: (this: View, e: ObjectEvent) => void;
-  onChangeResolution?: (this: View, e: ObjectEvent) => void;
-  onChangeRotation?: (this: View, e: ObjectEvent) => void;
-}
+import { getLogger } from '@src/utils/logger';
+import { ViewEvents } from '@src/hooks/event/ViewEvents';
 
 export interface ViewOptions extends OLViewOptions, ViewEvents {}
 
-export const useView = (options?: ViewOptions) => {
-  console.log('==================== useView =================', options);
+export const useView = (options?: Readonly<ViewOptions>) => {
+  getLogger('View').trace(() => 'useView', options);
 
   const [view] = useState<View>(() => new View(options));
   const prevOptions = useRef(options);

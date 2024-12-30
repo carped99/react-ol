@@ -11,7 +11,7 @@ export type TileLayerOptions<S extends TileSource = TileSource<Tile>> = Options<
  * {@link TileLayer}를 생성한다.
  * @param options {@link TileLayerOptions}
  */
-export const useTileLayer = <S extends TileSource = TileSource<Tile>>(options: TileLayerOptions<S>) => {
+export const useTileLayer = <S extends TileSource = TileSource<Tile>>(options: Readonly<TileLayerOptions<S>>) => {
   const layer = useMemo(() => {
     console.debug('==> Create TileLayer', options);
     return new TileLayer(options);

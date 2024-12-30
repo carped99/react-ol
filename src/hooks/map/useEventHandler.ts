@@ -6,6 +6,7 @@ import { EventTypes, unByKey } from 'ol/Observable';
 type EventHandlers = Record<string, ListenerFunction>;
 
 export const useEventHandler = <T extends BaseObject>(target?: T, props?: Readonly<unknown>) => {
+  // 이벤트 핸들러를 관리하기 위해 이벤트 키 목록 저장
   const eventKeysRef = useRef<EventsKey[]>([]);
 
   // Cleanup on component unmount or when target changes
@@ -50,12 +51,17 @@ const isEventHandler = (key: string, value: unknown) => {
 };
 
 const resolveEventName = (key: string) => {
-  const type = key.slice(2).toLowerCase();
-  if(type.length > 6 && type.startsWith('change')) {
-    return 'change:' + type.slice(6);
+  // `on` 접두사 제거
+  const type = key.slice(2);
+
+  // `change` 이벤트는 `change:`로 변경
+  if (type.length > 6 && type.startsWith('change')) {
+    return 'change:' + type.at(6)!.toLowerCase() + type.slice(7);
   }
-  return type;
-}
+
+  // 소문자로 변환
+  return type.toLowerCase();
+};
 
 /**
  * 현재 이벤트 핸들러 목록에서 사용되지 않는 핸들러를 제거한다.

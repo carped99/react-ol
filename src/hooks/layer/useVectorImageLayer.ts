@@ -18,7 +18,7 @@ export const useVectorImageLayer = <
   S extends VectorSource<F> = VectorSource<any>,
   F extends FeatureLike = ExtractedFeatureType<S>,
 >(
-  options: VectorImageLayerOptions<S, F>,
+  options: Readonly<VectorImageLayerOptions<S, F>>,
 ) => {
   const layer = useMemo(() => {
     console.info('==> Create VectorImageLayer', options);

@@ -17,7 +17,7 @@ export const useVectorTileLayer = <
   S extends VectorTile<F> = VectorTile<any>,
   F extends FeatureLike = ExtractedFeatureType<S>,
 >(
-  options: VectorTileLayerOptions<S, F>,
+  options: Readonly<VectorTileLayerOptions<S, F>>,
 ) => {
   const layer = useMemo(() => {
     console.info('==> Create VectorTileLayer', options);

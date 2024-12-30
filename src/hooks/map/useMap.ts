@@ -1,34 +1,14 @@
 import { Ref, useCallback, useEffect, useRef } from 'react';
 import { MapOptions as OLMapOptions } from 'ol/Map';
-import { Map, MapBrowserEvent, MapEvent } from 'ol';
-import RenderEvent from 'ol/render/Event';
-import BaseEvent from 'ol/events/Event';
+import { Map } from 'ol';
 import { useMapDispatch } from '@src/context/MapContext';
-import { ObjectEvent } from 'ol/Object';
+import { getLogger } from '@src/utils/logger';
+import { MapEvents } from '@src/hooks/event/MapEvents';
 
-interface MapEventHandlers {
-  onClick?: (this: Map, e: MapBrowserEvent<UIEvent>) => boolean | void;
-  onSingleClick?: (this: Map, e: MapBrowserEvent<UIEvent>) => boolean | void;
-  onDblClick?: (this: Map, e: MapBrowserEvent<UIEvent>) => boolean | void;
-  onMoveStart?: (this: Map, e: MapBrowserEvent<UIEvent>) => boolean | void;
-  onMoveEnd?: (this: Map, e: MapBrowserEvent<UIEvent>) => boolean | void;
-  onPointerDrag?: (this: Map, e: MapBrowserEvent<UIEvent>) => boolean | void;
-  onPointerMove?: (this: Map, e: MapBrowserEvent<UIEvent>) => boolean | void;
-  onPostRender?: (this: Map, e: MapEvent) => boolean | void;
-  onPreCompose?: (this: Map, e: RenderEvent) => boolean | void;
-  onPostCompose?: (this: Map, e: RenderEvent) => boolean | void;
-  onRenderComplete?: (this: Map, e: RenderEvent) => boolean | void;
-  onChange?: (this: Map, e: BaseEvent) => void;
-  onChangeLayerGroup?: (this: Map, e: ObjectEvent) => void;
-  onChangeSize?: (this: Map, e: ObjectEvent) => void;
-  onChangeTarget?: (this: Map, e: ObjectEvent) => void;
-  onChangeView?: (this: Map, e: ObjectEvent) => void;
-}
+export interface MapOptions extends OLMapOptions, MapEvents {}
 
-export interface MapOptions extends OLMapOptions, MapEventHandlers {}
-
-export const useMap = (options?: MapOptions): Ref<HTMLDivElement> => {
-  console.log('==================== useMap =================', options);
+export const useMap = (options?: Readonly<MapOptions>): Ref<HTMLDivElement> => {
+  getLogger('Map').trace(() => 'useMap', options);
 
   // const targetRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<Map>(undefined);
@@ -42,7 +22,7 @@ export const useMap = (options?: MapOptions): Ref<HTMLDivElement> => {
 
   const createMap = useCallback(
     (target: HTMLDivElement) => {
-      console.log('==> createMap', target, viewRef.current);
+      getLogger('Map').info(() => 'createMap', target);
       const map = new Map({
         target,
         view: viewRef.current,
@@ -56,6 +36,16 @@ export const useMap = (options?: MapOptions): Ref<HTMLDivElement> => {
     },
     [options],
   );
+
+  const cleanup = useCallback(() => {
+    getLogger('Map').info(() => 'cleanup', mapRef.current);
+    if (mapRef.current) {
+      mapDispatch.setMap(undefined);
+      mapRef.current.setTarget(undefined);
+      mapRef.current.dispose();
+      mapRef.current = undefined;
+    }
+  }, []);
 
   // useEffect(() => {
   //   if (!targetRef.current) return;
@@ -122,12 +112,7 @@ export const useMap = (options?: MapOptions): Ref<HTMLDivElement> => {
     }
 
     return () => {
-      mapDispatch.setMap(undefined);
-      mapRef.current?.setTarget(undefined);
-      mapRef.current?.dispose();
-      mapRef.current = undefined;
-      // setMap(undefined);
-      console.log('==> useMap useCallback cleanup', target);
+      cleanup();
     };
   }, []);
 };

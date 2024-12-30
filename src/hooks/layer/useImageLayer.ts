@@ -10,7 +10,7 @@ export type ImageLayerOptions<S extends ImageSource> = Options<S> & {};
  * {@link ImageLayer}를 생성한다.
  * @param options {@link ImageLayerOptions}
  */
-export const useImageLayer = <S extends ImageSource>(options: ImageLayerOptions<S>) => {
+export const useImageLayer = <S extends ImageSource>(options: Readonly<ImageLayerOptions<S>>) => {
   const layer = useMemo(() => {
     return new ImageLayer<S>(options);
   }, [options]);
