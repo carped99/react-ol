@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren, use, useCallback, useMemo, useState } from 'react';
+import { createContext, PropsWithChildren, useCallback, useMemo, useState, useContext } from 'react';
 import { Map } from 'ol';
 
 interface MapState {
@@ -23,10 +23,10 @@ const MapDispatchContext = createContext<MapDispatch>({
 });
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const useMapContext = () => use(MapStateContext);
+export const useMapContext = () => useContext(MapStateContext);
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const useMapDispatch = () => use(MapDispatchContext);
+export const useMapDispatch = () => useContext(MapDispatchContext);
 
 // 6. Provider 컴포넌트
 export const MapProvider = ({ children }: PropsWithChildren) => {
@@ -52,8 +52,8 @@ export const MapProvider = ({ children }: PropsWithChildren) => {
   }, [setMap]);
 
   return (
-    <MapStateContext value={state}>
-      <MapDispatchContext value={dispatchValue}>{children}</MapDispatchContext>
-    </MapStateContext>
+    <MapStateContext.Provider value={state}>
+      <MapDispatchContext.Provider value={dispatchValue}>{children}</MapDispatchContext.Provider>
+    </MapStateContext.Provider>
   );
 };

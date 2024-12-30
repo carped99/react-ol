@@ -2,7 +2,7 @@
   "name": "@carped99/react-ol",
   "private": false,
   "type": "module",
-  "version": "0.0.4-alpha.12",
+  "version": "0.0.4-alpha.13",
   "description": "React Components for OpenLayers",
   "types": "./dist/index.d.ts",
   "module": "./dist/index.es.js",
@@ -28,16 +28,16 @@
   "peerDependencies": {
     "ol": "^10",
     "ol-ext": "^4.0.24",
-    "react": ">=19",
-    "react-dom": ">=19"
+    "react": ">=18",
+    "react-dom": ">=18"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
     "@testing-library/react": "^16.1.0",
     "@types/node": "^18.19.68",
     "@types/ol-ext": "npm:@siedlerchr/types-ol-ext@^3.6.0",
-    "@types/react": "^19.0.2",
-    "@types/react-dom": "^19.0.2",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
     "eslint": "^9.17.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
@@ -61,6 +61,8 @@
     "pnpm": ">=9"
   },
   "dependencies": {
+    "fast-equals": "^5.0.1",
+    "loglevel": "^1.9.2",
     "type-fest": "^4.31.0"
   }
 }

@@ -21,6 +21,7 @@ export const useVectorLayer = <
   options: VectorLayerOptions<S, F>,
 ) => {
   const layer = useMemo(() => {
+    console.info('==> Create VectorLayer', options);
     return new VectorLayer<S, F>(options);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

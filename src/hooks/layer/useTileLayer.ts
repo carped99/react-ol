@@ -13,6 +13,7 @@ export type TileLayerOptions<S extends TileSource = TileSource<Tile>> = Options<
  */
 export const useTileLayer = <S extends TileSource = TileSource<Tile>>(options: TileLayerOptions<S>) => {
   const layer = useMemo(() => {
+    console.debug('==> Create TileLayer', options);
     return new TileLayer(options);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

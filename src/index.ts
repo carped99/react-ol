@@ -1,4 +1,4 @@
-export * from '@src/hooks/map/useMapView';
+export * from '@src/hooks/map/useMap';
 export * from '@src/hooks/map/useView';
 
 export * from '@src/context/MapContext';

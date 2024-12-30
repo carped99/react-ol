@@ -46,6 +46,7 @@ export const useLayer = <T extends Layer<S, any>, S extends Source = Source>(
 
   useEffect(() => {
     if (layer.getSource() != options.source) {
+      console.log('===> update source', layer, options.source);
       layer.setSource(options.source ?? null);
     }
   }, [layer, options.source]);

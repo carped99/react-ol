@@ -20,6 +20,7 @@ export const useVectorTileLayer = <
   options: VectorTileLayerOptions<S, F>,
 ) => {
   const layer = useMemo(() => {
+    console.info('==> Create VectorTileLayer', options);
     return new VectorTileLayer<S, F>(options);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

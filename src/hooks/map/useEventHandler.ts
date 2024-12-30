@@ -49,7 +49,13 @@ const isEventHandler = (key: string, value: unknown) => {
   return key.startsWith('on') && typeof value === 'function';
 };
 
-const resolveEventName = (key: string) => key.slice(2).toLowerCase();
+const resolveEventName = (key: string) => {
+  const type = key.slice(2).toLowerCase();
+  if(type.length > 6 && type.startsWith('change')) {
+    return 'change:' + type.slice(6);
+  }
+  return type;
+}
 
 /**
  * 현재 이벤트 핸들러 목록에서 사용되지 않는 핸들러를 제거한다.

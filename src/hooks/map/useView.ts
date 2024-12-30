@@ -1,26 +1,39 @@
-import View, { ViewOptions } from 'ol/View';
-import { useEffect, useRef } from 'react';
+import View, { ViewOptions as OLViewOptions } from 'ol/View';
+import { useEffect, useRef, useState } from 'react';
 import { equals } from 'ol/coordinate';
+import { Map } from 'ol';
+import RenderEvent from 'ol/render/Event';
+import BaseEvent from 'ol/events/Event';
+import { ObjectEvent } from 'ol/Object';
+import { useEventHandler } from '@src/hooks/map/useEventHandler';
+
+interface ViewEvents {
+  onError?: (this: Map, e: RenderEvent) => boolean | void;
+  onPropertyChange?: (this: Map, e: ObjectEvent) => boolean | void;
+  onChange?: (this: View, e: BaseEvent) => void;
+  onChangeCenter?: (this: View, e: ObjectEvent) => void;
+  onChangeResolution?: (this: View, e: ObjectEvent) => void;
+  onChangeRotation?: (this: View, e: ObjectEvent) => void;
+}
+
+export interface ViewOptions extends OLViewOptions, ViewEvents {}
 
 export const useView = (options?: ViewOptions) => {
-  const viewRef = useRef<View>(undefined);
+  console.log('==================== useView =================', options);
+
+  const [view] = useState<View>(() => new View(options));
   const prevOptions = useRef(options);
 
-  // View 생성
-  if (!viewRef.current) {
-    viewRef.current = new View(options);
-  }
+  useEventHandler(view, options);
 
   useEffect(() => {
-    const view = viewRef.current!;
-
     if (prevOptions.current !== options) {
       updateView(view, prevOptions.current, options);
       prevOptions.current = options;
     }
-  }, [options]);
+  }, [view, options]);
 
-  return viewRef.current;
+  return view;
 };
 
 const updateView = (view: View, prev?: ViewOptions, curr?: ViewOptions) => {
