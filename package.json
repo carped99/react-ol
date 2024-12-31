@@ -2,7 +2,7 @@
   "name": "@carped99/react-ol",
   "private": false,
   "type": "module",
-  "version": "0.0.4-alpha.15",
+  "version": "0.0.4-alpha.16",
   "description": "React Components for OpenLayers",
   "types": "./dist/index.d.ts",
   "module": "./dist/index.es.js",
