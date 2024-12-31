@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren, useCallback, useMemo, useState, useContext } from 'react';
+import { createContext, PropsWithChildren, useCallback, useContext, useMemo, useState } from 'react';
 import { Map } from 'ol';
 
 interface MapState {
