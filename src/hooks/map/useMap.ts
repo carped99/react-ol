@@ -3,9 +3,8 @@ import { MapOptions as OLMapOptions } from 'ol/Map';
 import { Map } from 'ol';
 import { useMapDispatch } from '@src/context/MapContext';
 import { getLogger } from '@src/utils/logger';
-import { MapEvents } from '@src/hooks/event/MapEvents';
 
-export interface MapOptions extends OLMapOptions, MapEvents {}
+export interface MapOptions extends OLMapOptions {}
 
 export const useMap = (options?: Readonly<MapOptions>): Ref<HTMLDivElement> => {
   getLogger('Map').trace(() => 'useMap', options);
@@ -63,8 +62,6 @@ export const useMap = (options?: Readonly<MapOptions>): Ref<HTMLDivElement> => {
   //     }
   //   };
   // }, []);
-
-  // useEventHandler(mapRef.current, options);
 
   // useEffect(() => {
   //   console.log('1. ==================== useMap =================', targetRef.current);

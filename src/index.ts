@@ -1,6 +1,9 @@
 export * from '@src/hooks/map/useMap';
 export * from '@src/hooks/map/useView';
 
+export * from '@src/hooks/observable/useObservable';
+export * from '@src/hooks/observable/ObservableProps';
+
 export * from '@src/context/MapContext';
 
 export * from '@src/hooks/layer/useGraticuleLayer';

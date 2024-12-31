@@ -1,38 +1,47 @@
-import BaseObject from 'ol/Object';
 import { useEffect, useRef } from 'react';
 import { EventsKey, ListenerFunction } from 'ol/events';
-import { EventTypes, unByKey } from 'ol/Observable';
+import Observable, { EventTypes, unByKey } from 'ol/Observable';
+import { ObservableProps } from '@src/hooks/observable/ObservableProps';
 
 type EventHandlers = Record<string, ListenerFunction>;
 
-export const useEventHandler = <T extends BaseObject>(target?: T, props?: Readonly<unknown>) => {
+/**
+ * OpenLayers 객체에 이벤트 핸들러를 등록한다.
+ * @param target 이벤트를 등록할 OpenLayers 객체
+ * @param props 이벤트 핸들러를 포함한 속성
+ */
+export const useObservable = <T extends Observable, P extends ObservableProps<T>>(target: T, props?: Readonly<P>) => {
   // 이벤트 핸들러를 관리하기 위해 이벤트 키 목록 저장
-  const eventKeysRef = useRef<EventsKey[]>([]);
+  const eventsKeysRef = useRef<EventsKey[]>([]);
 
-  // Cleanup on component unmount or when target changes
+  // 대상이 변경되면 이벤트 핸들러를 모두 제거
   useEffect(() => {
     if (!target) return;
 
     return () => {
-      unByKey(eventKeysRef.current);
-      eventKeysRef.current = [];
+      unByKey(eventsKeysRef.current);
+      eventsKeysRef.current = [];
     };
   }, [target]);
 
   useEffect(() => {
-    if (!target || !props) return;
+    if (!target) return;
 
     // 속성 중 이벤트 핸들러만 추출
     const eventHandlers = resolveEventHandlers(props);
 
     // 사용되지 않는 이벤트 핸들러 제거
-    eventKeysRef.current = pruneEvents(eventKeysRef.current, eventHandlers);
+    const newEventsKeys = pruneEvents(eventsKeysRef.current, eventHandlers);
 
     // 새로운 이벤트 핸들러 등록
     Object.entries(eventHandlers)
-      .filter(([type]) => !eventKeysRef.current.some((eventKey) => eventKey.type === type))
-      .map(([type, handler]) => target.on(type as EventTypes, handler))
-      .forEach((eventKey) => eventKeysRef.current.push(eventKey));
+      .filter(([type]) => !newEventsKeys.some((key) => key.type === type))
+      .forEach(([type, handler]) => {
+        const key = target.on(type as EventTypes, handler);
+        newEventsKeys.push(key);
+      });
+
+    eventsKeysRef.current = newEventsKeys;
   }, [target, props]);
 };
 
@@ -65,25 +74,27 @@ const resolveEventName = (key: string) => {
 
 /**
  * 현재 이벤트 핸들러 목록에서 사용되지 않는 핸들러를 제거한다.
- * @param events
+ * @param eventsKeys
  * @param handlers
  */
-const pruneEvents = (events: EventsKey[], handlers: EventHandlers) => {
-  const [validKeys, invalidKeys] = events.reduce<[EventsKey[], EventsKey[]]>(
+const pruneEvents = (eventsKeys: EventsKey[], handlers: EventHandlers) => {
+  const { validKeys, invalidKeys } = eventsKeys.reduce(
     (acc, eventKey) => {
       const { type, listener } = eventKey;
 
       if (handlers[type] === listener) {
-        acc[0].push(eventKey);
+        acc.validKeys.push(eventKey);
       } else {
-        acc[1].push(eventKey);
+        acc.invalidKeys.push(eventKey);
       }
       return acc;
     },
-    [[], []],
+    { validKeys: [] as EventsKey[], invalidKeys: [] as EventsKey[] },
   );
 
-  unByKey(invalidKeys);
+  if (invalidKeys.length > 0) {
+    unByKey(invalidKeys);
+  }
 
   return validKeys;
 };

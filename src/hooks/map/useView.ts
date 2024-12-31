@@ -1,19 +1,15 @@
 import View, { ViewOptions as OLViewOptions } from 'ol/View';
 import { useEffect, useRef, useState } from 'react';
 import { equals } from 'ol/coordinate';
-import { useEventHandler } from '@src/hooks/map/useEventHandler';
 import { getLogger } from '@src/utils/logger';
-import { ViewEvents } from '@src/hooks/event/ViewEvents';
 
-export interface ViewOptions extends OLViewOptions, ViewEvents {}
+export interface ViewOptions extends OLViewOptions {}
 
 export const useView = (options?: Readonly<ViewOptions>) => {
   getLogger('View').trace(() => 'useView', options);
 
   const [view] = useState<View>(() => new View(options));
   const prevOptions = useRef(options);
-
-  useEventHandler(view, options);
 
   useEffect(() => {
     if (prevOptions.current !== options) {
