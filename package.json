@@ -21,7 +21,7 @@
     "build": "tsc -b && vite build",
     "dev": "pnpm dev",
     "test": "vitest",
-    "lint": "pnpm lint",
+    "lint": "eslint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "clean": "pnpx rimraf --glob **/node_modules **/dist"
   },

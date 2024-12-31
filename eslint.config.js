@@ -5,13 +5,11 @@ import reactHooks from 'eslint-plugin-react-hooks';
 
 import prettier from 'eslint-plugin-prettier';
 
-export default tseslint.config({
+export default tseslint.config(
+  {
     files: ['**/*.{ts,tsx}'],
-    extends: [
-      eslint.configs.recommended,
-      tseslint.configs.recommended,
-    ],
-    ignores: ['dist', 'node_modules'],
+    extends: [eslint.configs.recommended, tseslint.configs.recommended],
+
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
@@ -25,5 +23,8 @@ export default tseslint.config({
       'prettier/prettier': 'error',
       '@typescript-eslint/no-explicit-any': 'off',
     },
+  },
+  {
+    ignores: ['dist', 'node_modules'],
   },
 );

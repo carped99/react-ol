@@ -1,21 +1,21 @@
 import { useMemo } from 'react';
-import { Modify } from 'ol/interaction';
-import { Options } from 'ol/interaction/Modify';
+import { Link } from 'ol/interaction';
+import { Options } from 'ol/interaction/Link';
 import { useInteraction } from './useInteraction';
 
 /**
- * Interaction for modifying feature geometries.
+ * An interaction that synchronizes the map state with the URL.
  * @param active Whether the interaction should be active.
  * @param options {@link Options}.
- * @returns {@link Modify}
+ * @returns {@link Link}
  */
-export const useModifyInteraction = ({
+export const useLinkInteraction = ({
   active = true,
   ...options
 }: {
   active?: boolean;
-} & Options): Modify => {
-  const interaction = useMemo(() => new Modify(options), [options]);
+} & Options): Link => {
+  const interaction = useMemo(() => new Link(options), [options]);
 
   useInteraction(interaction, active);
 

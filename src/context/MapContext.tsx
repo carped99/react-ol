@@ -22,10 +22,8 @@ const MapDispatchContext = createContext<MapDispatch>({
   },
 });
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useMapContext = () => useContext(MapStateContext);
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useMapDispatch = () => useContext(MapDispatchContext);
 
 // 6. Provider 컴포넌트

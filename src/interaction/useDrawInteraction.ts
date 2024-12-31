@@ -1,45 +1,23 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Draw } from 'ol/interaction';
-import { DrawEvent, Options as DrawOptions } from 'ol/interaction/Draw';
-import { unByKey } from 'ol/Observable';
+import { Options } from 'ol/interaction/Draw';
 import { useInteraction } from './useInteraction';
 
-type useDrawInteractionProps = {
-  active?: boolean;
-  onDrawStart?: (event: DrawEvent) => void;
-  onDrawEnd?: (event: DrawEvent) => void;
-  onDrawAbort?: (event: DrawEvent) => void;
-  drawOptions: DrawOptions;
-};
-
+/**
+ * Interaction for drawing feature geometries.
+ * @param active Whether the interaction should be active.
+ * @param options {@link Options} for the interaction.
+ * @returns {@link Draw}
+ */
 export const useDrawInteraction = ({
   active = true,
-  onDrawStart,
-  onDrawEnd,
-  onDrawAbort,
-  drawOptions,
-}: useDrawInteractionProps) => {
-  const draw = useMemo(() => new Draw(drawOptions), [drawOptions]);
+  ...options
+}: {
+  active?: boolean;
+} & Options): Draw => {
+  const interaction = useMemo(() => new Draw(options), [options]);
 
-  useInteraction(draw, active);
+  useInteraction(interaction, active);
 
-  useEffect(() => {
-    if (!onDrawStart) return;
-    const eventKey = draw.on('drawstart', onDrawStart);
-    return () => unByKey(eventKey);
-  }, [draw, onDrawStart]);
-
-  useEffect(() => {
-    if (!onDrawEnd) return;
-    const eventKey = draw.on('drawend', onDrawEnd);
-    return () => unByKey(eventKey);
-  }, [draw, onDrawEnd]);
-
-  useEffect(() => {
-    if (!onDrawAbort) return;
-    const eventKey = draw.on('drawabort', onDrawAbort);
-    return () => unByKey(eventKey);
-  }, [draw, onDrawAbort]);
-
-  return draw;
+  return interaction;
 };

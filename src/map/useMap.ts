@@ -1,10 +1,9 @@
 import { Ref, useCallback, useEffect, useRef } from 'react';
-import { MapOptions as OLMapOptions } from 'ol/Map';
-import { Map } from 'ol';
+import Map, { MapOptions as OLMapOptions } from 'ol/Map';
 import { useMapDispatch } from '@src/context/MapContext';
 import { getLogger } from '@src/utils/logger';
 
-export interface MapOptions extends OLMapOptions {}
+export type MapOptions = OLMapOptions;
 
 export const useMap = (options?: Readonly<MapOptions>): Ref<HTMLDivElement> => {
   getLogger('Map').trace(() => 'useMap', options);
@@ -44,7 +43,7 @@ export const useMap = (options?: Readonly<MapOptions>): Ref<HTMLDivElement> => {
       mapRef.current.dispose();
       mapRef.current = undefined;
     }
-  }, []);
+  }, [mapDispatch]);
 
   // useEffect(() => {
   //   if (!targetRef.current) return;
@@ -101,15 +100,18 @@ export const useMap = (options?: Readonly<MapOptions>): Ref<HTMLDivElement> => {
     }
   }, [options?.view]);
 
-  return useCallback((target: HTMLDivElement) => {
-    if (target) {
-      mapRef.current = createMap(target);
-      mapDispatch.setMap(mapRef.current);
-      // map?.setTarget(target);
-    }
+  return useCallback(
+    (target: HTMLDivElement) => {
+      if (target) {
+        mapRef.current = createMap(target);
+        mapDispatch.setMap(mapRef.current);
+        // map?.setTarget(target);
+      }
 
-    return () => {
-      cleanup();
-    };
-  }, []);
+      return () => {
+        cleanup();
+      };
+    },
+    [cleanup, createMap, mapDispatch],
+  );
 };

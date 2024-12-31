@@ -1,8 +1,7 @@
 import BaseEvent from 'ol/events/Event';
 import { ObjectEvent } from 'ol/Object';
-import { ObservableEvents } from './ObservableEvents';
 
-export interface BaseEvents<T> extends ObservableEvents<T> {
+export interface BaseEvents<T> {
   /**
    * Generic change event. Triggered when the revision counter is increased.
    * @param e {@link BaseEvent}

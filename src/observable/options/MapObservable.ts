@@ -1,9 +1,9 @@
 import { Map, MapBrowserEvent, MapEvent } from 'ol';
 import RenderEvent from 'ol/render/Event';
 import { ObjectEvent } from 'ol/Object';
-import { BaseEvents } from './BaseEvent';
+import { BaseEvents } from '@src/event/BaseEvent';
 
-export interface MapEvents extends BaseEvents<Map> {
+export interface MapObservable<T> extends BaseEvents<T> {
   /**
    * A click with no dragging. A double click will fire two of this.
    * @param e {@link MapBrowserEvent}

@@ -1,16 +1,19 @@
 import { useEffect, useRef } from 'react';
 import { EventsKey, ListenerFunction } from 'ol/events';
 import Observable, { EventTypes, unByKey } from 'ol/Observable';
-import { ObservableProps } from '@src/observable/ObservableProps';
+import { ObservableOptions } from './ObservableOptions';
 
 type Listeners = Record<string, ListenerFunction>;
 
 /**
  * OpenLayers 객체에 이벤트 핸들러를 등록한다.
  * @param target 이벤트를 등록할 OpenLayers 객체
- * @param props 이벤트 핸들러를 포함한 속성
+ * @param options 이벤트 핸들러를 포함한 속성
  */
-export const useObservable = <T extends Observable, P extends ObservableProps<T>>(target: T, props?: Readonly<P>) => {
+export const useObservable = <T extends Observable, Options extends ObservableOptions<T>>(
+  target: T,
+  options?: Readonly<Options>,
+) => {
   // 이벤트 핸들러를 관리하기 위해 이벤트 키 목록 저장
   const eventsKeysRef = useRef<EventsKey[]>([]);
 
@@ -28,7 +31,7 @@ export const useObservable = <T extends Observable, P extends ObservableProps<T>
     if (!target) return;
 
     // 속성 중 이벤트 핸들러만 추출
-    const eventHandlers = resolveEventHandlers(props);
+    const eventHandlers = resolveEventHandlers(options);
 
     // 사용되지 않는 이벤트 핸들러 제거
     const newEventsKeys = pruneEvents(eventsKeysRef.current, eventHandlers);
@@ -42,35 +45,48 @@ export const useObservable = <T extends Observable, P extends ObservableProps<T>
       });
 
     eventsKeysRef.current = newEventsKeys;
-  }, [target, props]);
+  }, [target, options]);
 };
 
 const resolveEventHandlers = (options?: Readonly<unknown>): Listeners => {
   return Object.entries(options ?? {})
-    .filter(([key, value]) => isEventHandler(key, value))
-    .reduce<Listeners>((acc, [key, value]) => {
-      const eventName = resolveEventName(key);
-      acc[eventName] = value as (event: any) => void;
+    .filter(([type, value]) => isEventListener(type, value))
+    .reduce<Listeners>((acc, [type, value]) => {
+      const eventType = normalizeEventType(type);
+      acc[eventType] = value as (event: any) => void;
       return acc;
     }, {});
 };
 
-const isEventHandler = (key: string, value: unknown) => {
-  return key.startsWith('on') && typeof value === 'function';
+/**
+ * 이벤트 핸들러인지 확인한다.
+ * 입력한 모든 이벤트 타입이 등록 가능하므로, type 값은 확인하지 않는다.
+ * @param _type 이벤트 타입
+ * @param value 함수
+ */
+const isEventListener = (_type: string, value: unknown) => {
+  return typeof value === 'function';
 };
 
-const resolveEventName = (key: string) => {
-  // `on` 접두사 제거
-  const type = key.slice(2);
+const isUpperCase = (char: string) => char === char.toUpperCase();
 
-  // `change` 이벤트는 `change:`로 변경
-  if (type.length > 6 && type.startsWith('Change')) {
-    // camelCase (앞글자만 소문자로 변경하고, 나머지는 그대로 유지)
-    return 'change:' + type.at(6)!.toLowerCase() + type.slice(7);
+const normalizeEventType = (handlerName: string) => {
+  // 이벤트 핸들러인 경우(`on`으로 시작하고, 세 번째 글자가 대문자인 경우)
+  if (handlerName.length > 2 && handlerName.startsWith('on') && isUpperCase(handlerName[2])) {
+    // `on` 접두사 제거
+    const eventType = handlerName.slice(2);
+
+    // `Change...` 이벤트는 `change:`로 변경
+    if (eventType.length > 6 && eventType.startsWith('Change')) {
+      // camelCase (앞글자만 소문자로 변경하고, 나머지는 그대로 유지)
+      return 'change:' + eventType[6].toLowerCase() + eventType.slice(7);
+    }
+    // 소문자로 변환
+    return eventType.toLowerCase();
   }
 
-  // 소문자로 변환
-  return type.toLowerCase();
+  // 이벤트 핸들러가 아닌 경우 원본 반환
+  return handlerName;
 };
 
 /**

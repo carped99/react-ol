@@ -1,5 +1,4 @@
 import TileLayer from 'ol/layer/Tile';
-import TileSource from 'ol/source/Tile';
 import Observable from 'ol/Observable';
 import VectorLayer from 'ol/layer/Vector';
 import VectorImageLayer from 'ol/layer/VectorImage';
@@ -12,12 +11,14 @@ import { VectorImageLayerEvents } from '@src/layer/event/VectorImageLayerEvents'
 import { WebGLTileLayerEvents } from '@src/layer/event/WebGLTileLayerEvents';
 import { ImageLayerEvents } from '@src/layer/event/ImageLayerEvents';
 
+// @formatter:off
 // prettier-ignore
 export type LayerObservable<T extends Observable> =
-  T extends TileLayer<infer S extends TileSource> ? VectorTileLayerEvents<TileLayer<S>> :
-  T extends VectorLayer<infer S> ? VectorLayerEvents<S> :
-  T extends VectorImageLayer<infer S> ? VectorImageLayerEvents<S> :
-  T extends VectorTileLayer<infer S> ? VectorTileLayerEvents<S> :
-  T extends WebGLTileLayer ? WebGLTileLayerEvents :
-  T extends ImageLayer<infer S> ? ImageLayerEvents<S> :
+  T extends TileLayer<any> ? VectorTileLayerEvents<T> :
+  T extends VectorLayer<any> ? VectorLayerEvents<T> :
+  T extends VectorImageLayer<any> ? VectorImageLayerEvents<T> :
+  T extends VectorTileLayer<any> ? VectorTileLayerEvents<T> :
+  T extends WebGLTileLayer ? WebGLTileLayerEvents<T> :
+  T extends ImageLayer<any> ? ImageLayerEvents<T> :
   never;
+// @formatter:on

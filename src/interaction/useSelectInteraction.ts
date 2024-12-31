@@ -1,31 +1,18 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Select } from 'ol/interaction';
-import { Options as SelectOptions, SelectEvent } from 'ol/interaction/Select';
-import { unByKey } from 'ol/Observable';
+import { Options } from 'ol/interaction/Select';
 import { useInteraction } from './useInteraction';
 
-export const useSelectInteraction = ({
-  active = true,
-  onSelect,
-  selectOptions,
-}: {
-  active?: boolean;
-  onSelect?: (event: SelectEvent) => void;
-  selectOptions?: SelectOptions;
-}) => {
-  const select = useMemo(() => new Select(selectOptions), [selectOptions]);
+/**
+ * Interaction for selecting vector features.
+ * @param active Whether the interaction should be active.
+ * @param options {@link Options} for the interaction.
+ * @returns {@link Select}.
+ */
+export const useSelectInteraction = (options: Options = {}, active = true): Select => {
+  const interaction = useMemo(() => new Select(options), [options]);
 
-  useInteraction(select, active);
+  useInteraction(interaction, active);
 
-  useEffect(() => {
-    if (!onSelect) return;
-
-    const selectKey = select.on('select', onSelect);
-
-    return () => {
-      unByKey(selectKey);
-    };
-  }, [select, onSelect]);
-
-  return select;
+  return interaction;
 };

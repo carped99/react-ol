@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { equals } from 'ol/coordinate';
 import { getLogger } from '@src/utils/logger';
 
-export interface ViewOptions extends OLViewOptions {}
+export type ViewOptions = OLViewOptions;
 
 export const useView = (options?: Readonly<ViewOptions>) => {
   getLogger('View').trace(() => 'useView', options);

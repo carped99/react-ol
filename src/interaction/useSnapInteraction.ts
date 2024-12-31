@@ -1,36 +1,27 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Snap } from 'ol/interaction';
-import { Options as SnapOptions } from 'ol/interaction/Snap';
-import { SnapEvent } from 'ol/events/SnapEvent';
-import { unByKey } from 'ol/Observable';
+import { Options } from 'ol/interaction/Snap';
 import { useInteraction } from './useInteraction';
 
+/**
+ * Handles snapping of vector features while modifying or drawing them.
+ * @param active Whether the interaction should be active.
+ * @param options {@link Options} for the interaction.
+ * @return {@link Snap}
+ */
 export const useSnapInteraction = ({
   active = true,
-  onSnap,
-  snapOptions,
+  ...options
 }: {
   active?: boolean;
-  onSnap?: (event: SnapEvent) => void;
-  snapOptions: SnapOptions;
-}) => {
-  if (!snapOptions.features && !snapOptions.source) {
+} & Options): Snap => {
+  if (!options.features && !options.source) {
     throw new Error('snapOptions should have features or source');
   }
 
-  const snap = useMemo(() => new Snap(snapOptions), [snapOptions]);
+  const interaction = useMemo(() => new Snap(options), [options]);
 
-  useInteraction(snap, active);
+  useInteraction(interaction, active);
 
-  useEffect(() => {
-    if (!onSnap) return;
-
-    const snapKey = snap.on('snap', onSnap);
-
-    return () => {
-      unByKey(snapKey);
-    };
-  }, [snap, onSnap]);
-
-  return snap;
+  return interaction;
 };

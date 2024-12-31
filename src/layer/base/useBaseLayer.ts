@@ -79,5 +79,5 @@ export const useBaseLayer = (layer: BaseLayer, options: Readonly<BaseOptions>) =
   useEffect(() => {
     if (deepEqual(prevProperties, options.properties)) return;
     layer.setProperties(options.properties ?? {}, true);
-  }, [layer, options.properties]);
+  }, [layer, prevProperties, options.properties]);
 };

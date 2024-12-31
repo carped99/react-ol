@@ -2,7 +2,7 @@ export * from '@src/map/useMap';
 export * from '@src/map/useView';
 
 export * from '@src/observable/useObservable';
-export * from '@src/observable/ObservableProps';
+export * from '@src/observable/ObservableOptions';
 
 export * from '@src/context/MapContext';
 

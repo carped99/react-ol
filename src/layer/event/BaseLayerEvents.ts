@@ -31,11 +31,11 @@ interface LayerEvents<T> extends BaseLayerEvents<T> {
   onSourceReady?: (this: T, e: BaseEvent) => void;
 }
 
-export interface BaseImageLayerEvents<T> extends LayerEvents<T> {}
+export type BaseImageLayerEvents<T> = LayerEvents<T>;
 
 export interface BaseTileLayerEvents<T> extends LayerEvents<T> {
   onChangePreload?: (this: T, e: ObjectEvent) => void;
   onChangeUseInterimTilesOnError?: (this: T, e: ObjectEvent) => void;
 }
 
-export interface BaseVectorLayerEvents<T> extends LayerEvents<T> {}
+export type BaseVectorLayerEvents<T> = LayerEvents<T>;
