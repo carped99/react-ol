@@ -2,6 +2,7 @@ import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import analyze from 'rollup-plugin-analyzer';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -12,6 +13,11 @@ export default defineConfig({
     }),
     analyze({
       showExports: true,
+    }),
+    visualizer({
+      open: false,
+      gzipSize: true,
+      brotliSize: true,
     }),
   ],
   resolve: {

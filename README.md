@@ -1,13 +1,11 @@
-# Turborepo starter
-
-This is an official starter Turborepo.
+# React Components for OpenLayers
 
 ## Using this example
 
 Run the following command:
 
 ```sh
-npx create-turbo@latest
+pnpm add @carped99/react-ol
 ```
 
 ## What's inside?
@@ -56,6 +54,15 @@ pnpm unpublish {패키지명} -f
 
 ### 테스트 구성
 Jest 환경을 설정하기 위해 다음 패키지를 설치한다.
+```
+pnpm add -D jest jest-environment-jsdom ts-jest jest-transform-stub @types/jest
+pnpm add -D @testing-library/react @testing-library/jest-dom
+```
+
+### 문서화 도구
+ - [TSDoc](https://tsdoc.org)
+ - [TypeDoc](https://typedoc.org)
+ - https://www.thecandidstartup.org/2024/08/05/bootstrapping-typedoc.html
 ```
 pnpm add -D jest jest-environment-jsdom ts-jest jest-transform-stub @types/jest
 pnpm add -D @testing-library/react @testing-library/jest-dom

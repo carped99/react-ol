@@ -20,47 +20,53 @@ import {
   Snap,
   Translate,
 } from 'ol/interaction';
-import { SelectInteractionEvents } from '@src/interaction/event/SelectInteractionEvents';
-import { DrawInteractionEvents } from '@src/interaction/event/DrawInteractionEvents';
-import { ModifyInteractionEvents } from '@src/interaction/event/ModifyInteractionEvents';
-import { SnapInteractionEvents } from '@src/interaction/event/SnapInteractionEvents';
-import { TranslateInteractionEvents } from '@src/interaction/event/TranslatetInteractionEvents';
-import { MouseWheelZoomInteractionEvents } from '@src/interaction/event/MouseWheelZoomInteractionEvents';
-import { LinkInteractionEvents } from '@src/interaction/event/LinkInteractionEvents';
-import { DragAndDropInteractionEvents } from '@src/interaction/event/DragAndDropInteractionEvents';
-import { KeyboardZoomInteractionEvents } from '@src/interaction/event/KeyboardZoomInteractionEvents';
-import { KeyboardPanInteractionEvents } from '@src/interaction/event/KeyboardPanInteractionEvents';
-import { DblClickZoomInteractionEvents } from '@src/interaction/event/DblClickZoomInteractionEvents';
-import { DblClickDragZoomInteractionEvents } from '@src/interaction/event/DblClickDragZoomInteractionEvents';
-import { DragPanInteractionEvents } from '@src/interaction/event/DragPanInteractionEvents';
-import { DragBoxInteractionEvents } from '@src/interaction/event/DragBoxInteractionEvents';
-import { DragRotateInteractionEvents } from '@src/interaction/event/DragRotateInteractionEvents';
-import { DragRotateAndZoomInteractionEvents } from '@src/interaction/event/DragRotateAndZoomInteractionEvents';
-import { ExtentInteractionEvents } from '@src/interaction/event/ExtentInteractionEvents';
-import { PinchZoomInteractionEvents } from '@src/interaction/event/PinchZoomInteractionEvents';
-import { PinchRotateInteractionEvents } from '@src/interaction/event/PinchRotateInteractionEvents';
+import { OlSelectInteractionEvents } from '@src/interaction/event/OlSelectInteractionEvents';
+import { OlDrawInteractionEvents } from '@src/interaction/event/OlDrawInteractionEvents';
+import { OlModifyInteractionEvents } from '@src/interaction/event/OlModifyInteractionEvents';
+import { OlSnapInteractionEvents } from '@src/interaction/event/OlSnapInteractionEvents';
+import { OlMouseWheelZoomInteractionEvents } from '@src/interaction/event/OlMouseWheelZoomInteractionEvents';
+import { OlLinkInteractionEvents } from '@src/interaction/event/OlLinkInteractionEvents';
+import { OlDragAndDropInteractionEvents } from '@src/interaction/event/OlDragAndDropInteractionEvents';
+import { OlKeyboardZoomInteractionEvents } from '@src/interaction/event/OlKeyboardZoomInteractionEvents';
+import { OlKeyboardPanInteractionEvents } from '@src/interaction/event/OlKeyboardPanInteractionEvents';
+import { OlDblClickZoomInteractionEvents } from '@src/interaction/event/OlDblClickZoomInteractionEvents';
+import { OlDblClickDragZoomInteractionEvents } from '@src/interaction/event/OlDblClickDragZoomInteractionEvents';
+import { OlDragPanInteractionEvents } from '@src/interaction/event/OlDragPanInteractionEvents';
+import { OlDragBoxInteractionEvents } from '@src/interaction/event/OlDragBoxInteractionEvents';
+import { OlDragRotateInteractionEvents } from '@src/interaction/event/OlDragRotateInteractionEvents';
+import { OlDragRotateAndZoomInteractionEvents } from '@src/interaction/event/OlDragRotateAndZoomInteractionEvents';
+import { OlExtentInteractionEvents } from '@src/interaction/event/OlExtentInteractionEvents';
+import { OlPinchZoomInteractionEvents } from '@src/interaction/event/OlPinchZoomInteractionEvents';
+import { OlPinchRotateInteractionEvents } from '@src/interaction/event/OlPinchRotateInteractionEvents';
+import { OlTranslateInteractionEvents } from '@src/interaction/event/OlTranslateInteractionEvents';
 
+/**
+ * Interaction 등록가능한 이벤트
+ *
+ * @category Event
+ * @internal
+ */
 // @formatter:off
 // prettier-ignore
 export type InteractionObservable<T extends Observable> =
-  T extends Select ? SelectInteractionEvents<T> :
-  T extends Modify ? ModifyInteractionEvents<T> :
-  T extends Draw ? DrawInteractionEvents<T> :
-  T extends Snap ? SnapInteractionEvents<T> :
-  T extends Link ? LinkInteractionEvents<T> :
-  T extends KeyboardPan ? KeyboardPanInteractionEvents<T> :
-  T extends KeyboardZoom ? KeyboardZoomInteractionEvents<T> :
-  T extends DragAndDrop ? DragAndDropInteractionEvents<T> :
-  T extends DragBox ? DragBoxInteractionEvents<T> :
-  T extends DragPan ? DragPanInteractionEvents<T> :
-  T extends DragRotate ? DragRotateInteractionEvents<T> :
-  T extends DragRotateAndZoom ? DragRotateAndZoomInteractionEvents<T> :
-  T extends DoubleClickZoom ? DblClickZoomInteractionEvents<T> :
-  T extends DblClickDragZoom ? DblClickDragZoomInteractionEvents<T> :
-  T extends Extent ? ExtentInteractionEvents<T> :
-  T extends PinchRotate ? PinchRotateInteractionEvents<T> :
-  T extends PinchZoom ? PinchZoomInteractionEvents<T> :
-  T extends Translate ? TranslateInteractionEvents<T> :
-  T extends MouseWheelZoom ? MouseWheelZoomInteractionEvents<T> :
+  T extends Select ? OlSelectInteractionEvents<T> :
+  T extends Modify ? OlModifyInteractionEvents<T> :
+  T extends Draw ? OlDrawInteractionEvents<T> :
+  T extends Snap ? OlSnapInteractionEvents<T> :
+  T extends Link ? OlLinkInteractionEvents<T> :
+  T extends KeyboardPan ? OlKeyboardPanInteractionEvents<T> :
+  T extends KeyboardZoom ? OlKeyboardZoomInteractionEvents<T> :
+  T extends DragAndDrop ? OlDragAndDropInteractionEvents<T> :
+  T extends DragBox ? OlDragBoxInteractionEvents<T> :
+  T extends DragPan ? OlDragPanInteractionEvents<T> :
+  T extends DragRotate ? OlDragRotateInteractionEvents<T> :
+  T extends DragRotateAndZoom ? OlDragRotateAndZoomInteractionEvents<T> :
+  T extends DoubleClickZoom ? OlDblClickZoomInteractionEvents<T> :
+  T extends DblClickDragZoom ? OlDblClickDragZoomInteractionEvents<T> :
+  T extends Extent ? OlExtentInteractionEvents<T> :
+  T extends PinchRotate ? OlPinchRotateInteractionEvents<T> :
+  T extends PinchZoom ? OlPinchZoomInteractionEvents<T> :
+  T extends Translate ? OlTranslateInteractionEvents<T> :
+  T extends MouseWheelZoom ? OlMouseWheelZoomInteractionEvents<T> :
   never;
 // @formatter:on

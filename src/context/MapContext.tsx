@@ -22,11 +22,25 @@ const MapDispatchContext = createContext<MapDispatch>({
   },
 });
 
+/**
+ * MapContext
+ *
+ * @category Context
+ */
 export const useMapContext = () => useContext(MapStateContext);
 
+/**
+ * MapContext
+ *
+ * @category Context
+ */
 export const useMapDispatch = () => useContext(MapDispatchContext);
 
-// 6. Provider 컴포넌트
+/**
+ * MapContext Provider
+ *
+ * @category Context
+ */
 export const MapProvider = ({ children }: PropsWithChildren) => {
   const [state, setState] = useState<MapState>(initialState);
 

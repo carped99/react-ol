@@ -15,9 +15,7 @@ class Logger {
   }
 
   setLevel(level: LogLevel) {
-    console.log(`Current Level: [${this.logger.getLevel()}]`, `New Level: [${level}]`);
     this.logger.setLevel(level);
-    console.log(`Current Level: [${this.logger.getLevel()}]`, `New Level: [${level}]`);
   }
 
   trace(message: () => string, ...args: unknown[]) {
