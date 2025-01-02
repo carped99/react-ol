@@ -4,18 +4,22 @@ import { Options } from 'ol/interaction/PinchRotate';
 import { useOlInteraction } from './useOlInteraction';
 
 /**
- * Allows the user to rotate the map by twisting with two fingers on a touch screen.
- * @param active - Whether the interaction should be active.
- * @param options - {@link Options}.
+ * Options for the {@link useOlPinchRotateInteraction} hook.
  *
+ * @category Interaction Option
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface OlPinchRotateInteractionOptions extends Options {}
+
+/**
+ * Allows the user to rotate the map by twisting with two fingers on a touch screen.
+ * @param options - Options for the interaction.
+ * @param active - Whether the interaction should be active.
+ *
+ * @see {@link https://openlayers.org/en/latest/apidoc/module-ol_interaction_PinchRotate-PinchRotate.html | PinchRotate}
  * @category Interaction
  */
-export const useOlPinchRotateInteraction = ({
-  active = true,
-  ...options
-}: {
-  active?: boolean;
-} & Options): PinchRotate => {
+export const useOlPinchRotateInteraction = (options: OlPinchRotateInteractionOptions = {}, active = true) => {
   const interaction = useMemo(() => new PinchRotate(options), [options]);
 
   useOlInteraction(interaction, active);

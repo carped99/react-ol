@@ -4,18 +4,22 @@ import { Options } from 'ol/interaction/PinchZoom';
 import { useOlInteraction } from './useOlInteraction';
 
 /**
- * Allows the user to zoom the map by pinching with two fingers on a touch screen.
- * @param active - Whether the interaction should be active.
- * @param options - {@link Options} for the interaction.
+ * Options for the {@link useOlPinchZoomInteraction} hook.
  *
+ * @category Interaction Option
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface OlPinchZoomInteractionOptions extends Options {}
+
+/**
+ * Allows the user to zoom the map by pinching with two fingers on a touch screen.
+ * @param options - Options for the interaction.
+ * @param active - Whether the interaction should be active.
+ *
+ * @see {@link https://openlayers.org/en/latest/apidoc/module-ol_interaction_PinchZoom-PinchZoom.html | PinchZoom}
  * @category Interaction
  */
-export const useOlPinchZoomInteraction = ({
-  active = true,
-  ...options
-}: {
-  active?: boolean;
-} & Options): PinchZoom => {
+export const useOlPinchZoomInteraction = (options: OlPinchZoomInteractionOptions = {}, active = true) => {
   const interaction = useMemo(() => new PinchZoom(options), [options]);
 
   useOlInteraction(interaction, active);

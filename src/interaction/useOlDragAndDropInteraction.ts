@@ -4,18 +4,22 @@ import { Options } from 'ol/interaction/DragAndDrop';
 import { useOlInteraction } from './useOlInteraction';
 
 /**
- * Handles input of vector data by drag and drop.
- * @param active - Whether the interaction should be active.
- * @param options - {@link Options}.
+ * Options for the {@link useOlDragAndDropInteraction} hook.
  *
+ * @category Interaction Option
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface OlDragAndDropInteractionOptions extends Options {}
+
+/**
+ * Handles input of vector data by drag and drop.
+ * @param options - Options for the interaction.
+ * @param active - Whether the interaction should be active.
+ *
+ * @see {@link https://openlayers.org/en/latest/apidoc/module-ol_interaction_DragAndDrop-DragAndDrop.html | DragAndDrop}
  * @category Interaction
  */
-export const useOlDragAndDropInteraction = ({
-  active = true,
-  ...options
-}: {
-  active?: boolean;
-} & Options): DragAndDrop => {
+export const useOlDragAndDropInteraction = (options: OlDragAndDropInteractionOptions = {}, active = true) => {
   const interaction = useMemo(() => new DragAndDrop(options), [options]);
 
   useOlInteraction(interaction, active);

@@ -19,10 +19,7 @@ export const useOlTransformHandler = ({ active, layers }: { active: boolean; lay
     [layers],
   );
 
-  const transform = useOlTransformInteraction({
-    active,
-    options,
-  });
+  const transform = useOlTransformInteraction(options, active);
 
   /**
    * 회전 중에 발생하는 이벤트를 처리한다.

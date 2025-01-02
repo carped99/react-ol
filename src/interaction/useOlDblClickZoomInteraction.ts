@@ -4,18 +4,22 @@ import { Options } from 'ol/interaction/DoubleClickZoom';
 import { useOlInteraction } from './useOlInteraction';
 
 /**
- * Allows the user to zoom by double-clicking on the map.
- * @param active - Whether the interaction should be active.
- * @param options - {@link Options}.
+ * Options for the {@link useOlDblClickZoomInteraction} hook.
  *
+ * @category Interaction Option
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface OlDblClickZoomInteractionOptions extends Options {}
+
+/**
+ * Allows the user to zoom by double-clicking on the map.
+ * @param options - Options for the interaction.
+ * @param active - Whether the interaction should be active.
+ *
+ * @see {@link https://openlayers.org/en/latest/apidoc/module-ol_interaction_DoubleClickZoom-DoubleClickZoom.html | DoubleClickZoom}.
  * @category Interaction
  */
-export const useOlDblClickZoomInteraction = ({
-  active = true,
-  ...options
-}: {
-  active?: boolean;
-} & Options): DoubleClickZoom => {
+export const useOlDblClickZoomInteraction = (options: OlDblClickZoomInteractionOptions = {}, active = true) => {
   const interaction = useMemo(() => new DoubleClickZoom(options), [options]);
 
   useOlInteraction(interaction, active);

@@ -3,13 +3,23 @@ import { useEffect, useMemo } from 'react';
 import { useOlInteraction } from './useOlInteraction';
 
 /**
- * Draw holes in a polygon.
- * @param active - Whether the interaction should be active.
- * @param options - {@link Options}.
+ * Options for the {@link useOlDrawHoleInteraction} hook.
  *
+ * @category Interaction Option
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface OlDrawHoleInteractionOptions extends Options {}
+
+/**
+ * Draw holes in a polygon.
+ *
+ * @param options - Options for the interaction.
+ * @param active - Whether the interaction should be active.
+ *
+ * @see {@link https://viglino.github.io/ol-ext/doc/doc-pages/interaction/DrawHole.html | DrawHole}
  * @category Interaction
  */
-export const useOlDrawHoleInteraction = (options: Options, active: boolean = true): DrawHole => {
+export const useOlDrawHoleInteraction = (options: OlDrawHoleInteractionOptions, active = true) => {
   const interaction = useMemo(() => new DrawHole(options), [options]);
 
   useOlInteraction(interaction, active);

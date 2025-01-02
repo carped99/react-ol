@@ -1,14 +1,11 @@
 import { useMemo } from 'react';
-import Transform, { Options as TransformOptions } from 'ol-ext/interaction/Transform';
+import Transform, { Options } from 'ol-ext/interaction/Transform';
 import { useOlInteraction } from './useOlInteraction';
 
-export const useOlTransformInteraction = ({
-  active = true,
-  options,
-}: {
-  active?: boolean;
-  options?: TransformOptions;
-}) => {
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface OlTransformInteractionOptions extends Options {}
+
+export const useOlTransformInteraction = (options: OlTransformInteractionOptions = {}, active = true) => {
   const transform = useMemo(() => new Transform(options), [options]);
 
   useOlInteraction(transform, active);

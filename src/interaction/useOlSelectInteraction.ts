@@ -5,20 +5,22 @@ import { useOlInteraction } from './useOlInteraction';
 import { useOlOptions } from '@src/hooks/useOlOptions';
 
 /**
- * @expand
+ * Options for the {@link useOlSelectInteraction} hook.
+ *
+ * @category Interaction Option
  */
-export type SelectInteractionOptions = Options & {
-  active?: boolean;
-};
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface OlSelectInteractionOptions extends Options {}
 
 /**
  * Interaction for selecting vector features.
+ * @param options - Options for the interaction.
  * @param active - Whether the interaction should be active.
- * @param options - {@link Options} for the interaction.
  *
+ * @see {@link https://openlayers.org/en/latest/apidoc/module-ol_interaction_Select-Select.html | Select}
  * @category Interaction
  */
-export const useOlSelectInteraction = (options?: SelectInteractionOptions, active = true): Select => {
+export const useOlSelectInteraction = (options?: OlSelectInteractionOptions, active = true): Select => {
   const opts = useOlOptions(options ?? {}, optionKeys, true);
 
   const interaction = useMemo(() => {
@@ -41,9 +43,3 @@ const optionKeys: readonly (keyof Options)[] = <const>[
   'removeCondition',
   'toggleCondition',
 ];
-
-// export const useSelectInteractionOptions = (options: Options) => {
-//   const valueRef = useRef(options);
-//   deepEqual(options.toggleCondition, options.toggleCondition);
-//   return useOlOptions(options, ['hitTolerance']);
-// };
