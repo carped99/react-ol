@@ -4,14 +4,18 @@ import { equals } from 'ol/coordinate';
 import { getLogger } from '@src/utils/logger';
 import { OlViewEvents } from '@src/observable/options/OlViewEvents';
 import { useOlObservable } from '@src/observable/useOlObservable';
+import { OlBaseObjectOptions, useOlBaseObject } from '@src/hooks/useOlBaseObject';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface OlViewOptions extends ViewOptions {}
+export interface OlViewOptions extends ViewOptions {
+  properties?: OlBaseObjectOptions['properties'];
+}
 
 /**
  * Hook for creating an OpenLayers view.
  * @param options - Options for the view.
  * @param observable - Observable for the interaction.
+ *
+ * @category Base
  */
 export const useOlView = (options?: Readonly<OlViewOptions>, observable?: OlViewEvents<View>) => {
   getLogger('View').trace(() => 'useView', options);
@@ -26,6 +30,7 @@ export const useOlView = (options?: Readonly<OlViewOptions>, observable?: OlView
     }
   }, [view, options]);
 
+  useOlBaseObject(view, options);
   useOlObservable(view, observable);
 
   return view;

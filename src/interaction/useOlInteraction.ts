@@ -18,7 +18,7 @@ export const useOlInteraction = <T extends Interaction>(
   observable?: Readonly<OlObservableOptions<T>>,
   active: boolean = true,
 ) => {
-  const { map } = useOlMapContext();
+  const map = useOlMapContext().getMap();
 
   useOlObservable(interaction, observable);
 

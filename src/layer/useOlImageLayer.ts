@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useDebugValue, useMemo } from 'react';
 import { Options } from 'ol/layer/BaseImage';
 import ImageLayer from 'ol/layer/Image';
 import ImageSource from 'ol/source/Image';
@@ -19,6 +19,8 @@ export interface ImageLayerOptions<S extends ImageSource> extends Options<S> {}
  * @category Layer
  */
 export const useOlImageLayer = <S extends ImageSource>(options: Readonly<ImageLayerOptions<S>>) => {
+  useDebugValue(options);
+
   const layer = useMemo(() => {
     return new ImageLayer<S>(options);
   }, [options]);

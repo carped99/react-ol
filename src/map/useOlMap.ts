@@ -1,17 +1,19 @@
 import { Ref, useCallback, useEffect, useRef } from 'react';
 import { Map } from 'ol';
 import { MapOptions } from 'ol/Map';
-import { useOlMapDispatch } from '@src/context';
 import { getLogger } from '@src/utils/logger';
 import { OlMapEvents } from '@src/observable/options/OlMapEvents';
 import { useOlObservable } from '@src/observable/useOlObservable';
+import { useOlMapContext } from '@src/context';
+import { OlBaseObjectOptions, useOlBaseObject } from '@src/hooks/useOlBaseObject';
 
 /**
  * 지도 옵션
  * @see {@link https://openlayers.org/en/latest/apidoc/module-ol_Map-Map.html | Map}
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface OlMapOptions extends MapOptions {}
+export interface OlMapOptions extends MapOptions {
+  properties?: OlBaseObjectOptions['properties'];
+}
 
 /**
  * 지도를 생성하고 반환한다.
@@ -19,29 +21,36 @@ export interface OlMapOptions extends MapOptions {}
  * @param observable - Observable for the interaction.
  *
  * @see {@link https://openlayers.org/en/latest/apidoc/module-ol_Map-Map.html | Map}
- *
+ * @category Base
  * @public
  * @example
  * ```tsx
  * const MapComponent = () => {
- *  const targetRef = useOlMap();
+ *  const [targetRef] = useOlMap();
  *  return <div ref={targetRef} />;
  * };
  * ```
  */
-export const useOlMap = (options?: Readonly<OlMapOptions>, observable?: OlMapEvents<Map>): Ref<HTMLDivElement> => {
+export const useOlMap = (
+  options?: Readonly<OlMapOptions>,
+  observable?: OlMapEvents<Map>,
+): [Ref<HTMLDivElement>, Map | undefined] => {
   getLogger('Map').trace(() => 'useMap', options);
 
-  const targetRef = useRef<HTMLDivElement>(null);
+  const { setMap } = useOlMapContext();
+
+  // 지도를 생성할 타겟
+  const divRef = useRef<HTMLDivElement>(null);
+
+  // 지도 인스턴스
   const mapRef = useRef<Map>(undefined);
 
-  const mapDispatch = useOlMapDispatch();
-  // const [map, setMap] = useState<Map | undefined>(undefined);
   const layersRef = useRef(options?.layers);
   const controlsRef = useRef(options?.controls);
   const interactionsRef = useRef(options?.interactions);
   const viewRef = useRef(options?.view);
 
+  // 지도 생성 함수
   const createMap = useCallback(
     (target: HTMLDivElement) => {
       return new Map({
@@ -56,6 +65,7 @@ export const useOlMap = (options?: Readonly<OlMapOptions>, observable?: OlMapEve
     [options],
   );
 
+  // 지도 정리 함수
   const cleanupMap = useCallback(() => {
     if (!mapRef.current) return;
 
@@ -65,44 +75,19 @@ export const useOlMap = (options?: Readonly<OlMapOptions>, observable?: OlMapEve
   }, []);
 
   useEffect(() => {
-    if (!targetRef.current) return;
+    if (!divRef.current) return;
 
-    mapRef.current = createMap(targetRef.current);
+    mapRef.current = createMap(divRef.current);
+    setMap(mapRef.current);
 
     return () => {
+      setMap(undefined);
       cleanupMap();
-      mapDispatch.setMap(undefined);
     };
-  }, [cleanupMap, createMap, mapDispatch, options]);
+  }, [cleanupMap, createMap, setMap, options]);
 
+  useOlBaseObject(mapRef.current, options);
   useOlObservable(mapRef.current, observable);
-
-  // useEffect(() => {
-  //   console.log('1. ==================== useMap =================', targetRef.current);
-  //   if (!targetRef.current) return;
-  //
-  //   console.log('2. ==================== useMap =================', targetRef.current);
-  //
-  //   const map = new Map({
-  //     target: targetRef.current,
-  //     view: viewRef.current,
-  //     layers: layersRef.current,
-  //     controls: controlsRef.current,
-  //     interactions: interactionsRef.current,
-  //     ...options,
-  //   });
-  //
-  //   setMapInstance(map);
-  //   mapDispatch.setMap(mapInstance);
-  //
-  //   return () => {
-  //     mapDispatch.setMap(undefined);
-  //     setMapInstance(undefined);
-  //
-  //     map.setTarget(undefined);
-  //     map.dispose();
-  //   };
-  // }, [mapDispatch, options?.keyboardEventTarget, options?.pixelRatio]);
 
   useEffect(() => {
     if (!mapRef.current) return;
@@ -115,7 +100,7 @@ export const useOlMap = (options?: Readonly<OlMapOptions>, observable?: OlMapEve
     }
   }, [options?.view]);
 
-  return targetRef;
+  return [divRef, mapRef.current];
 
   // return useCallback(
   //   (target: HTMLDivElement) => {

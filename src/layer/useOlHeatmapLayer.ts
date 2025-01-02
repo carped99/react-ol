@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useDebugValue, useEffect, useMemo } from 'react';
 import Heatmap, { Options } from 'ol/layer/Heatmap';
 import VectorSource from 'ol/source/Vector';
 import { FeatureLike } from 'ol/Feature';
@@ -29,6 +29,8 @@ export const useOlHeatmapLayer = <
 >(
   options: Readonly<HeatmapLayerOptions<F, S>>,
 ) => {
+  useDebugValue(options);
+
   const layer = useMemo(() => {
     return new Heatmap<F, S>(options);
     // eslint-disable-next-line react-hooks/exhaustive-deps

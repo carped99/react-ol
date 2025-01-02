@@ -1,1 +1,2 @@
-export * from './OlMapContext';
+export * from './mapContext';
+export * from './MapProvider';

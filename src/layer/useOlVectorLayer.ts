@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useDebugValue, useMemo } from 'react';
 import VectorLayer, { Options } from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { FeatureLike } from 'ol/Feature';
@@ -28,8 +28,9 @@ export const useOlVectorLayer = <
 >(
   options: Readonly<VectorLayerOptions<S, F>>,
 ) => {
+  useDebugValue(options);
+
   const layer = useMemo(() => {
-    console.info('==> Create VectorLayer', options);
     return new VectorLayer<S, F>(options);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

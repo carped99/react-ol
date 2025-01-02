@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useDebugValue, useMemo } from 'react';
 import { Tile as TileLayer } from 'ol/layer';
 import { Tile as TileSource } from 'ol/source';
 import { Options } from 'ol/layer/BaseTile';
@@ -20,8 +20,9 @@ export interface TileLayerOptions<S extends TileSource = TileSource<Tile>> exten
  * @category Layer
  */
 export const useOlTileLayer = <S extends TileSource = TileSource<Tile>>(options: Readonly<TileLayerOptions<S>>) => {
+  useDebugValue(options);
+
   const layer = useMemo(() => {
-    console.debug('==> Create TileLayer', options);
     return new TileLayer(options);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

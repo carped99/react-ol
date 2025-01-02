@@ -1,7 +1,7 @@
 import { OSM, Tile as TileSource } from 'ol/source';
 import { Options as OMSOptions } from 'ol/source/OSM';
 import { Options } from 'ol/layer/BaseTile';
-import { useMemo } from 'react';
+import { useDebugValue, useMemo } from 'react';
 import { useOlTileLayer } from './useOlTileLayer';
 
 /**
@@ -20,6 +20,8 @@ export interface OSMLayerOptions extends Omit<Options<TileSource>, 'source'> {
  * @category Layer
  */
 export const useOlOSMLayer = (options?: Readonly<OSMLayerOptions>) => {
+  useDebugValue(options);
+
   const source = useMemo(() => {
     return new OSM(options?.source);
   }, [options?.source]);

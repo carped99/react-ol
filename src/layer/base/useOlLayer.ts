@@ -8,7 +8,7 @@ export const useOlLayer = <T extends Layer<S, any>, S extends Source = Source>(
   layer: T,
   options: Readonly<LayerOptions<S>>,
 ) => {
-  const { map } = useOlMapContext();
+  const map = useOlMapContext().getMap();
 
   useOlBaseLayer(layer, options);
 

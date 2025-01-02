@@ -33,6 +33,7 @@ type NonNullish<T> = Exclude<T, null | undefined>;
  *
  * @example
  * // 기본 비교
+ * ```
  * compare(1, 1); // true
  * compare(null, undefined); // false
  * compare(NaN, NaN); // true
@@ -41,6 +42,7 @@ type NonNullish<T> = Exclude<T, null | undefined>;
  * // 커스텀 비교 함수 사용
  * const customComparator = (o1: unknown, o2: unknown) => o1.a === o2.a;
  * compare({ a: 1 }, { a: 1 }, customComparator); // true
+ * ```
  */
 export function compare<T>(o1: T, o2: T, comparator: Comparator<NonNullish<T>> = defaultComparator): boolean {
   // null, undefined, 또는 객체가 아닌 경우 비교

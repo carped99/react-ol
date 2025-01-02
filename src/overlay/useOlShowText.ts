@@ -9,7 +9,7 @@ import { useOlMapContext } from '@src/context';
 import { useOlVectorLayer } from '@src/layer/useOlVectorLayer';
 
 export const useOlShowText = () => {
-  const { map } = useOlMapContext();
+  const map = useOlMapContext().getMap();
 
   const eventKey = useRef<EventsKey | undefined>(undefined);
 

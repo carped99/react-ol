@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useDebugValue, useMemo } from 'react';
 import WebGLTileLayer, { Options } from 'ol/layer/WebGLTile';
 import { useOlBaseTileLayer } from '@src/layer/base/useOlBaseTileLayer';
 
@@ -17,6 +17,8 @@ export interface WebGLTileLayerOptions extends Options {}
  * @category Layer
  */
 export const useOlWebGLTileLayer = (options: Readonly<WebGLTileLayerOptions>) => {
+  useDebugValue(options);
+
   const layer = useMemo(() => {
     return new WebGLTileLayer(options);
     // eslint-disable-next-line react-hooks/exhaustive-deps

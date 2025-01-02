@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useDebugValue, useEffect, useMemo } from 'react';
 import VectorTileLayer, { ExtractedFeatureType, Options } from 'ol/layer/VectorTile';
 import { VectorTile } from 'ol/source';
 import { FeatureLike } from 'ol/Feature';
@@ -27,8 +27,9 @@ export const useOlVectorTileLayer = <
 >(
   options: Readonly<VectorTileLayerOptions<S, F>>,
 ) => {
+  useDebugValue(options);
+
   const layer = useMemo(() => {
-    console.info('==> Create VectorTileLayer', options);
     return new VectorTileLayer<S, F>(options);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

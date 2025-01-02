@@ -1,16 +1,15 @@
 import { useDebugValue, useEffect } from 'react';
 import BaseLayer, { Options as BaseOptions } from 'ol/layer/Base';
 import { equals as equalsExtent } from 'ol/extent';
-import { usePrevious } from '@src/hooks/usePrevious';
-import { deepEqual } from 'fast-equals';
 import { getLogger } from '@src/utils/logger';
+import { useOlBaseObject } from '@src/hooks/useOlBaseObject';
 
 export const useOlBaseLayer = (layer: BaseLayer, options: Readonly<BaseOptions>) => {
   useDebugValue(layer);
 
-  getLogger('Layer').trace(() => 'useBaseLayer', layer, options);
+  useOlBaseObject(layer, options);
 
-  const prevProperties = usePrevious(options.properties);
+  getLogger('Layer').trace(() => 'useBaseLayer', layer, options);
 
   useEffect(() => {
     if (layer == null) throw new Error('layer is required');
@@ -75,9 +74,4 @@ export const useOlBaseLayer = (layer: BaseLayer, options: Readonly<BaseOptions>)
 
     layer.setBackground(options.background);
   }, [layer, options.background]);
-
-  useEffect(() => {
-    if (deepEqual(prevProperties, options.properties)) return;
-    layer.setProperties(options.properties ?? {}, true);
-  }, [layer, prevProperties, options.properties]);
 };

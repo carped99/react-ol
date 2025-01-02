@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useDebugValue, useMemo } from 'react';
 import Graticule, { Options } from 'ol/layer/Graticule';
 import VectorSource from 'ol/source/Vector';
 import { Feature } from 'ol';
@@ -19,6 +19,8 @@ export interface GraticuleLayerOptions extends Options {}
  * @category Layer
  */
 export const useOlGraticuleLayer = (options: Readonly<GraticuleLayerOptions>) => {
+  useDebugValue(options);
+
   const layer = useMemo(() => {
     return new Graticule(options);
 
