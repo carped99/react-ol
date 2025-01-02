@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react';
 import React, { MutableRefObject } from 'react';
 import { beforeEach, expect } from 'vitest';
-import { MapProvider, useMapDispatch } from '@src/context/MapContext';
+import { OlMapProvider, useOlMapDispatch } from '@src/context/MapContext';
 import { OlMapOptions, useOlMap } from '../../src/map/useOlMap';
 import { Map, View } from 'ol';
 
@@ -25,7 +25,7 @@ vi.mock('@src/context/MapContext');
 describe('useMapView hook', () => {
   let mapOptions: OlMapOptions;
   beforeEach(() => {
-    vi.mocked(useMapDispatch).mockImplementation(() => ({
+    vi.mocked(useOlMapDispatch).mockImplementation(() => ({
       setMap: vi.fn(),
     }));
 
@@ -108,7 +108,7 @@ describe('useMapView hook', () => {
   // });
   //
   it('view 변경시 setView 함수 호출', async () => {
-    const wrapper = ({ children }: { children: React.ReactNode }) => <MapProvider>{children}</MapProvider>;
+    const wrapper = ({ children }: { children: React.ReactNode }) => <OlMapProvider>{children}</OlMapProvider>;
     const { result, rerender } = renderHook((props) => useOlMap(props), {
       wrapper,
       initialProps: mapOptions,

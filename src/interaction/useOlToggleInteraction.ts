@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Interaction } from 'ol/interaction';
 import { Class } from '@src/types/common';
-import { useMapContext } from '@src/context/MapContext';
+import { useOlMapContext } from '@src/context';
 import { findInteraction } from '@src/utils/common';
 
 /**
@@ -12,7 +12,7 @@ import { findInteraction } from '@src/utils/common';
  * @category Interaction
  */
 export const useOlToggleInteraction = (clazz: Class<Interaction>, active: boolean) => {
-  const { map } = useMapContext();
+  const { map } = useOlMapContext();
 
   useEffect(() => {
     if (!map) return;

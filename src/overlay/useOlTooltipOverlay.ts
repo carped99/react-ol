@@ -1,9 +1,9 @@
 import Tooltip, { Options as TooltipOptions } from 'ol-ext/overlay/Tooltip';
 import { useEffect, useMemo } from 'react';
-import { useMapContext } from '@src/context/MapContext';
+import { useOlMapContext } from '@src/context';
 
 export const useOlTooltipOverlay = ({ tooltipOptions }: { tooltipOptions?: TooltipOptions }) => {
-  const { map } = useMapContext();
+  const { map } = useOlMapContext();
 
   const tooltip = useMemo(() => {
     return new Tooltip(tooltipOptions);

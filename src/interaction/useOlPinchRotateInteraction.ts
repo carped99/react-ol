@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { PinchRotate } from 'ol/interaction';
 import { Options } from 'ol/interaction/PinchRotate';
 import { useOlInteraction } from './useOlInteraction';
+import { OlPinchRotateInteractionEvents } from '@src/interaction/event';
 
 /**
  * Options for the {@link useOlPinchRotateInteraction} hook.
@@ -14,15 +15,20 @@ export interface OlPinchRotateInteractionOptions extends Options {}
 /**
  * Allows the user to rotate the map by twisting with two fingers on a touch screen.
  * @param options - Options for the interaction.
+ * @param observable - Observable for the interaction.
  * @param active - Whether the interaction should be active.
  *
  * @see {@link https://openlayers.org/en/latest/apidoc/module-ol_interaction_PinchRotate-PinchRotate.html | PinchRotate}
  * @category Interaction
  */
-export const useOlPinchRotateInteraction = (options: OlPinchRotateInteractionOptions = {}, active = true) => {
+export const useOlPinchRotateInteraction = (
+  options?: OlPinchRotateInteractionOptions,
+  observable?: OlPinchRotateInteractionEvents<PinchRotate>,
+  active = true,
+) => {
   const interaction = useMemo(() => new PinchRotate(options), [options]);
 
-  useOlInteraction(interaction, active);
+  useOlInteraction(interaction, observable, active);
 
   return interaction;
 };

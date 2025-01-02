@@ -3,7 +3,7 @@ import Map from 'ol/Map';
 import { renderHook } from '@testing-library/react';
 import { Layer } from 'ol/layer';
 import { useOlLayer } from './useOlLayer';
-import { useMapContext } from '../../context/MapContext';
+import { useOlMapContext } from '../../context/MapContext';
 import { Collection } from 'ol';
 import { expect } from 'vitest';
 
@@ -34,7 +34,7 @@ describe('useLayer', () => {
       className: 'test',
     };
 
-    vi.mocked(useMapContext).mockReturnValue({ map });
+    vi.mocked(useOlMapContext).mockReturnValue({ map });
   });
 
   it('레이어 추가/삭제', () => {

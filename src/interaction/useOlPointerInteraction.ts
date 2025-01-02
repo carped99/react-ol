@@ -21,7 +21,7 @@ export interface OlPointerInteractionOptions extends Options {}
 export const useOlPointerInteraction = (options: OlPointerInteractionOptions = {}, active = true) => {
   const interaction = useMemo(() => new PointerInteraction(options), [options]);
 
-  useOlInteraction(interaction, active);
+  useOlInteraction(interaction, undefined, active);
 
   return interaction;
 };

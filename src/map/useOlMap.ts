@@ -1,8 +1,10 @@
 import { Ref, useCallback, useEffect, useRef } from 'react';
 import { Map } from 'ol';
 import { MapOptions } from 'ol/Map';
-import { useMapDispatch } from '@src/context/MapContext';
+import { useOlMapDispatch } from '@src/context';
 import { getLogger } from '@src/utils/logger';
+import { OlMapEvents } from '@src/observable/options/OlMapEvents';
+import { useOlObservable } from '@src/observable/useOlObservable';
 
 /**
  * 지도 옵션
@@ -14,6 +16,7 @@ export interface OlMapOptions extends MapOptions {}
 /**
  * 지도를 생성하고 반환한다.
  * @param options - {@link OlMapOptions} 지도 옵션
+ * @param observable - Observable for the interaction.
  *
  * @see {@link https://openlayers.org/en/latest/apidoc/module-ol_Map-Map.html | Map}
  *
@@ -26,13 +29,13 @@ export interface OlMapOptions extends MapOptions {}
  * };
  * ```
  */
-export const useOlMap = (options?: Readonly<OlMapOptions>): Ref<HTMLDivElement> => {
+export const useOlMap = (options?: Readonly<OlMapOptions>, observable?: OlMapEvents<Map>): Ref<HTMLDivElement> => {
   getLogger('Map').trace(() => 'useMap', options);
 
   const targetRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<Map>(undefined);
 
-  const mapDispatch = useMapDispatch();
+  const mapDispatch = useOlMapDispatch();
   // const [map, setMap] = useState<Map | undefined>(undefined);
   const layersRef = useRef(options?.layers);
   const controlsRef = useRef(options?.controls);
@@ -71,6 +74,8 @@ export const useOlMap = (options?: Readonly<OlMapOptions>): Ref<HTMLDivElement> 
       mapDispatch.setMap(undefined);
     };
   }, [cleanupMap, createMap, mapDispatch, options]);
+
+  useOlObservable(mapRef.current, observable);
 
   // useEffect(() => {
   //   console.log('1. ==================== useMap =================', targetRef.current);

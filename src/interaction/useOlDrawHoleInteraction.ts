@@ -22,7 +22,7 @@ export interface OlDrawHoleInteractionOptions extends Options {}
 export const useOlDrawHoleInteraction = (options: OlDrawHoleInteractionOptions, active = true) => {
   const interaction = useMemo(() => new DrawHole(options), [options]);
 
-  useOlInteraction(interaction, active);
+  useOlInteraction(interaction, undefined, active);
 
   useEffect(() => {
     if (options.trace) {

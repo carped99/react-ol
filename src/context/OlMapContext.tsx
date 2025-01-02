@@ -1,22 +1,22 @@
 import { createContext, PropsWithChildren, useCallback, useContext, useMemo, useState } from 'react';
 import { Map } from 'ol';
 
-interface MapState {
+interface OlMapState {
   map?: Map;
 }
 
-interface MapDispatch {
+interface OlMapDispatch {
   setMap: (map?: Map) => void;
 }
 
 // 4. 초기값 설정
-const initialState: MapState = {
+const initialState: OlMapState = {
   map: undefined,
 };
 
-const MapStateContext = createContext<MapState>(initialState);
+const OlMapStateContext = createContext<OlMapState>(initialState);
 
-const MapDispatchContext = createContext<MapDispatch>({
+const OlMapDispatchContext = createContext<OlMapDispatch>({
   setMap: () => {
     console.error('setMap is not defined');
   },
@@ -27,22 +27,22 @@ const MapDispatchContext = createContext<MapDispatch>({
  *
  * @category Context
  */
-export const useMapContext = () => useContext(MapStateContext);
+export const useOlMapContext = () => useContext(OlMapStateContext);
 
 /**
  * MapContext
  *
  * @category Context
  */
-export const useMapDispatch = () => useContext(MapDispatchContext);
+export const useOlMapDispatch = () => useContext(OlMapDispatchContext);
 
 /**
  * MapContext Provider
  *
  * @category Context
  */
-export const MapProvider = ({ children }: PropsWithChildren) => {
-  const [state, setState] = useState<MapState>(initialState);
+export const OlMapProvider = ({ children }: PropsWithChildren) => {
+  const [state, setState] = useState<OlMapState>(initialState);
 
   const setMap = useCallback((map?: Map) => {
     setState((prev) => {
@@ -64,8 +64,8 @@ export const MapProvider = ({ children }: PropsWithChildren) => {
   }, [setMap]);
 
   return (
-    <MapStateContext.Provider value={state}>
-      <MapDispatchContext.Provider value={dispatchValue}>{children}</MapDispatchContext.Provider>
-    </MapStateContext.Provider>
+    <OlMapStateContext.Provider value={state}>
+      <OlMapDispatchContext.Provider value={dispatchValue}>{children}</OlMapDispatchContext.Provider>
+    </OlMapStateContext.Provider>
   );
 };

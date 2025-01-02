@@ -5,11 +5,11 @@ import { getVectorContext } from 'ol/render';
 import { unByKey } from 'ol/Observable';
 import { EventsKey } from 'ol/events';
 import { FeatureLike } from 'ol/Feature';
-import { useMapContext } from '@src/context/MapContext';
+import { useOlMapContext } from '@src/context';
 import { useOlVectorLayer } from '@src/layer/useOlVectorLayer';
 
 export const useOlShowText = () => {
-  const { map } = useMapContext();
+  const { map } = useOlMapContext();
 
   const eventKey = useRef<EventsKey | undefined>(undefined);
 

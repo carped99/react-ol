@@ -2,7 +2,7 @@ export * from '@src/map/useOlMap';
 export * from '@src/map/useOlView';
 
 // Context
-export * from '@src/context/MapContext';
+export * from '@src/context';
 
 // Observable
 export * from '@src/observable/useOlObservable';

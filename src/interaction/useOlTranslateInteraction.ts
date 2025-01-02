@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { Translate } from 'ol/interaction';
 import { Options } from 'ol/interaction/Translate';
 import { useOlInteraction } from './useOlInteraction';
+import { OlTranslateInteractionEvents } from '@src/interaction/event';
 
 /**
  * Options for the {@link useOlTranslateInteraction} hook.
@@ -14,15 +15,20 @@ export interface OlTranslateInteractionOptions extends Options {}
 /**
  * Interaction for translating (moving) features.
  * @param options -Options for the interaction.
+ * @param observable - Observable for the interaction.
  * @param active - Whether the interaction should be active.
  *
  * @see {@link https://openlayers.org/en/latest/apidoc/module-ol_interaction_Translate-Translate.html | Translate}
  * @category Interaction
  */
-export const useOlTranslateInteraction = (options: OlTranslateInteractionOptions = {}, active = true) => {
+export const useOlTranslateInteraction = (
+  options?: OlTranslateInteractionOptions,
+  observable?: OlTranslateInteractionEvents<Translate>,
+  active = true,
+) => {
   const translate = useMemo(() => new Translate(options), [options]);
 
-  useOlInteraction(translate, active);
+  useOlInteraction(translate, observable, active);
 
   return translate;
 };

@@ -8,7 +8,7 @@ export interface OlTransformInteractionOptions extends Options {}
 export const useOlTransformInteraction = (options: OlTransformInteractionOptions = {}, active = true) => {
   const transform = useMemo(() => new Transform(options), [options]);
 
-  useOlInteraction(transform, active);
+  useOlInteraction(transform, undefined, active);
 
   return transform;
 };

@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import Layer, { Options as LayerOptions } from 'ol/layer/Layer';
 import { Source } from 'ol/source';
-import { useMapContext } from '@src/context/MapContext';
+import { useOlMapContext } from '@src/context';
 import { useOlBaseLayer } from './useOlBaseLayer';
 
 export const useOlLayer = <T extends Layer<S, any>, S extends Source = Source>(
   layer: T,
   options: Readonly<LayerOptions<S>>,
 ) => {
-  const { map } = useMapContext();
+  const { map } = useOlMapContext();
 
   useOlBaseLayer(layer, options);
 

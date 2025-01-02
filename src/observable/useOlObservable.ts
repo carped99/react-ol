@@ -6,13 +6,17 @@ import { OlObservableOptions } from './OlObservableOptions';
 type Listeners = Record<string, ListenerFunction>;
 
 /**
- * OpenLayers 객체에 이벤트 핸들러를 등록한다.
+ * {@link Observable}에 이벤트 핸들러를 등록한다.
+ *
+ * @typeParam T - Type of target observable object
  * @param target - 이벤트를 등록할 OpenLayers 객체
  * @param options - 이벤트 핸들러를 포함한 속성
  *
+ * @see {@link https://openlayers.org/en/latest/apidoc/module-ol_Observable-Observable.html | Observable}
+ *
  * @category Observable
  */
-export const useOlObservable = <T extends Observable>(target: T, options?: Readonly<OlObservableOptions<T>>) => {
+export const useOlObservable = <T extends Observable>(target?: T, options?: Readonly<OlObservableOptions<T>>) => {
   // 이벤트 핸들러를 관리하기 위해 이벤트 키 목록 저장
   const eventsKeysRef = useRef<EventsKey[]>([]);
 
@@ -60,8 +64,8 @@ const resolveEventHandlers = (options?: Readonly<unknown>): Listeners => {
 /**
  * 이벤트 핸들러인지 확인한다.
  * 입력한 모든 이벤트 타입이 등록 가능하므로, type 값은 확인하지 않는다.
- * @param _type 이벤트 타입
- * @param value 함수
+ * @param _type - 이벤트 타입
+ * @param value - 함수
  */
 const isEventListener = (_type: string, value: unknown) => {
   return typeof value === 'function';
@@ -90,8 +94,8 @@ const normalizeEventType = (handlerName: string) => {
 
 /**
  * 현재 이벤트 핸들러 목록에서 사용되지 않는 핸들러를 제거한다.
- * @param eventsKeys
- * @param handlers
+ * @param eventsKeys - 현재 이벤트 핸들러 목록
+ * @param handlers - 새로운 이벤트 핸들러 목록
  */
 const pruneEvents = (eventsKeys: EventsKey[], handlers: Listeners) => {
   const { validKeys, invalidKeys } = eventsKeys.reduce(

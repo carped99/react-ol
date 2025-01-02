@@ -2,11 +2,18 @@ import View, { ViewOptions } from 'ol/View';
 import { useEffect, useRef, useState } from 'react';
 import { equals } from 'ol/coordinate';
 import { getLogger } from '@src/utils/logger';
+import { OlViewEvents } from '@src/observable/options/OlViewEvents';
+import { useOlObservable } from '@src/observable/useOlObservable';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface OlViewOptions extends ViewOptions {}
 
-export const useOlView = (options?: Readonly<OlViewOptions>) => {
+/**
+ * Hook for creating an OpenLayers view.
+ * @param options - Options for the view.
+ * @param observable - Observable for the interaction.
+ */
+export const useOlView = (options?: Readonly<OlViewOptions>, observable?: OlViewEvents<View>) => {
   getLogger('View').trace(() => 'useView', options);
 
   const [view] = useState<View>(() => new View(options));
@@ -18,6 +25,8 @@ export const useOlView = (options?: Readonly<OlViewOptions>) => {
       prevOptions.current = options;
     }
   }, [view, options]);
+
+  useOlObservable(view, observable);
 
   return view;
 };
