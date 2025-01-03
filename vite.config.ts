@@ -20,9 +20,9 @@ export default defineConfig({
       brotliSize: true,
     }),
   ],
-  resolve: {
-    alias: [{ find: '@src', replacement: resolve(__dirname, './src') }],
-  },
+  // resolve: {
+  //   alias: [{ find: '@src', replacement: resolve(__dirname, './src') }],
+  // },
   css: {
     preprocessorOptions: {
       scss: {
@@ -50,5 +50,8 @@ export default defineConfig({
         },
       },
     },
+  },
+  esbuild: {
+    legalComments: 'eof',
   },
 });

@@ -1,7 +1,7 @@
 import { deepEqual } from 'fast-equals';
 import { expect } from 'vitest';
 
-describe('useOlOptions hook', () => {
+describe('useOptions hook', () => {
   it('should ', () => {
     const fn1 = () => {
       console.log('test');

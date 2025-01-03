@@ -60,3 +60,5 @@ yarn-error.log*
 *.pem
 /tsconfig.tsbuildinfo
 /docs/
+
+*storybook.log

@@ -1,5 +1,5 @@
 import { Interaction } from 'ol/interaction';
-import { Class } from '@src/types/common';
+import { Class } from '../types/common';
 import { Map } from 'ol';
 import { deepEqual } from 'fast-equals';
 
@@ -44,7 +44,11 @@ type NonNullish<T> = Exclude<T, null | undefined>;
  * compare({ a: 1 }, { a: 1 }, customComparator); // true
  * ```
  */
-export function compare<T>(o1: T, o2: T, comparator: Comparator<NonNullish<T>> = defaultComparator): boolean {
+export function compare<T>(
+  o1: T | undefined,
+  o2: T | undefined,
+  comparator: Comparator<NonNullish<T>> = defaultComparator,
+): boolean {
   // null, undefined, 또는 객체가 아닌 경우 비교
   if (o1 == null || o2 == null || typeof o1 !== 'object' || typeof o2 !== 'object') {
     // NaN 비교
@@ -61,7 +65,11 @@ export function compare<T>(o1: T, o2: T, comparator: Comparator<NonNullish<T>> =
  * @param o2 - 비교할 두 번째 객체
  * @param keys - 비교할 키 목록
  */
-export const compareOptIn = <T extends object>(o1: T, o2: T, keys: readonly (keyof T)[]): boolean => {
+export const compareOptIn = <T extends object>(
+  o1: T | undefined,
+  o2: T | undefined,
+  keys: readonly (keyof T)[],
+): boolean => {
   return compare(o1, o2, (p1, p2) => compareOptInImpl(p1, p2, keys));
 };
 
@@ -71,7 +79,11 @@ export const compareOptIn = <T extends object>(o1: T, o2: T, keys: readonly (key
  * @param o2 - 비교할 두 번째 객체
  * @param keys - 비교에서 제외할 키 목록
  */
-export const compareOptOut = <T extends object>(o1: T, o2: T, keys: readonly (keyof T)[]): boolean => {
+export const compareOptOut = <T extends object>(
+  o1: T | undefined,
+  o2: T | undefined,
+  keys: readonly (keyof T)[],
+): boolean => {
   return compare(o1, o2, (p1, p2) => compareOptOutImpl(p1, p2, keys));
 };
 

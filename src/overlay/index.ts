@@ -1,3 +1,3 @@
-export * from '@src/overlay/useOlTooltipOverlay';
-export * from '@src/overlay/useOlPopupOverlay';
-export * from '@src/overlay/useOlShowText';
+export * from './useTooltipOverlay';
+export * from './usePopupOverlay';
+export * from './useShowText';

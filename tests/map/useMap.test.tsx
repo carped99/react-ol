@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react';
-import React, { MutableRefObject } from 'react';
+import React, { act, MutableRefObject } from 'react';
 import { beforeEach, expect } from 'vitest';
-import { OlMapProvider, useOlMapDispatch } from '@src/context/MapContext';
+import { MapProvider, useOlMapContext } from '@src/context';
 import { OlMapOptions, useOlMap } from '../../src/map/useOlMap';
 import { Map, View } from 'ol';
 
@@ -25,8 +25,9 @@ vi.mock('@src/context/MapContext');
 describe('useMapView hook', () => {
   let mapOptions: OlMapOptions;
   beforeEach(() => {
-    vi.mocked(useOlMapDispatch).mockImplementation(() => ({
+    vi.mocked(useOlMapContext).mockImplementation(() => ({
       setMap: vi.fn(),
+      getMap: vi.fn(),
     }));
 
     mapOptions = {
@@ -44,7 +45,7 @@ describe('useMapView hook', () => {
     const { result, rerender } = renderHook((initialProps) => useOlMap(initialProps), {
       initialProps: mapOptions,
     });
-    const ref = result.current as MutableRefObject<HTMLDivElement>;
+    const ref = result.current[0] as MutableRefObject<HTMLDivElement>;
 
     // container 생성
     ref.current = document.createElement('div');
@@ -52,9 +53,20 @@ describe('useMapView hook', () => {
     // rerender 이후 Map의 target이 제대로 설정된 것을 확인
     rerender({ ...mapOptions });
     expect(Map).toHaveBeenCalledWith(expect.objectContaining({ target: ref.current }));
+  });
 
-    const instance = Map.mock.instances[0];
-    console.log(instance);
+  it('View 변경시 setView 호출', () => {
+    const { result, rerender } = renderHook((initialProps) => useOlMap(initialProps), {
+      initialProps: mapOptions,
+    });
+
+    // target 설정
+    const ref = result.current[0] as MutableRefObject<HTMLDivElement>;
+    ref.current = document.createElement('div');
+
+    // rerender 이후 Map의 target이 제대로 설정된 것을 확인
+    rerender({ ...mapOptions });
+    expect(Map).toHaveBeenCalledWith(expect.objectContaining({ target: ref.current }));
   });
 
   // it('should create a map instance', async () => {
@@ -108,7 +120,7 @@ describe('useMapView hook', () => {
   // });
   //
   it('view 변경시 setView 함수 호출', async () => {
-    const wrapper = ({ children }: { children: React.ReactNode }) => <OlMapProvider>{children}</OlMapProvider>;
+    const wrapper = ({ children }: { children: React.ReactNode }) => <MapProvider>{children}</MapProvider>;
     const { result, rerender } = renderHook((props) => useOlMap(props), {
       wrapper,
       initialProps: mapOptions,

@@ -1,24 +1,20 @@
-export * from '@src/map/useOlMap';
-export * from '@src/map/useOlView';
+export * from './map';
 
 // Context
-export * from '@src/context';
+export * from './context';
 
 // Observable
-export * from '@src/observable/useOlObservable';
-export * from '@src/observable/OlObservableOptions';
-export * from '@src/observable/options/OlMapEvents';
-export * from '@src/observable/options/OlViewEvents';
-export * from '@src/observable/options/LayerObservable';
-export * from '@src/observable/options/InteractionObservable';
+export * from './events';
+export * from './events/options/LayerObservable';
+export * from './events/options/InteractionObservable';
 
 // Layer
-export * from '@src/layer';
-export * from '@src/layer/event';
+export * from './layer';
+export * from './layer/event';
 
 // Overlay
-export * from '@src/overlay';
+export * from './overlay';
 
 // Interaction
-export * from '@src/interaction';
-export * from '@src/interaction/event';
+export * from './interaction';
+export * from './interaction/event';

@@ -1,14 +1,13 @@
-import { PropsWithChildren, useMemo, useState } from 'react';
-import { Map } from 'ol';
-import { OlMapContext, OlMapState } from '@src/context/mapContext';
+import { PropsWithChildren, useEffect, useState } from 'react';
+import { MapContext, MapState } from '.';
 
 /**
  * MapContext Provider Props
  *
  * @category Context
  */
-export interface OlMapProviderProps {
-  store?: OlMapState;
+export interface MapProviderProps {
+  store: MapState;
 }
 
 /**
@@ -35,22 +34,12 @@ export interface OlMapProviderProps {
  * };
  * ```
  */
-export const OlMapProvider = ({ children, store }: PropsWithChildren<OlMapProviderProps>) => {
-  const defaultStore = useDefaultMapProviderState();
-  const value = store ?? defaultStore;
-  return <OlMapContext.Provider value={value}>{children}</OlMapContext.Provider>;
-};
+export const MapProvider = ({ children, store }: PropsWithChildren<MapProviderProps>) => {
+  const [test, setTest] = useState(store);
 
-// 기본 store를 생성하는 훅
-const useDefaultMapProviderState = (): OlMapState => {
-  const [map, setMap] = useState<Map | undefined>();
-
-  // 상태와 관련된 함수들을 메모이제이션하여 성능 최적화
-  return useMemo(
-    () => ({
-      getMap: () => map,
-      setMap,
-    }),
-    [map],
-  );
+  useEffect(() => {
+    console.log('=============== MapProvider useEffect ===============');
+  }, [test]);
+  console.log('=============== MapProvider ===============', store);
+  return <MapContext.Provider value={store}>{children}</MapContext.Provider>;
 };

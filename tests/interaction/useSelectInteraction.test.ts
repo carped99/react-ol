@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react';
-import { useOlSelectInteraction } from '../../src/interaction/useOlSelectInteraction';
+import { useSelectInteraction } from '../../src';
 import { beforeEach, expect } from 'vitest';
 import { Select } from 'ol/interaction';
 import { Options } from 'ol/interaction/Select';
@@ -18,7 +18,7 @@ describe('useSelectInteraction', () => {
   });
 
   it('기본 생성', () => {
-    const { result } = renderHook(() => useOlSelectInteraction());
+    const { result } = renderHook(() => useSelectInteraction());
 
     expect(Select).toHaveBeenCalledWith(undefined);
 
@@ -28,7 +28,7 @@ describe('useSelectInteraction', () => {
   });
 
   it('동일한 인자일 경우 재생성하지 않는다.', () => {
-    const { result, rerender } = renderHook((props) => useOlSelectInteraction(props), {
+    const { result, rerender } = renderHook((props) => useSelectInteraction(props), {
       initialProps: options,
     });
 
@@ -41,7 +41,7 @@ describe('useSelectInteraction', () => {
   });
 
   it('재생성 항목이 변경되면 재생성한다.', () => {
-    const { rerender } = renderHook((props) => useOlSelectInteraction(props), {
+    const { rerender } = renderHook((props) => useSelectInteraction(props), {
       initialProps: options,
     });
 
@@ -54,7 +54,7 @@ describe('useSelectInteraction', () => {
   });
 
   it('should', () => {
-    const { rerender } = renderHook((initialProps) => useOlSelectInteraction(initialProps), {
+    const { rerender } = renderHook((initialProps) => useSelectInteraction(initialProps), {
       initialProps: options,
     });
 
