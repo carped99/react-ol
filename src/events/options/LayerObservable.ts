@@ -11,7 +11,7 @@ import {
   VectorLayerEvents,
   VectorTileLayerEvents,
   WebGLTileLayerEvents,
-} from '../../layer/event';
+} from '../../layer/events';
 
 /**
  * 레이어에 등록가능한 이벤트

@@ -1,9 +1,8 @@
 import { renderHook } from '@testing-library/react';
 import React, { act, MutableRefObject } from 'react';
 import { beforeEach, expect } from 'vitest';
-import { MapProvider, useOlMapContext } from '@src/context';
-import { OlMapOptions, useOlMap } from '../../src/map/useOlMap';
 import { Map, View } from 'ol';
+import { MapOptions, MapProvider, useMap, useMapContext } from '../../src';
 
 // ol 모듈을 모킹합니다.
 vi.mock('ol', () => ({
@@ -23,9 +22,9 @@ vi.mock('ol', () => ({
 vi.mock('@src/context/MapContext');
 
 describe('useMapView hook', () => {
-  let mapOptions: OlMapOptions;
+  let mapOptions: MapOptions;
   beforeEach(() => {
-    vi.mocked(useOlMapContext).mockImplementation(() => ({
+    vi.mocked(useMapContext).mockImplementation(() => ({
       setMap: vi.fn(),
       getMap: vi.fn(),
     }));
@@ -42,7 +41,7 @@ describe('useMapView hook', () => {
   });
 
   it('Map 생성하기', () => {
-    const { result, rerender } = renderHook((initialProps) => useOlMap(initialProps), {
+    const { result, rerender } = renderHook((initialProps) => useMap(initialProps), {
       initialProps: mapOptions,
     });
     const ref = result.current[0] as MutableRefObject<HTMLDivElement>;
@@ -56,7 +55,7 @@ describe('useMapView hook', () => {
   });
 
   it('View 변경시 setView 호출', () => {
-    const { result, rerender } = renderHook((initialProps) => useOlMap(initialProps), {
+    const { result, rerender } = renderHook((initialProps) => useMap(initialProps), {
       initialProps: mapOptions,
     });
 
@@ -121,7 +120,7 @@ describe('useMapView hook', () => {
   //
   it('view 변경시 setView 함수 호출', async () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => <MapProvider>{children}</MapProvider>;
-    const { result, rerender } = renderHook((props) => useOlMap(props), {
+    const { result, rerender } = renderHook((props) => useMap(props), {
       wrapper,
       initialProps: mapOptions,
     });

@@ -1,49 +1,28 @@
-import View, { ViewOptions as OLViewOptions } from 'ol/View';
-import { useEffect, useRef } from 'react';
-import { equals } from 'ol/coordinate';
-import { BaseObjectOptions, useBaseObject } from '../hooks/useBaseObject';
-import { usePrevious } from '../hooks/usePrevious';
+import View from 'ol/View';
+import { useProperties } from '../hooks/useProperties';
 import { useEvents } from '../events';
-import { compareOptIn } from '../utils/common';
-import { ViewEvents } from '.';
-
-export interface ViewOptions extends OLViewOptions {
-  properties?: BaseObjectOptions['properties'];
-}
+import { useBaseObject } from '../hooks/useBaseObject';
+import { ViewEvents } from './events';
+import { ViewOptions } from './options';
 
 /**
  * Hook for creating an OpenLayers view.
  * @param options - Options for the view.
- * @param observable - Observable for the interaction.
+ * @param events - Events for the View.
  *
  * @category Base
  */
-export const useView = (options: Readonly<ViewOptions>, observable?: ViewEvents<View>) => {
-  const viewRef = useRef<View>(undefined);
-  if (!viewRef.current) {
-    viewRef.current = new View(options);
-  }
+export const useView = (options: Readonly<ViewOptions>, events?: ViewEvents<View>) => {
+  const viewRef = useBaseObject(options, create, [], updateKeys);
 
-  const prevOpts = usePrevious(options);
+  useProperties(viewRef, options);
 
-  useEffect(() => {
-    console.log('useView useEffect', prevOpts, options);
-    if (!viewRef.current) return;
+  useEvents(viewRef, events);
 
-    if (compareOptIn(prevOpts, options, mutationKeys)) {
-      updateView(viewRef.current, prevOpts, options);
-    } else {
-      viewRef.current = new View(options);
-    }
-  }, [prevOpts, options]);
-
-  useBaseObject(viewRef.current, options);
-  useEvents(viewRef.current, observable);
-
-  return viewRef.current;
+  return viewRef;
 };
 
-const mutationKeys: readonly (keyof ViewOptions)[] = [
+const updateKeys = [
   'enableRotation',
   'extent',
   'maxResolution',
@@ -51,31 +30,33 @@ const mutationKeys: readonly (keyof ViewOptions)[] = [
   'projection',
   'resolutions',
   'zoomFactor',
-];
+] as const;
 
-const updateView = (view: View, prev?: ViewOptions, curr?: ViewOptions) => {
-  console.log('updateView', prev, curr);
-  if (prev?.zoom !== curr?.zoom && curr?.zoom != null) {
-    view.setZoom(curr.zoom);
-  }
+const create = (options?: ViewOptions) => new View(options);
 
-  if (prev?.minZoom !== curr?.minZoom && curr?.minZoom != null) {
-    view.setMinZoom(curr.minZoom);
-  }
-
-  if (prev?.maxZoom !== curr?.maxZoom && curr?.maxZoom != null) {
-    view.setMaxZoom(curr.maxZoom);
-  }
-
-  if (curr?.center != null && (!prev?.center || !equals(prev?.center, curr.center))) {
-    view.setCenter(curr.center);
-  }
-
-  if (prev?.constrainResolution !== curr?.constrainResolution && curr?.constrainResolution != null) {
-    view.setConstrainResolution(curr.constrainResolution);
-  }
-
-  if (prev?.rotation !== curr?.rotation && curr?.rotation != null) {
-    view.setRotation(curr.rotation);
-  }
-};
+// const updateView = (view: View, curr?: ViewOptions, prev?: ViewOptions) => {
+//   console.log('updateView', prev, curr);
+//   if (prev?.zoom !== curr?.zoom && curr?.zoom != null) {
+//     view.setZoom(curr.zoom);
+//   }
+//
+//   if (prev?.minZoom !== curr?.minZoom && curr?.minZoom != null) {
+//     view.setMinZoom(curr.minZoom);
+//   }
+//
+//   if (prev?.maxZoom !== curr?.maxZoom && curr?.maxZoom != null) {
+//     view.setMaxZoom(curr.maxZoom);
+//   }
+//
+//   if (curr?.center != null && (!prev?.center || !equals(prev?.center, curr.center))) {
+//     view.setCenter(curr.center);
+//   }
+//
+//   if (prev?.constrainResolution !== curr?.constrainResolution && curr?.constrainResolution != null) {
+//     view.setConstrainResolution(curr.constrainResolution);
+//   }
+//
+//   if (prev?.rotation !== curr?.rotation && curr?.rotation != null) {
+//     view.setRotation(curr.rotation);
+//   }
+// };

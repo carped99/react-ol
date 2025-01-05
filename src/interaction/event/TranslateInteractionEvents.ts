@@ -5,7 +5,7 @@ import { TranslateEvent } from 'ol/interaction/Translate';
 /**
  * Translate Interaction 이벤트 타입
  *
- * @category Interaction Event
+ * @category Interaction/Event
  */
 export interface TranslateInteractionEvents<T extends Translate> extends InteractionEvents<T> {
   onTranslateStart?: (this: T, e: TranslateEvent) => void;

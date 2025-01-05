@@ -1,2 +1,2 @@
 export * from './useEvents';
-export * from './EventOptions';
+export * from './ObservableEvents';

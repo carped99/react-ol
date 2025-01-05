@@ -1,15 +1,12 @@
 import { useDebugValue, useEffect } from 'react';
 import BaseLayer, { Options as BaseOptions } from 'ol/layer/Base';
 import { equals as equalsExtent } from 'ol/extent';
-import { useBaseObject } from '../../hooks/useBaseObject';
-import { getLogger } from '../../utils/logger';
+import { useProperties } from '../../hooks/useProperties';
 
 export const useBaseLayer = (layer: BaseLayer, options: Readonly<BaseOptions>) => {
   useDebugValue(layer);
 
-  useBaseObject(layer, options);
-
-  getLogger('Layer').trace(() => 'useBaseLayer', layer, options);
+  useProperties(layer, options);
 
   useEffect(() => {
     if (layer == null) throw new Error('layer is required');

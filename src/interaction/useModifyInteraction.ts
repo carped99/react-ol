@@ -5,9 +5,9 @@ import { useInteraction } from './useInteraction';
 import { ModifyInteractionEvents } from './event';
 
 /**
- * Options for the {@link useModifyInteraction} hook.
+ * Options for the - {@link useModifyInteraction} hook.
  *
- * @category Interaction Option
+ * @category Interaction/Option
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface ModifyInteractionOptions extends Options {}
@@ -15,20 +15,20 @@ export interface ModifyInteractionOptions extends Options {}
 /**
  * Interaction for modifying feature geometries.
  * @param options - Options for the interaction.
- * @param observable - Observable for the interaction.
+ * @param events - Events for the interaction.
  * @param active - Whether the interaction should be active.
  *
- * @see {@link https://openlayers.org/en/latest/apidoc/module-ol_interaction_Modify-Modify.html | Modify}
+ * @see - {@link https://openlayers.org/en/latest/apidoc/module-ol_interaction_Modify-Modify.html | Modify}
  * @category Interaction
  */
 export const useModifyInteraction = (
   options: ModifyInteractionOptions,
-  observable?: ModifyInteractionEvents<Modify>,
+  events?: ModifyInteractionEvents<Modify>,
   active = true,
 ) => {
   const interaction = useMemo(() => new Modify(options), [options]);
 
-  useInteraction(interaction, observable, active);
+  useInteraction(interaction, events, active);
 
   return interaction;
 };

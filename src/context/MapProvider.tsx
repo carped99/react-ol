@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect, useState } from 'react';
+import { PropsWithChildren } from 'react';
 import { MapContext, MapState } from '.';
 
 /**
@@ -35,11 +35,5 @@ export interface MapProviderProps {
  * ```
  */
 export const MapProvider = ({ children, store }: PropsWithChildren<MapProviderProps>) => {
-  const [test, setTest] = useState(store);
-
-  useEffect(() => {
-    console.log('=============== MapProvider useEffect ===============');
-  }, [test]);
-  console.log('=============== MapProvider ===============', store);
   return <MapContext.Provider value={store}>{children}</MapContext.Provider>;
 };

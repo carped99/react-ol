@@ -1,23 +1,13 @@
-import { OSM, Tile as TileSource } from 'ol/source';
-import { Options as OMSOptions } from 'ol/source/OSM';
-import { Options } from 'ol/layer/BaseTile';
+import { OSM } from 'ol/source';
 import { useDebugValue, useMemo } from 'react';
 import { useTileLayer } from './useTileLayer';
-
-/**
- * {@link OSM} {@link TileLayer}의 옵션
- *
- * @category Layer Option
- */
-export interface OSMLayerOptions extends Omit<Options<TileSource>, 'source'> {
-  source?: OMSOptions;
-}
+import { OSMLayerOptions } from './options';
 
 /**
  * {@link https://www.openstreetmap.org/ OSM} {@link TileLayer}를 생성한다.
  * @param options - {@link OSMLayerOptions}
  *
- * @category Layer
+ * @category Layers
  */
 export const useOSMLayer = (options?: Readonly<OSMLayerOptions>) => {
   useDebugValue(options);

@@ -1,27 +1,17 @@
 import { useDebugValue, useEffect, useMemo } from 'react';
-import Heatmap, { Options } from 'ol/layer/Heatmap';
+import Heatmap from 'ol/layer/Heatmap';
 import VectorSource from 'ol/source/Vector';
 import { FeatureLike } from 'ol/Feature';
 import { Feature } from 'ol';
 import { Geometry } from 'ol/geom';
 import { useBaseVectorLayer } from './base/useBaseVectorLayer';
-
-/**
- * {@link HeatmapLayer}의 옵션
- *
- * @category Layer Option
- */
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface HeatmapLayerOptions<
-  F extends FeatureLike = Feature<Geometry>,
-  S extends VectorSource<F> = VectorSource<F>,
-> extends Options<F, S> {}
+import { HeatmapLayerOptions } from './options';
 
 /**
  * {@link Heatmap}를 생성한다.
  * @param options - {@link HeatmapLayerOptions}
  *
- * @category Layer
+ * @category Layers
  */
 export const useHeatmapLayer = <F extends FeatureLike = Feature<Geometry>, S extends VectorSource<F> = VectorSource<F>>(
   options: Readonly<HeatmapLayerOptions<F, S>>,

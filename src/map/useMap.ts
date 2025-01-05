@@ -1,28 +1,20 @@
 import { Ref, useEffect, useRef } from 'react';
 import { Map, View } from 'ol';
-import { MapOptions as OLMapOptions } from 'ol/Map';
 import LayerGroup from 'ol/layer/Group';
-import { BaseObjectOptions, useBaseObject } from '../hooks/useBaseObject';
-import { MapEvents } from '.';
+import { useProperties } from '../hooks/useProperties';
 import { useMapContext } from '../context';
 import { usePrevious } from '../hooks/usePrevious';
-import { compareOptIn } from '../utils/common';
+import { equalsByProps } from '../utils/common';
 import { useEvents } from '../events';
-
-/**
- * 지도 옵션
- * @see {@link https://openlayers.org/en/latest/apidoc/module-ol_Map-Map.html | Map}
- */
-export interface MapOptions extends Omit<OLMapOptions, 'target'> {
-  properties?: BaseObjectOptions['properties'];
-}
+import { MapEvents } from './events';
+import { MapOptions } from './options';
 
 /**
  * 지도를 생성하고 반환한다.
  * @param options - {@link MapOptions} 지도 옵션
- * @param observable - Observable for the interaction.
+ * @param events - Events for the Map.
  *
- * @see {@link https://openlayers.org/en/latest/apidoc/module-ol_Map-Map.html | Map}
+ * @see - {@link https://openlayers.org/en/latest/apidoc/module-ol_Map-Map.html | Map}
  * @category Base
  * @public
  * @example
@@ -35,7 +27,7 @@ export interface MapOptions extends Omit<OLMapOptions, 'target'> {
  */
 export const useMap = (
   options: Readonly<MapOptions> = {},
-  observable?: MapEvents<Map>,
+  events?: MapEvents<Map>,
 ): [Ref<HTMLDivElement>, Map | undefined] => {
   const { setMap } = useMapContext();
 
@@ -55,7 +47,7 @@ export const useMap = (
     console.log('useMap useEffect', mapRef.current, divRef.current);
     if (!divRef.current) return;
 
-    if (mapRef.current && compareOptIn(prevOpts, options, mutationKeys)) {
+    if (mapRef.current && equalsByProps(prevOpts, options, createKeys)) {
       updateMap(mapRef.current, prevOpts, options);
     } else {
       cleanupMap(mapRef.current);
@@ -64,8 +56,8 @@ export const useMap = (
     }
   }, [prevOpts, options, setMap]);
 
-  useBaseObject(mapRef.current, options);
-  useEvents(mapRef.current, observable);
+  useProperties(mapRef.current, options);
+  useEvents(mapRef.current, events);
 
   return [divRef, mapRef.current];
 };
@@ -125,9 +117,4 @@ const updateOverlays = (map: Map, prev?: MapOptions, curr?: MapOptions) => {
   }
 };
 
-const mutationKeys: readonly (keyof MapOptions)[] = [
-  'keyboardEventTarget',
-  'maxTilesLoading',
-  'moveTolerance',
-  'pixelRatio',
-];
+const createKeys = ['keyboardEventTarget', 'maxTilesLoading', 'moveTolerance', 'pixelRatio'] as const;

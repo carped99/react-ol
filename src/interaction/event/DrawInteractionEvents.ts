@@ -5,7 +5,7 @@ import { Draw } from 'ol/interaction';
 /**
  * Draw Interaction 이벤트
  *
- * @category Interaction Event
+ * @category Interaction/Event
  */
 export interface DrawInteractionEvents<T extends Draw> extends InteractionEvents<T> {
   onDrawAbort?: (this: T, e: DrawEvent) => void;

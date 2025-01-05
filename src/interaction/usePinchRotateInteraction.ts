@@ -5,9 +5,9 @@ import { useInteraction } from './useInteraction';
 import { PinchRotateInteractionEvents } from './event';
 
 /**
- * Options for the {@link usePinchRotateInteraction} hook.
+ * Options for the - {@link usePinchRotateInteraction} hook.
  *
- * @category Interaction Option
+ * @category Interaction/Option
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface PinchRotateInteractionOptions extends Options {}
@@ -15,20 +15,20 @@ export interface PinchRotateInteractionOptions extends Options {}
 /**
  * Allows the user to rotate the map by twisting with two fingers on a touch screen.
  * @param options - Options for the interaction.
- * @param observable - Observable for the interaction.
+ * @param events - Events for the interaction.
  * @param active - Whether the interaction should be active.
  *
- * @see {@link https://openlayers.org/en/latest/apidoc/module-ol_interaction_PinchRotate-PinchRotate.html | PinchRotate}
+ * @see - {@link https://openlayers.org/en/latest/apidoc/module-ol_interaction_PinchRotate-PinchRotate.html | PinchRotate}
  * @category Interaction
  */
 export const usePinchRotateInteraction = (
   options?: PinchRotateInteractionOptions,
-  observable?: PinchRotateInteractionEvents<PinchRotate>,
+  events?: PinchRotateInteractionEvents<PinchRotate>,
   active = true,
 ) => {
   const interaction = useMemo(() => new PinchRotate(options), [options]);
 
-  useInteraction(interaction, observable, active);
+  useInteraction(interaction, events, active);
 
   return interaction;
 };

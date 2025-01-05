@@ -10,7 +10,7 @@ vi.mock('ol/Observable', () => ({
 }));
 
 // OpenLayers에서 사용할 실제 객체를 사용
-describe('useObservable', () => {
+describe('useEvents', () => {
   let baseObject: BaseObject;
 
   beforeEach(() => {

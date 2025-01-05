@@ -4,7 +4,7 @@ import { BaseVectorLayerEvents } from './BaseLayerEvents';
 /**
  * Heatmap 레이어 이벤트 타입
  *
- * @category Layer Event
+ * @category Layers/Events
  */
 export interface HeatmapLayerEvents<T> extends BaseVectorLayerEvents<T> {
   onChangeBlur?: (this: T, e: ObjectEvent) => void;

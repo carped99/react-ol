@@ -4,7 +4,7 @@ import { BaseVectorLayerEvents } from './BaseLayerEvents';
 /**
  * VectorTileLayer events.
  *
- * @category Layer Event
+ * @category Layers/Events
  */
 export interface VectorTileLayerEvents<T> extends BaseVectorLayerEvents<T> {
   onChangePreload?: (this: T, e: ObjectEvent) => void;

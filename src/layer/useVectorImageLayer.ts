@@ -1,26 +1,16 @@
 import { useDebugValue, useMemo } from 'react';
-import VectorImageLayer, { Options } from 'ol/layer/VectorImage';
+import VectorImageLayer from 'ol/layer/VectorImage';
 import { FeatureLike } from 'ol/Feature';
 import VectorSource from 'ol/source/Vector';
 import { ExtractedFeatureType } from 'ol/layer/BaseVector';
 import { useBaseVectorLayer } from './base/useBaseVectorLayer';
-
-/**
- * {@link VectorImageLayer}의 옵션
- *
- * @category Layer Option
- */
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface VectorImageLayerOptions<
-  S extends VectorSource<F> = VectorSource<any>,
-  F extends FeatureLike = ExtractedFeatureType<S>,
-> extends Options<S, F> {}
+import { VectorImageLayerOptions } from './options';
 
 /**
  * {@link VectorImageLayer}를 생성한다.
  * @param options - {@link VectorImageLayerOptions}
  *
- * @category Layer
+ * @category Layers
  */
 export const useVectorImageLayer = <
   S extends VectorSource<F> = VectorSource<any>,

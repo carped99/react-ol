@@ -1,22 +1,15 @@
 import { useDebugValue, useMemo } from 'react';
-import Graticule, { Options } from 'ol/layer/Graticule';
+import Graticule from 'ol/layer/Graticule';
 import VectorSource from 'ol/source/Vector';
 import { Feature } from 'ol';
 import { useBaseVectorLayer } from './base/useBaseVectorLayer';
-
-/**
- * {@link Graticule}의 옵션
- *
- * @category Layer Option
- */
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface GraticuleLayerOptions extends Options {}
+import { GraticuleLayerOptions } from './options';
 
 /**
  * {@link Graticule}를 생성한다.
  * @param options - {@link GraticuleLayerOptions}
  *
- * @category Layer
+ * @category Layers
  */
 export const useGraticuleLayer = (options: Readonly<GraticuleLayerOptions>) => {
   useDebugValue(options);

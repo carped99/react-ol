@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { EventsKey, ListenerFunction } from 'ol/events';
 import Observable, { EventTypes, unByKey } from 'ol/Observable';
-import { EventOptions } from './EventOptions';
+import { ObservableEvents } from './ObservableEvents';
 
 type Listeners = Record<string, ListenerFunction>;
 
@@ -12,11 +12,11 @@ type Listeners = Record<string, ListenerFunction>;
  * @param target - 이벤트를 등록할 OpenLayers 객체
  * @param options - 이벤트 핸들러를 포함한 속성
  *
- * @see {@link https://openlayers.org/en/latest/apidoc/module-ol_Observable-Observable.html | Observable}
+ * @see - {@link https://openlayers.org/en/latest/apidoc/module-ol_Observable-Observable.html | Observable}
  *
- * @category Observable
+ * @category Event
  */
-export const useEvents = <T extends Observable>(target?: T, options?: Readonly<EventOptions<T>>) => {
+export const useEvents = <T extends Observable>(target?: T, options?: Readonly<ObservableEvents<T>>) => {
   // 이벤트 핸들러를 관리하기 위해 이벤트 키 목록 저장
   const eventsKeysRef = useRef<EventsKey[]>([]);
 

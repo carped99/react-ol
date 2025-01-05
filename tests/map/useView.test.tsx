@@ -1,9 +1,7 @@
 import { renderHook } from '@testing-library/react';
 import { beforeEach, expect } from 'vitest';
-import { useOlMapContext } from '@src/context';
-import { OlViewOptions, useOlView } from '@src/map/useOlView';
-import { useOlBaseObject } from '@src/hooks/useOlBaseObject';
-import { useOlObservable } from '@src/observable';
+import { useEvents, useMapContext, useView, ViewOptions } from '../../src';
+import { useProperties } from '../../src/hooks/useProperties';
 
 // ol 모듈을 모킹합니다.
 vi.mock('ol', () => ({
@@ -31,9 +29,9 @@ vi.mock('@src/observable', () => ({
 }));
 
 describe('useOlView', () => {
-  let initialProps: OlViewOptions;
+  let initialProps: ViewOptions;
   beforeEach(() => {
-    vi.mocked(useOlMapContext).mockImplementation(() => ({
+    vi.mocked(useMapContext).mockImplementation(() => ({
       setMap: vi.fn(),
       getMap: vi.fn(),
     }));
@@ -44,17 +42,17 @@ describe('useOlView', () => {
   });
 
   it('should initialize view and call base object and observable hooks', () => {
-    const { result } = renderHook(() => useOlView(initialProps));
+    const { result } = renderHook(() => useView(initialProps));
 
     expect(result.current).toBeDefined();
 
     // Mock 호출 확인
-    expect(useOlBaseObject).toHaveBeenCalled();
-    expect(useOlObservable).toHaveBeenCalled();
+    expect(useProperties).toHaveBeenCalled();
+    expect(useEvents).toHaveBeenCalled();
   });
 
   it('should initialize view and call base object and observable hooks', () => {
-    const { rerender } = renderHook((initialProps) => useOlView(initialProps), {
+    const { rerender } = renderHook((initialProps) => useView(initialProps), {
       initialProps,
     });
 

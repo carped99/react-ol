@@ -1,4 +1,4 @@
-import { Map, View } from 'ol';
+import { Geolocation, Map, View } from 'ol';
 import Observable from 'ol/Observable';
 import TileLayer from 'ol/layer/Tile';
 import VectorLayer from 'ol/layer/Vector';
@@ -27,8 +27,7 @@ import {
   Snap,
   Translate,
 } from 'ol/interaction';
-import { MapEvents } from '../map';
-import { ViewEvents } from '../map';
+import { GeolocationEvents, MapEvents, ViewEvents } from '../map/events';
 import {
   DblClickDragZoomInteractionEvents,
   DblClickZoomInteractionEvents,
@@ -56,19 +55,20 @@ import {
   VectorLayerEvents,
   VectorTileLayerEvents,
   WebGLTileLayerEvents,
-} from '../layer/event';
+} from '../layer/events';
 
 /**
- * Options for an observable.
+ * Events for an observable.
  * @typeparam T - Observable type.
  *
- * @category Observable
+ * @category Event
  */
 // @formatter:off
 // prettier-ignore
-export type EventOptions<T extends Observable> =
+export type ObservableEvents<T extends Observable> =
   T extends Map ? MapEvents<T> :
   T extends View ? ViewEvents<T> :
+  T extends Geolocation ? GeolocationEvents<T> :
   // Layer
   T extends TileLayer<any> ? VectorTileLayerEvents<T> :
   T extends VectorLayer<any> ? VectorLayerEvents<T> :

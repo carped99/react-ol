@@ -1,7 +1,7 @@
 import { Interaction } from 'ol/interaction';
 import { Class } from '../types/common';
 import { Map } from 'ol';
-import { deepEqual } from 'fast-equals';
+import { default as deepEqual } from 'fast-deep-equal/es6';
 
 /**
  * 지도에서 특정 {@link Interaction}을 찾는다.
@@ -26,13 +26,13 @@ type NonNullish<T> = Exclude<T, null | undefined>;
  * @param o2 - 비교할 두 번째 인자
  * @param comparator - 객체 비교에 사용할 함수 (옵션)
  *
- * @returns
- * - `null`, `undefined` 또는 객체가 아닌 값의 비교일 경우 `o1 === o2`를 반환.
- * - `NaN` 비교의 경우 둘 다 `NaN`일 때 `true`를 반환.
- * - 객체일 경우, `comparator` 함수 결과를 반환.
+ * @remarks
+ * - `NaN`, `NaN`: true
+ * - `null`, `null`: true
+ * - `undefined`, `undefined`: true
+ * - `null`, `undefined`: false
  *
  * @example
- * // 기본 비교
  * ```
  * compare(1, 1); // true
  * compare(null, undefined); // false
@@ -44,7 +44,7 @@ type NonNullish<T> = Exclude<T, null | undefined>;
  * compare({ a: 1 }, { a: 1 }, customComparator); // true
  * ```
  */
-export function compare<T>(
+export function equals<T>(
   o1: T | undefined,
   o2: T | undefined,
   comparator: Comparator<NonNullish<T>> = defaultComparator,
@@ -64,46 +64,38 @@ export function compare<T>(
  * @param o1 - 비교할 첫 번째 객체
  * @param o2 - 비교할 두 번째 객체
  * @param keys - 비교할 키 목록
+ * @param optIn - `true`일 때 `properties`에 명시된 속성만을 비교하고, `false`일 때는 그 외의 속성을 비교한다.
  */
-export const compareOptIn = <T extends object>(
-  o1: T | undefined,
-  o2: T | undefined,
-  keys: readonly (keyof T)[],
+export const equalsByProps = <T extends object>(
+  o1: Readonly<T> | undefined,
+  o2: Readonly<T> | undefined,
+  keys: ReadonlyArray<keyof T>,
+  optIn = true,
 ): boolean => {
-  return compare(o1, o2, (p1, p2) => compareOptInImpl(p1, p2, keys));
-};
-
-/**
- * 객체의 모든 값들 중 `keys`에 해당하지 않는 값들을 비교하여 같은지 확인한다.
- * @param o1 - 비교할 첫 번째 객체
- * @param o2 - 비교할 두 번째 객체
- * @param keys - 비교에서 제외할 키 목록
- */
-export const compareOptOut = <T extends object>(
-  o1: T | undefined,
-  o2: T | undefined,
-  keys: readonly (keyof T)[],
-): boolean => {
-  return compare(o1, o2, (p1, p2) => compareOptOutImpl(p1, p2, keys));
+  return equals(o1, o2, (p1, p2) => (optIn ? equalsByPropsOptIn(p1, p2, keys) : equalsByPropsOptOut(p1, p2, keys)));
 };
 
 const defaultComparator = (o1: unknown, o2: unknown) => o1 === o2;
 
-const compareOptInImpl = <T extends object>(o1: T, o2: T, keys: readonly (keyof T)[]): boolean => {
-  for (const key of keys) {
-    if (!deepEqual(o1[key], o2[key])) {
+const equalsByPropsOptIn = <T extends object>(
+  o1: Readonly<T>,
+  o2: Readonly<T>,
+  properties: ReadonlyArray<keyof T>,
+): boolean => {
+  for (const property of properties) {
+    if (!deepEqual(o1[property], o2[property])) {
       return false;
     }
   }
   return true;
 };
 
-const compareOptOutImpl = <T extends object>(o1: T, o2: T, keys: readonly (keyof T)[]): boolean => {
+const equalsByPropsOptOut = <T extends object>(o1: T, o2: T, properties: ReadonlyArray<keyof T>): boolean => {
   const allKeys = new Set<keyof T>([...(Object.keys(o1) as (keyof T)[]), ...(Object.keys(o2) as (keyof T)[])]);
 
   for (const key of allKeys) {
-    // `keys`에 포함되어 있으면 비교하지 않는다.
-    if (keys.includes(key)) {
+    // `properties`에 포함되어 있으면 비교하지 않는다.
+    if (properties.includes(key)) {
       continue;
     }
 
@@ -114,6 +106,70 @@ const compareOptOutImpl = <T extends object>(o1: T, o2: T, keys: readonly (keyof
   return true;
 };
 
-export function compareDeep<T>(o1: T, o2: T): boolean {
-  return compare(o1, o2, deepEqual);
+export function equalsDeep<T>(o1: T | undefined, o2: T | undefined): boolean {
+  return equals(o1, o2, deepEqual);
+}
+
+type SetterName<K extends string> = `set${Capitalize<K>}`;
+
+type Setters<T> = {
+  [K in keyof T as K extends `set${infer P}` ? Uncapitalize<P & string> : never]: (value: T[K]) => void;
+};
+
+/**
+ * `prev`와 `curr` 객체에서 지정된 속성의 값을 비교하여 값이 변경된 경우, `obj` 객체의 해당 setter 메서드를 호출한다.
+ *
+ * @typeParam T - setter 메서드를 포함하는 객체의 타입.
+ * @typeParam P - 비교할 속성들이 포함된 객체의 타입.
+ * @typeParam K - 처리할 속성의 키 타입으로, 해당 키는 `P`에 존재하며, `T`에 대응하는 setter 메서드가 있어야한다.
+ *
+ * @param obj - setter 메서드를 포함하는 객체. 각 setter 메서드는 `set<PropertyName>` 형식.
+ * @param curr - 현재 상태를 나타내는 객체.
+ * @param prev - 이전 상태를 나타내는 객체.
+ * @param names - 변경 여부를 확인할 속성 이름의 배열.
+ *                배열의 각 이름은 `P`에 존재하고, `T`에 대응하는 setter 메서드가 있어야 합니다.
+ *
+ * @returns 속성 값이 변경되어 setter 메서드가 호출된 경우 `true`, 그렇지 않으면 `false`를 반환합니다.
+ *
+ * @example
+ * ```ts
+ * interface MyObject {
+ *   setName: (value: string) => void;
+ *   setAge: (value: number) => void;
+ * }
+ *
+ * interface MyOptions {
+ *   name: string;
+ *   age: number;
+ * }
+ *
+ * const obj: MyObject = { setName: console.log, setAge: console.log };
+ * const curr = { name: 'Bob', age: 25 };
+ * const prev = { name: 'Alice', age: 25 };
+ *
+ * const updated = updateBySetter(obj, prev, curr, ['name', 'age']);
+ * // `setName`이 호출되고 `updated`는 `true`를 반환.
+ * ```
+ */
+export function updateBySetter<T, P extends object, K extends keyof P & string>(
+  obj: T,
+  curr: P = {} as P,
+  prev: P = {} as P,
+  names: readonly (K extends keyof P ? (SetterName<K> extends keyof T ? K : never) : never)[],
+): boolean {
+  let updated = false;
+
+  // prev와 curr의 기본값 처리
+  for (const name of names) {
+    if (!deepEqual(prev[name], curr[name])) {
+      const setterName = `set${name[0].toUpperCase() + name.slice(1)}` as SetterName<K>;
+      // setterName이 Setters<T>에 있는지 확인
+      const setter = obj[setterName as keyof Setters<T>];
+      if (typeof setter === 'function') {
+        setter(curr[name]);
+        updated = true;
+      }
+    }
+  }
+  return updated;
 }

@@ -3,6 +3,10 @@ import TileLayer from 'ol/layer/Tile';
 import { OSM } from 'ol/source';
 import { Map } from './Map';
 
+import { setLevel } from 'ol/console';
+
+setLevel('info');
+
 const meta = {
   title: 'Example/MapView',
   component: Map,
@@ -15,8 +19,8 @@ const meta = {
       style: { width: '100%', height: '500vh', border: '1px solid #ccc' },
     },
     view: {
-      center: [0, 0],
-      zoom: 2,
+      center: [128, 36],
+      zoom: 8,
     },
     layers: [
       new TileLayer({

@@ -1,4 +1,6 @@
 export * from './map';
+export * from './map/events';
+export * from './map/options';
 
 // Context
 export * from './context';
@@ -10,7 +12,8 @@ export * from './events/options/InteractionObservable';
 
 // Layer
 export * from './layer';
-export * from './layer/event';
+export * from './layer/events';
+export * from './layer/options';
 
 // Overlay
 export * from './overlay';

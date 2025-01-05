@@ -1,25 +1,15 @@
 import { useDebugValue, useEffect, useMemo } from 'react';
-import VectorTileLayer, { ExtractedFeatureType, Options } from 'ol/layer/VectorTile';
+import VectorTileLayer, { ExtractedFeatureType } from 'ol/layer/VectorTile';
 import { VectorTile } from 'ol/source';
 import { FeatureLike } from 'ol/Feature';
 import { useBaseVectorLayer } from './base/useBaseVectorLayer';
-
-/**
- * {@link VectorTileLayer}의 옵션
- *
- * @category Layer Option
- */
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface VectorTileLayerOptions<
-  S extends VectorTile<F> = VectorTile<any>,
-  F extends FeatureLike = ExtractedFeatureType<S>,
-> extends Options<S, F> {}
+import { VectorTileLayerOptions } from './options';
 
 /**
  * {@link VectorTileLayer}를 생성한다.
  * @param options - {@link VectorTileLayerOptions}
  *
- * @category Layer
+ * @category Layers
  */
 export const useVectorTileLayer = <
   S extends VectorTile<F> = VectorTile<any>,

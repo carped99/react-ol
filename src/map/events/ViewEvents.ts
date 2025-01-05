@@ -4,7 +4,7 @@ import { BaseEvents } from '../../events/BaseEvents';
 /**
  * View 이벤트 타입
  *
- * @category Event
+ * @category Base/Events
  */
 export interface ViewEvents<T> extends BaseEvents<T> {
   onChangeCenter?: (this: T, e: ObjectEvent) => void;

@@ -5,9 +5,9 @@ import { useInteraction } from './useInteraction';
 import { DblClickDragZoomInteractionEvents } from './event';
 
 /**
- * Options for the {@link useDblClickDragZoomInteraction} hook.
+ * Options for the - {@link useDblClickDragZoomInteraction} hook.
  *
- * @category Interaction Option
+ * @category Interaction/Option
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface DblClickDragZoomInteractionOptions extends Options {}
@@ -15,20 +15,20 @@ export interface DblClickDragZoomInteractionOptions extends Options {}
 /**
  * Allows the user to zoom the map by double tap/click then drag up/down with one finger/left mouse.
  * @param options - Options for the interaction.
- * @param observable - Observable for the interaction.
+ * @param events - Events for the interaction.
  * @param active - Whether the interaction should be active.
  *
- * @see {@link https://openlayers.org/en/latest/apidoc/module-ol_interaction_DblClickDragZoom-DblClickDragZoom.html | DblClickDragZoom}.
+ * @see - {@link https://openlayers.org/en/latest/apidoc/module-ol_interaction_DblClickDragZoom-DblClickDragZoom.html | DblClickDragZoom}.
  * @category Interaction
  */
 export const useDblClickDragZoomInteraction = (
   options?: DblClickDragZoomInteractionOptions,
-  observable?: DblClickDragZoomInteractionEvents<DblClickDragZoom>,
+  events?: DblClickDragZoomInteractionEvents<DblClickDragZoom>,
   active = true,
 ) => {
   const interaction = useMemo(() => new DblClickDragZoom(options), [options]);
 
-  useInteraction(interaction, observable, active);
+  useInteraction(interaction, events, active);
 
   return interaction;
 };

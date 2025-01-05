@@ -1,6 +1,7 @@
 import { HTMLAttributes, PropsWithChildren } from 'react';
-import { MapViewOptions, useMapView } from '../../map/useMapView';
+import { useMapView } from '../../map/useMapView';
 import { useOSMLayer } from '../../layer';
+import { MapViewOptions } from '../../map/options';
 
 export interface MapViewProps extends MapViewOptions {
   container: HTMLAttributes<HTMLDivElement>;
