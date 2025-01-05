@@ -3,9 +3,10 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { FeatureLike } from 'ol/Feature';
 import { ExtractedFeatureType } from 'ol/layer/BaseVector';
-import { useBaseVectorLayer } from './base/useBaseVectorLayer';
-import { useBaseObject } from '../hooks/useBaseObject';
 import { VectorLayerOptions } from './options';
+import { useInstance } from '../hooks/useInstance';
+import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { useBaseVectorLayer } from './base/useBaseVectorLayer';
 
 /**
  * {@link VectorLayer}를 생성한다.
@@ -21,23 +22,15 @@ export const useVectorLayer = <
 ) => {
   useDebugValue(options);
 
-  const layer = useBaseObject(options, create, createKeys, updateKeys);
+  const instance = useInstance(provider, options);
 
-  useBaseVectorLayer<F, S>(layer, options);
+  useBaseVectorLayer<F, S>(instance, options);
 
-  return layer;
+  return instance;
 };
 
 const create = <S extends VectorSource<F>, F extends FeatureLike>(options?: Readonly<VectorLayerOptions<S, F>>) =>
   new VectorLayer<S, F>(options);
-
-// const update = <S extends VectorSource<F>, F extends FeatureLike>(
-//   instance: VectorLayer<S, F>,
-//   currProps: Readonly<VectorLayerOptions<S, F>>,
-//   prevProps?: Readonly<VectorLayerOptions<S, F>>,
-// ) => {
-//   console.log('update', instance, currProps, prevProps);
-// };
 
 const createKeys = ['map', 'className', 'updateWhileAnimating', 'updateWhileInteracting'] as const;
 const updateKeys = [
@@ -56,3 +49,5 @@ const updateKeys = [
   'background',
   'properties',
 ] as const;
+
+const provider = createBaseObjectProvider(create, createKeys, updateKeys);

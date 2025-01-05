@@ -2,7 +2,8 @@ import { Select } from 'ol/interaction';
 import { Options } from 'ol/interaction/Select';
 import { useInteraction } from './useInteraction';
 import { SelectInteractionEvents } from './event';
-import { useBaseObject } from '../hooks/useBaseObject';
+import { useInstance } from '../hooks/useInstance';
+import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link useSelectInteraction} hook.
@@ -26,14 +27,12 @@ export const useSelectInteraction = (
   events?: SelectInteractionEvents<Select>,
   active = true,
 ): Select => {
-  const interaction = useBaseObject(options, create, createKeys, []);
+  const instance = useInstance(provider, options);
 
-  useInteraction(interaction, events, active);
+  useInteraction(instance, events, active);
 
-  return interaction;
+  return instance;
 };
-
-const create = (options?: Options) => new Select(options);
 
 const createKeys = [
   'multi',
@@ -46,3 +45,7 @@ const createKeys = [
   'removeCondition',
   'toggleCondition',
 ] as const;
+
+const create = (options?: Options) => new Select(options);
+
+const provider = createBaseObjectProvider(create, createKeys, []);

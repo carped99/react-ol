@@ -1,9 +1,10 @@
 import View from 'ol/View';
 import { useProperties } from '../hooks/useProperties';
 import { useEvents } from '../events';
-import { useBaseObject } from '../hooks/useBaseObject';
 import { ViewEvents } from './events';
 import { ViewOptions } from './options';
+import { useInstance } from '../hooks/useInstance';
+import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
 
 /**
  * Hook for creating an OpenLayers view.
@@ -13,13 +14,13 @@ import { ViewOptions } from './options';
  * @category Base
  */
 export const useView = (options: Readonly<ViewOptions>, events?: ViewEvents<View>) => {
-  const viewRef = useBaseObject(options, create, [], updateKeys);
+  const view = useInstance(provider, options);
 
-  useProperties(viewRef, options);
+  useProperties(view, options);
 
-  useEvents(viewRef, events);
+  useEvents(view, events);
 
-  return viewRef;
+  return view;
 };
 
 const updateKeys = [
@@ -33,6 +34,8 @@ const updateKeys = [
 ] as const;
 
 const create = (options?: ViewOptions) => new View(options);
+
+const provider = createBaseObjectProvider(create, [], updateKeys);
 
 // const updateView = (view: View, curr?: ViewOptions, prev?: ViewOptions) => {
 //   console.log('updateView', prev, curr);

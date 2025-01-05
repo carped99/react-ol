@@ -4,10 +4,7 @@ import { Source } from 'ol/source';
 import { useBaseLayer } from './useBaseLayer';
 import { useMapContext } from '../../context';
 
-export const useLayer = <T extends Layer<S, any>, S extends Source = Source>(
-  layer: T,
-  options: Readonly<LayerOptions<S>>,
-) => {
+export const useLayer = <S extends Source = Source>(layer: Layer<S, any>, options?: Readonly<LayerOptions<S>>) => {
   const map = useMapContext().getMap();
 
   useBaseLayer(layer, options);

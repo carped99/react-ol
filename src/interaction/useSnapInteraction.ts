@@ -2,7 +2,8 @@ import { Snap } from 'ol/interaction';
 import { Options } from 'ol/interaction/Snap';
 import { useInteraction } from './useInteraction';
 import { SnapInteractionEvents } from './event';
-import { useBaseObject } from '../hooks/useBaseObject';
+import { useInstance } from '../hooks/useInstance';
+import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link useSnapInteraction} hook.
@@ -30,11 +31,11 @@ export const useSnapInteraction = (
     throw new Error('snapOptions should have features or source');
   }
 
-  const interaction = useBaseObject(options, create, createKeys, []);
+  const instance = useInstance(provider, options);
 
-  useInteraction(interaction, events, active);
+  useInteraction(instance, events, active);
 
-  return interaction;
+  return instance;
 };
 
 const create = (options?: SnapInteractionOptions) => {
@@ -42,3 +43,5 @@ const create = (options?: SnapInteractionOptions) => {
 };
 
 const createKeys = ['features', 'edge', 'vertex', 'pixelTolerance'] as const;
+
+const provider = createBaseObjectProvider(create, createKeys, []);

@@ -2,7 +2,8 @@ import { Draw } from 'ol/interaction';
 import { Options } from 'ol/interaction/Draw';
 import { useInteraction } from './useInteraction';
 import { DrawInteractionEvents } from './event';
-import { useBaseObject } from '../hooks/useBaseObject';
+import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { useInstance } from '../hooks/useInstance';
 
 /**
  * Options for the - {@link useDrawInteraction} hook.
@@ -26,15 +27,15 @@ export const useDrawInteraction = (
   events?: DrawInteractionEvents<Draw>,
   active = true,
 ) => {
-  const interaction = useBaseObject(options, creator, [], []);
+  const instance = useInstance(provider, options);
 
-  // const interaction = useMemo(() => new Draw(options), [options]);
+  useInteraction(instance, events, active);
 
-  useInteraction(interaction, events, active);
-
-  return interaction;
+  return instance;
 };
 
-const creator = (options: DrawInteractionOptions) => {
+const create = (options: DrawInteractionOptions) => {
   return new Draw(options);
 };
+
+const provider = createBaseObjectProvider(create, [], []);

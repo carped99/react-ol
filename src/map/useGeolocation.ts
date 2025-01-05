@@ -1,9 +1,9 @@
 import { Geolocation } from 'ol';
-
-import { useBaseObject } from '../hooks/useBaseObject';
 import { useEvents } from '../events';
 import { GeolocationEvents } from './events';
 import { GeolocationOptions } from './options';
+import { useInstance } from '../hooks/useInstance';
+import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
 
 /**
  * 지도를 생성하고 반환한다.
@@ -12,11 +12,11 @@ import { GeolocationOptions } from './options';
  * @category Base
  */
 export const useGeolocation = (options: GeolocationOptions = {}, events?: GeolocationEvents<Geolocation>) => {
-  const geoLocation = useBaseObject(options, create, createKeys, updateKeys);
+  const instance = useInstance(provider, options);
 
-  useEvents(geoLocation, events);
+  useEvents(instance, events);
 
-  return geoLocation;
+  return instance;
 };
 
 const create = (options?: GeolocationOptions) => {
@@ -25,3 +25,4 @@ const create = (options?: GeolocationOptions) => {
 
 const createKeys = [] as const;
 const updateKeys = ['tracking', 'trackingOptions', 'projection'] as const;
+const provider = createBaseObjectProvider(create, createKeys, updateKeys);
