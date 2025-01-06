@@ -4,7 +4,7 @@ import { OSM } from 'ol/source';
 import { Map } from './Map';
 
 import { setLevel } from 'ol/console';
-import { MapProvider } from '../context';
+import { MapProvider } from '../core';
 
 setLevel('info');
 

@@ -17,6 +17,7 @@ export * from './layer/options';
 
 // Overlay
 export * from './overlay';
+export * from './overlay/events';
 
 // Interaction
 export * from './interaction';

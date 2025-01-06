@@ -1,5 +1,5 @@
 import { HTMLAttributes, PropsWithChildren } from 'react';
-import { useMapView } from '../../map/useMapView';
+import { useMapView } from '../../map';
 import { useOSMLayer } from '../../layer';
 import { MapViewOptions } from '../../map/options';
 

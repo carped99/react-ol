@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
+import { useInteraction } from '../../core';
 import Transform, { Options } from 'ol-ext/interaction/Transform';
-import { useInteraction } from './useInteraction';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface TransformInteractionOptions extends Options {}

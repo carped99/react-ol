@@ -32,14 +32,14 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
+      entry: [resolve(__dirname, 'src/core/index.ts'), resolve(__dirname, 'src/ext/ol-ext.ts')],
       name: 'ReactOL',
       formats: ['es', 'cjs'],
-      fileName: (format) => `index.${format}.js`,
+      fileName: (format, name) => `${name}.${format}.js`,
     },
     outDir: resolve(__dirname, 'dist'),
     emptyOutDir: true,
-    sourcemap: true,
+    sourcemap: false,
     rollupOptions: {
       external: ['react', 'react/jsx-runtime', 'react-dom', 'react-dom/client', /^ol.*/, 'ol-ext'],
       output: {

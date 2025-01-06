@@ -1,6 +1,6 @@
 import Popup, { Options } from 'ol-ext/overlay/Popup';
-import { useEffect, useMemo } from 'react';
-import { useMapContext } from '../context';
+import { useMemo } from 'react';
+import { useOverlay } from '../../core';
 
 /**
  * Options for the overlay.
@@ -17,21 +17,11 @@ export interface PopupOverlayOptions extends Options {}
  * @category Overlay
  */
 export const usePopupOverlay = (options: PopupOverlayOptions) => {
-  const { map } = useMapContext();
-
   const popup = useMemo(() => {
     return new Popup(options);
   }, [options]);
 
-  useEffect(() => {
-    if (!map) return;
-
-    map.addOverlay(popup);
-
-    return () => {
-      map.removeOverlay(popup);
-    };
-  }, [map, popup]);
+  useOverlay(popup);
 
   return popup;
 };

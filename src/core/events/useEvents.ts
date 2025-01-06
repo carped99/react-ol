@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { EventsKey, ListenerFunction } from 'ol/events';
 import Observable, { EventTypes, unByKey } from 'ol/Observable';
-import { ObservableEvents } from './ObservableEvents';
 
 type Listeners = Record<string, ListenerFunction>;
 
@@ -10,13 +9,13 @@ type Listeners = Record<string, ListenerFunction>;
  *
  * @typeParam T - Type of target observable object
  * @param target - 이벤트를 등록할 OpenLayers 객체
- * @param options - 이벤트 핸들러를 포함한 속성
+ * @param events - 이벤트 핸들러를 포함한 속성
  *
  * @see - {@link https://openlayers.org/en/latest/apidoc/module-ol_Observable-Observable.html | Observable}
  *
  * @category Event
  */
-export const useEvents = <T extends Observable>(target?: T, options?: Readonly<ObservableEvents<T>>) => {
+export const useEvents = <T>(target?: Observable, events?: T) => {
   // 이벤트 핸들러를 관리하기 위해 이벤트 키 목록 저장
   const eventsKeysRef = useRef<EventsKey[]>([]);
 
@@ -34,7 +33,7 @@ export const useEvents = <T extends Observable>(target?: T, options?: Readonly<O
     if (!target) return;
 
     // 속성 중 이벤트 핸들러만 추출
-    const eventHandlers = resolveEventHandlers(options);
+    const eventHandlers = resolveEventHandlers(events);
 
     // 사용되지 않는 이벤트 핸들러 제거
     const newEventsKeys = pruneEvents(eventsKeysRef.current, eventHandlers);
@@ -48,10 +47,10 @@ export const useEvents = <T extends Observable>(target?: T, options?: Readonly<O
       });
 
     eventsKeysRef.current = newEventsKeys;
-  }, [target, options]);
+  }, [target, events]);
 };
 
-const resolveEventHandlers = (options?: Readonly<unknown>): Listeners => {
+const resolveEventHandlers = (options?: unknown): Listeners => {
   return Object.entries(options ?? {})
     .filter(([type, value]) => isEventListener(type, value))
     .reduce<Listeners>((acc, [type, value]) => {

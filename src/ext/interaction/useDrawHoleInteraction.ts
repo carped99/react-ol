@@ -1,6 +1,6 @@
-import DrawHole, { Options } from 'ol-ext/interaction/DrawHole';
 import { useEffect, useMemo } from 'react';
-import { useInteraction } from './useInteraction';
+import { useInteraction } from '../../core';
+import DrawHole, { Options } from 'ol-ext/interaction/DrawHole';
 
 /**
  * Options for the - {@link useDrawHoleInteraction} hook.
