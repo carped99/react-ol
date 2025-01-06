@@ -25,7 +25,7 @@ export interface DragRotateInteractionOptions extends Options {}
  */
 export const useDragRotateInteraction = (
   options: DragRotateInteractionOptions = {},
-  events?: DragRotateInteractionEvents<DragRotate>,
+  events?: DragRotateInteractionEvents,
   active = true,
 ) => {
   const instance = useInstance(provider, options);

@@ -24,7 +24,7 @@ export interface KeyboardPanInteractionOptions extends Options {}
  */
 export const useKeyboardPanInteraction = (
   options: KeyboardPanInteractionOptions = {},
-  events?: KeyboardPanInteractionEvents<KeyboardPan>,
+  events?: KeyboardPanInteractionEvents,
   active = true,
 ) => {
   const instance = useInstance(provider, options);

@@ -1,5 +1,4 @@
 import { Geolocation, Map, View } from 'ol';
-import Observable from 'ol/Observable';
 import TileLayer from 'ol/layer/Tile';
 import VectorLayer from 'ol/layer/Vector';
 import VectorImageLayer from 'ol/layer/VectorImage';
@@ -65,39 +64,39 @@ import {
  */
 // @formatter:off
 // prettier-ignore
-export type ObservableEvents<T extends Observable> =
-  T extends Map ? MapEvents<T> :
-  T extends View ? ViewEvents<T> :
-  T extends Geolocation ? GeolocationEvents<T> :
+export type ObservableEvents<T> =
+  T extends Map ? MapEvents :
+  T extends View ? ViewEvents :
+  T extends Geolocation ? GeolocationEvents :
   // Layer
-  T extends TileLayer<any> ? VectorTileLayerEvents<T> :
-  T extends VectorLayer<any> ? VectorLayerEvents<T> :
-  T extends VectorImageLayer<any> ? VectorImageLayerEvents<T> :
-  T extends VectorTileLayer<any> ? VectorTileLayerEvents<T> :
-  T extends WebGLTileLayer ? WebGLTileLayerEvents<T> :
-  T extends ImageLayer<any> ? ImageLayerEvents<T> :
+  T extends TileLayer<any> ? VectorTileLayerEvents :
+  T extends VectorLayer<any> ? VectorLayerEvents :
+  T extends VectorImageLayer<any> ? VectorImageLayerEvents :
+  T extends VectorTileLayer<any> ? VectorTileLayerEvents :
+  T extends WebGLTileLayer ? WebGLTileLayerEvents :
+  T extends ImageLayer<any> ? ImageLayerEvents :
   // Interaction
-  T extends Select ? SelectInteractionEvents<T> :
-  T extends Modify ? ModifyInteractionEvents<T> :
-  T extends Draw ? DrawInteractionEvents<T> :
-  T extends Snap ? SnapInteractionEvents<T> :
-  T extends Link ? LinkInteractionEvents<T> :
-  T extends KeyboardPan ? KeyboardPanInteractionEvents<T> :
-  T extends KeyboardZoom ? KeyboardZoomInteractionEvents<T> :
-  T extends DragAndDrop ? DragAndDropInteractionEvents<T> :
-  T extends DragBox ? DragBoxInteractionEvents<T> :
-  T extends DragPan ? DragPanInteractionEvents<T> :
-  T extends DragRotate ? DragRotateInteractionEvents<T> :
-  T extends DragRotateAndZoom ? DragRotateAndZoomInteractionEvents<T> :
-  T extends DoubleClickZoom ? DblClickZoomInteractionEvents<T> :
-  T extends DblClickDragZoom ? DblClickDragZoomInteractionEvents<T> :
-  T extends Extent ? ExtentInteractionEvents<T> :
-  T extends PinchRotate ? PinchRotateInteractionEvents<T> :
-  T extends PinchZoom ? PinchZoomInteractionEvents<T> :
-  T extends Translate ? TranslateInteractionEvents<T> :
-  T extends MouseWheelZoom ? MouseWheelZoomInteractionEvents<T> :
-  DefaultObservable<T>;
+  T extends Select ? SelectInteractionEvents :
+  T extends Modify ? ModifyInteractionEvents :
+  T extends Draw ? DrawInteractionEvents :
+  T extends Snap ? SnapInteractionEvents :
+  T extends Link ? LinkInteractionEvents :
+  T extends KeyboardPan ? KeyboardPanInteractionEvents :
+  T extends KeyboardZoom ? KeyboardZoomInteractionEvents :
+  T extends DragAndDrop ? DragAndDropInteractionEvents :
+  T extends DragBox ? DragBoxInteractionEvents :
+  T extends DragPan ? DragPanInteractionEvents :
+  T extends DragRotate ? DragRotateInteractionEvents :
+  T extends DragRotateAndZoom ? DragRotateAndZoomInteractionEvents :
+  T extends DoubleClickZoom ? DblClickZoomInteractionEvents :
+  T extends DblClickDragZoom ? DblClickDragZoomInteractionEvents :
+  T extends Extent ? ExtentInteractionEvents :
+  T extends PinchRotate ? PinchRotateInteractionEvents :
+  T extends PinchZoom ? PinchZoomInteractionEvents :
+  T extends Translate ? TranslateInteractionEvents :
+  T extends MouseWheelZoom ? MouseWheelZoomInteractionEvents :
+  DefaultObservable;
 // @formatter:on
 
 // 기본 이벤트 핸들러 타입
-type DefaultObservable<T> = { [key: string]: (this: T, e: Event) => void };
+type DefaultObservable = { [key: string]: (e: Event) => void };

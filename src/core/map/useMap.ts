@@ -27,7 +27,7 @@ import { MapOptions } from './options';
  */
 export const useMap = (
   options: Readonly<MapOptions> = {},
-  events?: MapEvents<Map>,
+  events?: MapEvents,
 ): [Ref<HTMLDivElement>, Map | undefined] => {
   const { setMap } = useMapContext();
 

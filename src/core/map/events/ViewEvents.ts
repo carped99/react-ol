@@ -6,11 +6,11 @@ import { BaseEvents } from '../../events/BaseEvents';
  *
  * @category Base/Events
  */
-export interface ViewEvents<T> extends BaseEvents<T> {
-  onChangeCenter?: (this: T, e: ObjectEvent) => void;
-  onChangeResolution?: (this: T, e: ObjectEvent) => void;
-  onChangeRotation?: (this: T, e: ObjectEvent) => void;
+export interface ViewEvents extends BaseEvents {
+  onChangeCenter?: (e: ObjectEvent) => void;
+  onChangeResolution?: (e: ObjectEvent) => void;
+  onChangeRotation?: (e: ObjectEvent) => void;
 
   // 동적으로 추가되는 속성
-  [key: string]: ((this: T, e: any) => void) | undefined;
+  [key: string]: ((e: any) => void) | undefined;
 }

@@ -6,8 +6,8 @@ import { BaseVectorLayerEvents } from './BaseLayerEvents';
  *
  * @category Layers/Events
  */
-export interface HeatmapLayerEvents<T> extends BaseVectorLayerEvents<T> {
-  onChangeBlur?: (this: T, e: ObjectEvent) => void;
-  onChangeGradient?: (this: T, e: ObjectEvent) => void;
-  onChangeRadius?: (this: T, e: ObjectEvent) => void;
+export interface HeatmapLayerEvents extends BaseVectorLayerEvents {
+  onChangeBlur?: (e: ObjectEvent) => void;
+  onChangeGradient?: (e: ObjectEvent) => void;
+  onChangeRadius?: (e: ObjectEvent) => void;
 }

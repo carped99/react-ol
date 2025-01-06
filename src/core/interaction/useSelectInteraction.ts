@@ -24,7 +24,7 @@ export interface SelectInteractionOptions extends Options {}
  */
 export const useSelectInteraction = (
   options: SelectInteractionOptions = {},
-  events?: SelectInteractionEvents<Select>,
+  events?: SelectInteractionEvents,
   active = true,
 ): Select => {
   const instance = useInstance(provider, options);

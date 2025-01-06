@@ -24,7 +24,7 @@ export interface LinkInteractionOptions extends Options {}
  */
 export const useLinkInteraction = (
   options: LinkInteractionOptions = {},
-  events?: LinkInteractionEvents<Link>,
+  events?: LinkInteractionEvents,
   active = true,
 ) => {
   const instance = useInstance(provider, options);

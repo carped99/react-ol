@@ -22,11 +22,11 @@ import {
 // @formatter:off
 // prettier-ignore
 export type LayerObservable<T extends Observable> =
-  T extends TileLayer<any> ? VectorTileLayerEvents<T> :
-  T extends VectorLayer<any> ? VectorLayerEvents<T> :
-  T extends VectorImageLayer<any> ? VectorImageLayerEvents<T> :
-  T extends VectorTileLayer<any> ? VectorTileLayerEvents<T> :
-  T extends WebGLTileLayer ? WebGLTileLayerEvents<T> :
-  T extends ImageLayer<any> ? ImageLayerEvents<T> :
+  T extends TileLayer<any> ? VectorTileLayerEvents :
+  T extends VectorLayer<any> ? VectorLayerEvents :
+  T extends VectorImageLayer<any> ? VectorImageLayerEvents :
+  T extends VectorTileLayer<any> ? VectorTileLayerEvents :
+  T extends WebGLTileLayer ? WebGLTileLayerEvents :
+  T extends ImageLayer<any> ? ImageLayerEvents :
   never;
 // @formatter:on

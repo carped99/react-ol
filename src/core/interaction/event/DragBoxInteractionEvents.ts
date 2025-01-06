@@ -1,5 +1,4 @@
 import { InteractionEvents } from './InteractionEvents';
-import { DragBox } from 'ol/interaction';
 import { DragBoxEvent } from 'ol/interaction/DragBox';
 
 /**
@@ -7,9 +6,9 @@ import { DragBoxEvent } from 'ol/interaction/DragBox';
  *
  * @category Interaction/Event
  */
-export interface DragBoxInteractionEvents<T extends DragBox> extends InteractionEvents<T> {
-  onBoxCancel?: (this: T, e: DragBoxEvent) => void;
-  onBoxDrag?: (this: T, e: DragBoxEvent) => void;
-  onBoxStart?: (this: T, e: DragBoxEvent) => void;
-  onBoxEnd?: (this: T, e: DragBoxEvent) => void;
+export interface DragBoxInteractionEvents extends InteractionEvents {
+  onBoxCancel?: (e: DragBoxEvent) => void;
+  onBoxDrag?: (e: DragBoxEvent) => void;
+  onBoxStart?: (e: DragBoxEvent) => void;
+  onBoxEnd?: (e: DragBoxEvent) => void;
 }

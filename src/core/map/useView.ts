@@ -12,7 +12,7 @@ import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
  *
  * @category Base
  */
-export const useView = (options: Readonly<ViewOptions>, events?: ViewEvents<View>) => {
+export const useView = (options: Readonly<ViewOptions>, events?: ViewEvents) => {
   const view = useInstance(provider, options);
 
   useEvents(view, events);

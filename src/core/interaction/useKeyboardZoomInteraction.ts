@@ -24,7 +24,7 @@ export interface KeyboardZoomInteractionOptions extends Options {}
  */
 export const useKeyboardZoomInteraction = (
   options: KeyboardZoomInteractionOptions = {},
-  events?: KeyboardZoomInteractionEvents<KeyboardZoom>,
+  events?: KeyboardZoomInteractionEvents,
   active = true,
 ) => {
   const instance = useInstance(provider, options);

@@ -6,6 +6,6 @@ import { InteractionEvents } from './InteractionEvents';
  *
  * @category Interaction/Event
  */
-export interface PointerInteractionEvents<T> extends InteractionEvents<T> {
-  handleDownEvent?: (this: T, e: SelectEvent) => void;
+export interface PointerInteractionEvents extends InteractionEvents {
+  handleDownEvent?: (e: SelectEvent) => void;
 }

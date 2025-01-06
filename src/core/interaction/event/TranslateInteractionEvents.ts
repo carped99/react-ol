@@ -1,5 +1,4 @@
 import { InteractionEvents } from './InteractionEvents';
-import { Translate } from 'ol/interaction';
 import { TranslateEvent } from 'ol/interaction/Translate';
 
 /**
@@ -7,8 +6,8 @@ import { TranslateEvent } from 'ol/interaction/Translate';
  *
  * @category Interaction/Event
  */
-export interface TranslateInteractionEvents<T extends Translate> extends InteractionEvents<T> {
-  onTranslateStart?: (this: T, e: TranslateEvent) => void;
-  onTranslating?: (this: T, e: TranslateEvent) => void;
-  onTranslateEnd?: (this: T, e: TranslateEvent) => void;
+export interface TranslateInteractionEvents extends InteractionEvents {
+  onTranslateStart?: (e: TranslateEvent) => void;
+  onTranslating?: (e: TranslateEvent) => void;
+  onTranslateEnd?: (e: TranslateEvent) => void;
 }

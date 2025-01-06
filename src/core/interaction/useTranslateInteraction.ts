@@ -24,7 +24,7 @@ export interface TranslateInteractionOptions extends Options {}
  */
 export const useTranslateInteraction = (
   options: TranslateInteractionOptions = {},
-  events?: TranslateInteractionEvents<Translate>,
+  events?: TranslateInteractionEvents,
   active = true,
 ) => {
   const instance = useInstance(provider, options);

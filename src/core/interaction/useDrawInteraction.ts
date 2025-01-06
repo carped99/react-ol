@@ -22,11 +22,7 @@ export interface DrawInteractionOptions extends Options {}
  * @see - {@link https://openlayers.org/en/latest/apidoc/module-ol_interaction_Draw-Draw.html | Draw}
  * @category Interaction
  */
-export const useDrawInteraction = (
-  options: DrawInteractionOptions,
-  events?: DrawInteractionEvents<Draw>,
-  active = true,
-) => {
+export const useDrawInteraction = (options: DrawInteractionOptions, events?: DrawInteractionEvents, active = true) => {
   const instance = useInstance(provider, options);
 
   useInteraction(instance, events, active);

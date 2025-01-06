@@ -1,5 +1,4 @@
 import { InteractionEvents } from './InteractionEvents';
-import { DragAndDrop } from 'ol/interaction';
 import { DragAndDropEvent } from 'ol/interaction/DragAndDrop';
 
 /**
@@ -7,6 +6,6 @@ import { DragAndDropEvent } from 'ol/interaction/DragAndDrop';
  *
  * @category Interaction/Event
  */
-export interface DragAndDropInteractionEvents<T extends DragAndDrop> extends InteractionEvents<T> {
-  onAddFeatures?: (this: T, e: DragAndDropEvent) => void;
+export interface DragAndDropInteractionEvents extends InteractionEvents {
+  onAddFeatures?: (e: DragAndDropEvent) => void;
 }

@@ -24,7 +24,7 @@ export interface DblClickDragZoomInteractionOptions extends Options {}
  */
 export const useDblClickDragZoomInteraction = (
   options: DblClickDragZoomInteractionOptions = {},
-  events?: DblClickDragZoomInteractionEvents<DblClickDragZoom>,
+  events?: DblClickDragZoomInteractionEvents,
   active = true,
 ) => {
   const instance = useInstance(provider, options);

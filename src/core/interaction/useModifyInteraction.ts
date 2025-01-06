@@ -24,7 +24,7 @@ export interface ModifyInteractionOptions extends Options {}
  */
 export const useModifyInteraction = (
   options: ModifyInteractionOptions,
-  events?: ModifyInteractionEvents<Modify>,
+  events?: ModifyInteractionEvents,
   active = true,
 ) => {
   const instance = useInstance(provider, options);

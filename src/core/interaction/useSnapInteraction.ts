@@ -24,7 +24,7 @@ export interface SnapInteractionOptions extends Options {}
  */
 export const useSnapInteraction = (
   options: SnapInteractionOptions = {},
-  events?: SnapInteractionEvents<Snap>,
+  events?: SnapInteractionEvents,
   active = true,
 ) => {
   if (!options.features && !options.source) {

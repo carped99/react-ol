@@ -6,10 +6,10 @@ import { ObjectEvent } from 'ol/Object';
  *
  * @category Overlay/Event
  */
-export interface OverlayEvents<T> extends BaseEvents<T> {
-  onChangeElement?: (this: T, e: ObjectEvent) => void;
-  onChangeMap?: (this: T, e: ObjectEvent) => void;
-  onChangeOffset?: (this: T, e: ObjectEvent) => void;
-  onChangePosition?: (this: T, e: ObjectEvent) => void;
-  onChangePositioning?: (this: T, e: ObjectEvent) => void;
+export interface OverlayEvents extends BaseEvents {
+  onChangeElement?: (e: ObjectEvent) => void;
+  onChangeMap?: (e: ObjectEvent) => void;
+  onChangeOffset?: (e: ObjectEvent) => void;
+  onChangePosition?: (e: ObjectEvent) => void;
+  onChangePositioning?: (e: ObjectEvent) => void;
 }

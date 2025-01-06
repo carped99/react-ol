@@ -24,7 +24,7 @@ export interface MouseWheelZoomInteractionOptions extends Options {}
  */
 export const useMouseWheelZoomInteraction = (
   options: MouseWheelZoomInteractionOptions = {},
-  events?: MouseWheelZoomInteractionEvents<MouseWheelZoom>,
+  events?: MouseWheelZoomInteractionEvents,
   active = true,
 ) => {
   const instance = useInstance(provider, options);

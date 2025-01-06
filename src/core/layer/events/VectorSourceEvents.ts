@@ -1,8 +1,7 @@
-import View from 'ol/View';
 import VectorSource, { VectorSourceEvent } from 'ol/source/Vector';
 import { BaseEvents } from '../../events/BaseEvents';
 
-export interface VectorSourceEvents extends BaseEvents<View> {
+export interface VectorSourceEvents extends BaseEvents {
   /**
    * Triggered when a feature is added to the source.
    * @param e - {@link VectorSourceEvent}

@@ -24,7 +24,7 @@ export interface DragAndDropInteractionOptions extends Options {}
  */
 export const useDragAndDropInteraction = (
   options: DragAndDropInteractionOptions = {},
-  events?: DragAndDropInteractionEvents<DragAndDrop>,
+  events?: DragAndDropInteractionEvents,
   active = true,
 ) => {
   const instance = useInstance(provider, options);

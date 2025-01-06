@@ -24,7 +24,7 @@ export interface PinchZoomInteractionOptions extends Options {}
  */
 export const usePinchZoomInteraction = (
   options: PinchZoomInteractionOptions = {},
-  events?: PinchZoomInteractionEvents<PinchZoom>,
+  events?: PinchZoomInteractionEvents,
   active = true,
 ) => {
   const instance = useInstance(provider, options);

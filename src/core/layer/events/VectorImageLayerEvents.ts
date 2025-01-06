@@ -6,4 +6,4 @@ import { BaseVectorLayerEvents } from './BaseLayerEvents';
  * @category Layers/Events
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface VectorImageLayerEvents<T> extends BaseVectorLayerEvents<T> {}
+export interface VectorImageLayerEvents extends BaseVectorLayerEvents {}

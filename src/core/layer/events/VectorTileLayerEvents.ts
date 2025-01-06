@@ -6,7 +6,7 @@ import { BaseVectorLayerEvents } from './BaseLayerEvents';
  *
  * @category Layers/Events
  */
-export interface VectorTileLayerEvents<T> extends BaseVectorLayerEvents<T> {
-  onChangePreload?: (this: T, e: ObjectEvent) => void;
-  onChangeUseInterimTilesOnError?: (this: T, e: ObjectEvent) => void;
+export interface VectorTileLayerEvents extends BaseVectorLayerEvents {
+  onChangePreload?: (e: ObjectEvent) => void;
+  onChangeUseInterimTilesOnError?: (e: ObjectEvent) => void;
 }

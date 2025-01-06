@@ -6,4 +6,4 @@ import { BaseTileLayerEvents } from './BaseLayerEvents';
  * @category Layers/Events
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface WebGLTileLayerEvents<T> extends BaseTileLayerEvents<T> {}
+export interface WebGLTileLayerEvents extends BaseTileLayerEvents {}

@@ -24,7 +24,7 @@ export interface DragRotateAndZoomInteractionOptions extends Options {}
  */
 export const useDragRotateAndZoomInteraction = (
   options: DragRotateAndZoomInteractionOptions = {},
-  events?: DragRotateAndZoomInteractionEvents<DragRotateAndZoom>,
+  events?: DragRotateAndZoomInteractionEvents,
   active = true,
 ) => {
   const instance = useInstance(provider, options);

@@ -11,7 +11,7 @@ import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
  * @param events - Events for the Map.
  * @category Base
  */
-export const useGeolocation = (options: GeolocationOptions = {}, events?: GeolocationEvents<Geolocation>) => {
+export const useGeolocation = (options: GeolocationOptions = {}, events?: GeolocationEvents) => {
   const instance = useInstance(provider, options);
 
   useEvents(instance, events);

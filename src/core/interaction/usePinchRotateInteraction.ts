@@ -24,7 +24,7 @@ export interface PinchRotateInteractionOptions extends Options {}
  */
 export const usePinchRotateInteraction = (
   options: PinchRotateInteractionOptions = {},
-  events?: PinchRotateInteractionEvents<PinchRotate>,
+  events?: PinchRotateInteractionEvents,
   active = true,
 ) => {
   const instance = useInstance(provider, options);

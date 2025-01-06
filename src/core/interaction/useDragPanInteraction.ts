@@ -24,7 +24,7 @@ export interface DragPanInteractionOptions extends Options {}
  */
 export const useDragPanInteraction = (
   options: DragPanInteractionOptions = {},
-  events?: DragPanInteractionEvents<DragPan>,
+  events?: DragPanInteractionEvents,
   active = true,
 ) => {
   const instance = useInstance(provider, options);

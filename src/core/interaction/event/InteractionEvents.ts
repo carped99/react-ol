@@ -6,6 +6,6 @@ import { BaseEvents } from '../../events/BaseEvents';
  *
  * @category Event
  */
-export interface InteractionEvents<T> extends BaseEvents<T> {
-  onChangeActive?: (this: T, e: ObjectEvent) => void;
+export interface InteractionEvents extends BaseEvents {
+  onChangeActive?: (e: ObjectEvent) => void;
 }

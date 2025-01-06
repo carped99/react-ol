@@ -1,5 +1,4 @@
 import { InteractionEvents } from './InteractionEvents';
-import { DragRotate } from 'ol/interaction';
 
 /**
  * DragRotate Interaction 이벤트
@@ -7,4 +6,4 @@ import { DragRotate } from 'ol/interaction';
  * @category Interaction/Event
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface DragRotateInteractionEvents<T extends DragRotate> extends InteractionEvents<T> {}
+export interface DragRotateInteractionEvents extends InteractionEvents {}

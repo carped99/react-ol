@@ -24,7 +24,7 @@ export interface ExtentInteractionOptions extends Options {}
  */
 export const useExtentInteraction = (
   options: ExtentInteractionOptions = {},
-  events?: ExtentInteractionEvents<Extent>,
+  events?: ExtentInteractionEvents,
   active = true,
 ) => {
   const instance = useInstance(provider, options);
