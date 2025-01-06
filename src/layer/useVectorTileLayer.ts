@@ -6,6 +6,7 @@ import { VectorTileLayerOptions } from './options';
 import { useInstance } from '../hooks/useInstance';
 import { BaseVectorLayerCreateKeys, BaseVectorLayerUpdateKeys } from './base/LayerProperties';
 import { useBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { useBaseVectorLayer } from './base/useBaseVectorLayer';
 
 /**
  * {@link VectorTileLayer}를 생성한다.
@@ -27,7 +28,11 @@ export const useVectorTileLayer = <
     BaseVectorLayerUpdateKeys,
   );
 
-  return useInstance(provider, options);
+  const instance = useInstance(provider, options);
+
+  useBaseVectorLayer<F, S>(instance, options);
+
+  return instance;
 };
 
 const createKeys = [...BaseVectorLayerCreateKeys, 'preload', 'cacheSize', 'renderMode'] as const;

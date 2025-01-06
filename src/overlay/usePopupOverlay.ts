@@ -17,7 +17,7 @@ export interface PopupOverlayOptions extends Options {}
  * @category Overlay
  */
 export const usePopupOverlay = (options: PopupOverlayOptions) => {
-  const map = useMapContext().getMap();
+  const { map } = useMapContext();
 
   const popup = useMemo(() => {
     return new Popup(options);

@@ -173,3 +173,18 @@ export function updateBySetter<T, P extends object, K extends keyof P & string>(
   }
   return updated;
 }
+
+export function updateProperties(
+  setProperties: (
+    properties: {
+      [x: string]: any;
+    },
+    silent?: boolean,
+  ) => void,
+  curr?: object,
+  prev?: object,
+): void {
+  if (!equalsDeep(curr, prev)) {
+    setProperties(curr ?? {}, true);
+  }
+}

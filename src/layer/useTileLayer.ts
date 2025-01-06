@@ -5,6 +5,7 @@ import { Tile } from 'ol';
 import { TileLayerOptions } from './options';
 import { useInstance } from '../hooks/useInstance';
 import { useBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { useBaseTileLayer } from './base/useBaseTileLayer';
 
 /**
  * {@link TileLayer}를 생성한다.
@@ -19,5 +20,9 @@ export const useTileLayer = <S extends TileSource = TileSource<Tile>>(options: R
     useCallback((options) => new TileLayer<S>(options), []),
   );
 
-  return useInstance(provider, options);
+  const instance = useInstance(provider, options);
+
+  useBaseTileLayer(instance, options);
+
+  return instance;
 };

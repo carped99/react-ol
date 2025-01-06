@@ -34,6 +34,6 @@ export const useDblClickZoomInteraction = (
   return instance;
 };
 
-const create = (options: Options) => new DoubleClickZoom(options);
+const createInstance = (options: Options) => new DoubleClickZoom(options);
 
-const provider = createBaseObjectProvider(create, [], []);
+const provider = createBaseObjectProvider(createInstance, [], []);

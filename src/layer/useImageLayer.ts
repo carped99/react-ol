@@ -4,6 +4,7 @@ import ImageSource from 'ol/source/Image';
 import { ImageLayerOptions } from './options';
 import { useInstance } from '../hooks/useInstance';
 import { useBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { useBaseImageLayer } from './base/useBaseImageLayer';
 
 /**
  * {@link ImageLayer}를 생성한다.
@@ -18,5 +19,9 @@ export const useImageLayer = <S extends ImageSource>(options: Readonly<ImageLaye
     useCallback((options) => new ImageLayer<S>(options), []),
   );
 
-  return useInstance(provider, options);
+  const instance = useInstance(provider, options);
+
+  useBaseImageLayer(instance, options);
+
+  return instance;
 };

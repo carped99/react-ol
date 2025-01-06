@@ -1,15 +1,16 @@
 import { InstanceCreator, InstancePredicate, InstanceProvider, InstanceUpdater } from './InstanceProvider';
-import { equalsByProps, equalsDeep } from '../utils/common';
+import { equalsByProps, equalsDeep, updateProperties } from '../utils/common';
 import { useMemo } from 'react';
+import BaseObject from 'ol/Object';
 
-export const createBaseObjectProvider = <T, P extends object>(
-  create: InstanceCreator<T, P>,
+export const createBaseObjectProvider = <T extends BaseObject, P extends object>(
+  createInstance: InstanceCreator<T, P>,
   createKeys: ReadonlyArray<keyof P & string> = [],
   updateKeys: ReadonlyArray<keyof P & string> = [],
   nullishKeys: ReadonlyArray<keyof P & string> = [],
 ): InstanceProvider<T, P> => {
   // 객체를 생성할 때 사용할 조건 함수
-  const canCreate: InstancePredicate<P> = (curr?: P, prev?: P) => {
+  const shouldCreateInstance: InstancePredicate<P> = (curr?: P, prev?: P) => {
     // `createKeys`에 해당하는 속성이 변경되었을 경우 객체를 재생성
     if (!equalsByProps<P>(curr, prev, createKeys)) {
       return true;
@@ -22,12 +23,12 @@ export const createBaseObjectProvider = <T, P extends object>(
   };
 
   // 객체를 수정할 때 사용할 조건 함수
-  const canUpdate: InstancePredicate<P> = (curr?: P, prev?: P) => {
+  const shouldUpdateInstance: InstancePredicate<P> = (curr?: P, prev?: P) => {
     return !equalsByProps<P>(curr, prev, updateKeys);
   };
 
   // 객체를 수정하는 함수
-  const update: InstanceUpdater<T, P> = (instance: T, curr?: P, prev?: P) => {
+  const updateInstance: InstanceUpdater<T, P> = (instance: T, curr?: P, prev?: P) => {
     for (const key of updateKeys) {
       const currValue = curr?.[key]; // 현재 값
       const prevValue = prev?.[key]; // 이전 값
@@ -43,23 +44,25 @@ export const createBaseObjectProvider = <T, P extends object>(
       // if (setterName in instance) {
       // }
     }
+
+    updateProperties(instance.setProperties, curr, prev);
   };
 
   return {
-    create: (options: P) => create(options),
-    canCreate,
-    update,
-    canUpdate,
+    createInstance,
+    shouldCreate: shouldCreateInstance,
+    updateInstance,
+    shouldUpdate: shouldUpdateInstance,
   };
 };
 
-export const useBaseObjectProvider = <T, P extends object>(
-  create: InstanceCreator<T, P>,
+export const useBaseObjectProvider = <T extends BaseObject, P extends object>(
+  createInstance: InstanceCreator<T, P>,
   createKeys: ReadonlyArray<keyof P & string> = [],
   updateKeys: ReadonlyArray<keyof P & string> = [],
   nullishKeys: ReadonlyArray<keyof P & string> = [],
 ) => {
   return useMemo(() => {
-    return createBaseObjectProvider(create, createKeys, updateKeys, nullishKeys);
-  }, [create, createKeys, nullishKeys, updateKeys]);
+    return createBaseObjectProvider(createInstance, createKeys, updateKeys, nullishKeys);
+  }, [createInstance, createKeys, nullishKeys, updateKeys]);
 };

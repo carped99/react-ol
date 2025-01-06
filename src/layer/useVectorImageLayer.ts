@@ -7,6 +7,7 @@ import { VectorImageLayerOptions } from './options';
 import { useInstance } from '../hooks/useInstance';
 import { useBaseObjectProvider } from '../hooks/BaseObjectProvider';
 import { BaseVectorLayerUpdateKeys } from './base/LayerProperties';
+import { useBaseVectorLayer } from './base/useBaseVectorLayer';
 
 /**
  * {@link VectorImageLayer}를 생성한다.
@@ -28,7 +29,11 @@ export const useVectorImageLayer = <
     BaseVectorLayerUpdateKeys,
   );
 
-  return useInstance(provider, options);
+  const instance = useInstance(provider, options);
+
+  useBaseVectorLayer<F, S>(instance, options);
+
+  return instance;
 };
 
 const createKeys = ['className', 'imageRatio'] as const;

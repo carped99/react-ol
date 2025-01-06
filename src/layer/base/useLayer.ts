@@ -1,13 +1,12 @@
 import { useEffect } from 'react';
 import Layer, { Options as LayerOptions } from 'ol/layer/Layer';
 import { Source } from 'ol/source';
-import { useBaseLayer } from './useBaseLayer';
 import { useMapContext } from '../../context';
 
 export const useLayer = <S extends Source = Source>(layer: Layer<S, any>, options: Readonly<LayerOptions<S>>) => {
-  const map = useMapContext().getMap();
+  const { map } = useMapContext();
 
-  useBaseLayer(layer, options);
+  // useBaseLayer(layer, options);
 
   // 레이어가 변경되면 이전 레이어를 제거하고 새로운 레이어를 추가한다.
   useEffect(() => {

@@ -12,7 +12,7 @@ import { findInteraction } from '../utils/common';
  * @category Interaction
  */
 export const useToggleInteraction = (clazz: Class<Interaction>, active: boolean) => {
-  const map = useMapContext().getMap();
+  const { map } = useMapContext();
 
   useEffect(() => {
     if (!map) return;

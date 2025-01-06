@@ -9,7 +9,7 @@ import { useMapContext } from '../context';
 import { useVectorLayer } from '../layer';
 
 export const useShowText = () => {
-  const map = useMapContext().getMap();
+  const { map } = useMapContext();
 
   const eventKey = useRef<EventsKey | undefined>(undefined);
 

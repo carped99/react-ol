@@ -1,6 +1,5 @@
-import { useGeolocation, useMap, useView } from '.';
+import { useMap, useView } from '.';
 import { MapViewOptions } from './options';
-import { log } from 'ol/console';
 
 /**
  * 지도를 생성하고 반환한다.
@@ -12,13 +11,5 @@ import { log } from 'ol/console';
  */
 export const useMapView = (options: MapViewOptions) => {
   const view = useView(options.view);
-  useGeolocation(
-    {},
-    {
-      onChangePosition: (e) => {
-        log('=============== change position =============== ', e);
-      },
-    },
-  );
   return useMap({ ...options, view });
 };

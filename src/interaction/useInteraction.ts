@@ -18,7 +18,7 @@ export const useInteraction = <T extends Interaction>(
   events?: Readonly<ObservableEvents<T>>,
   active: boolean = true,
 ) => {
-  const map = useMapContext().getMap();
+  const { map } = useMapContext();
 
   useEvents(interaction, events);
 

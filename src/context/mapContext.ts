@@ -7,18 +7,7 @@ import { createContext, useContext } from 'react';
  * @category Context
  */
 export type MapState<T = object> = {
-  // 추상화된 상태 관리를 위해 함수로 정의
-
-  /**
-   * 현재 맵 인스턴스를 반환하는 함수
-   * @returns 현재 맵 인스턴스 또는 undefined
-   */
-  getMap: () => Map | undefined;
-
-  /**
-   * 맵 인스턴스를 설정하는 함수
-   * @param map - 설정할 맵 인스턴스
-   */
+  map?: Map;
   setMap: (map: Map | undefined) => void;
 } & T;
 
@@ -40,19 +29,4 @@ export const useMapContext = () => {
     throw new Error('useMapContext must be used within a MapProvider');
   }
   return context;
-};
-
-/**
- * {@link MapContext}에 설정된 맵 인스턴스를 반환하는 훅
- *
- * @example
- * ```tsx
- * const { getMap } = useMapContext();
- * const map = getMap();
- * ```
- *
- * @category Context
- */
-export const useMapValue = () => {
-  return useMapContext().getMap();
 };

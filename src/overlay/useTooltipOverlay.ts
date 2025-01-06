@@ -17,7 +17,7 @@ export interface TooltipOverlayOptions extends Options {}
  * @category Overlay
  */
 export const useTooltipOverlay = (options?: TooltipOverlayOptions) => {
-  const map = useMapContext().getMap();
+  const { map } = useMapContext();
 
   const tooltip = useMemo(() => {
     return new Tooltip(options);

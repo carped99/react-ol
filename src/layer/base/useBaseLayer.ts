@@ -1,11 +1,9 @@
-import { useDebugValue, useEffect } from 'react';
+import { useEffect } from 'react';
 import BaseLayer, { Options as BaseOptions } from 'ol/layer/Base';
 import { equals as equalsExtent } from 'ol/extent';
 import { useProperties } from '../../hooks/useProperties';
 
 export const useBaseLayer = (layer: BaseLayer, options: Readonly<BaseOptions>) => {
-  useDebugValue(layer);
-
   useProperties(layer, options);
 
   useEffect(() => {

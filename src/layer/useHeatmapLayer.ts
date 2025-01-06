@@ -7,6 +7,7 @@ import { Geometry } from 'ol/geom';
 import { HeatmapLayerOptions } from './options';
 import { useInstance } from '../hooks/useInstance';
 import { useBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { useBaseVectorLayer } from './base/useBaseVectorLayer';
 
 /**
  * {@link Heatmap}를 생성한다.
@@ -23,7 +24,11 @@ export const useHeatmapLayer = <F extends FeatureLike = Feature<Geometry>, S ext
     useCallback((options) => new Heatmap<F, S>(options), []),
   );
 
-  return useInstance(provider, options);
+  const instance = useInstance(provider, options);
+
+  useBaseVectorLayer<F, S>(instance, options);
+
+  return instance;
 
   // const layer = useMemo(() => {
   //   return new Heatmap<F, S>(options);

@@ -26,7 +26,7 @@ describe('useInstance', () => {
 
   it('처음 실행 시, 생성 함수는 1번만 호출되고, 수정 함수는 실행되지 않는다.', () => {
     // 훅 실행
-    const { result } = renderHook(() => useInstance(initialProps, provider));
+    const { result } = renderHook(() => useInstance(provider, initialProps));
     expect(result.current).toBeDefined();
 
     // 생성 함수는 1번만 호출된다.
@@ -42,7 +42,7 @@ describe('useInstance', () => {
   });
 
   it('속성이 동일하면 경우, 생성/수정 함수를 실행하지 않는다.', () => {
-    const { rerender } = renderHook((props) => useInstance(props, provider), {
+    const { rerender } = renderHook((props) => useInstance(provider, props), {
       initialProps,
     });
 
@@ -65,7 +65,7 @@ describe('useInstance', () => {
     // true 반환 => 생성 함수 실행
     provider.canCreate.mockReturnValue(true);
 
-    const { rerender } = renderHook((props) => useInstance(props, provider), {
+    const { rerender } = renderHook((props) => useInstance(provider, props), {
       initialProps,
     });
 
@@ -90,7 +90,7 @@ describe('useInstance', () => {
     provider.canCreate.mockReturnValue(false);
     provider.canUpdate.mockReturnValue(true);
 
-    const { rerender } = renderHook((props) => useInstance(props, provider), {
+    const { rerender } = renderHook((props) => useInstance(provider, props), {
       initialProps,
     });
 
@@ -111,7 +111,7 @@ describe('useInstance', () => {
     provider.canCreate.mockReturnValue(false);
     provider.canUpdate.mockReturnValue(false);
 
-    const { rerender } = renderHook((props) => useInstance(props, provider), {
+    const { rerender } = renderHook((props) => useInstance(provider, props), {
       initialProps,
     });
 

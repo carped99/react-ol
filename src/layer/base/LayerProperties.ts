@@ -13,7 +13,7 @@ export const BaseLayerUpdateKeys = [
 ] as const;
 
 export const LayerCreateKeys = [...BaseLayerCreateKeys] as const;
-export const LayerUpdateKeys = [...BaseLayerUpdateKeys, 'map', 'source'] as const;
+export const LayerUpdateKeys = [...BaseLayerUpdateKeys, 'source'] as const;
 
 // export const LayerKeys = [...BaseLayerKeys, 'source', 'map'] as const satisfies readonly (
 //   | keyof LayerOptions

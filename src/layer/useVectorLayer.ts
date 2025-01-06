@@ -8,6 +8,7 @@ import { useInstance } from '../hooks/useInstance';
 import { useBaseObjectProvider } from '../hooks/BaseObjectProvider';
 import { BaseVectorLayerCreateKeys, BaseVectorLayerUpdateKeys } from './base/LayerProperties';
 import { InstanceProvider } from '../hooks/InstanceProvider';
+import { useBaseVectorLayer } from './base/useBaseVectorLayer';
 
 /**
  * {@link VectorLayer}를 생성한다.
@@ -29,5 +30,9 @@ export const useVectorLayer = <
     BaseVectorLayerUpdateKeys,
   );
 
-  return useInstance(provider as InstanceProvider<VectorLayer<S, F>, VectorLayerOptions<S, F>>, options);
+  const instance = useInstance(provider as InstanceProvider<VectorLayer<S, F>, VectorLayerOptions<S, F>>, options);
+
+  useBaseVectorLayer<F, S>(instance, options);
+
+  return instance;
 };

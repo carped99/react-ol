@@ -27,8 +27,9 @@ export const useInstance = <T, P>(provider: InstanceProvider<T, P>, props: P): T
 
   // 처음 실행 시 객체를 생성한다.
   if (instanceRef.current === undefined) {
+    console.log('======================= createInstance', props);
     debug(() => `Create instance: ${props}`);
-    instanceRef.current = provider.create(props, prevProps);
+    instanceRef.current = provider.createInstance(props, prevProps);
   }
 
   useEffect(() => {
@@ -38,19 +39,20 @@ export const useInstance = <T, P>(provider: InstanceProvider<T, P>, props: P): T
   }, []);
 
   useEffect(() => {
-    // 초기화가 완료된 이후에만 실행한다.
-    if (initialized.current && !equalsDeep(props, prevProps)) {
-      if (provider.canCreate(props, prevProps)) {
-        debug(() => `Recreate instance: ${props}`);
-        instanceRef.current = provider.create(props, prevProps);
-      } else if (provider.canUpdate(props, prevProps)) {
-        debug(() => `Update instance: ${props}`);
-        provider.update(instanceRef.current!, props, prevProps);
-      }
-    } else {
-      if (!instanceRef.current) throw new Error('This should not be reached');
-
+    if (!initialized.current) {
+      instanceRef.current = provider.createInstance(props, prevProps);
       initialized.current = true;
+    } else {
+      // 초기화가 완료된 이후에만 실행한다.
+      if (initialized.current && !equalsDeep(props, prevProps)) {
+        if (provider.shouldCreate(props, prevProps)) {
+          debug(() => `Recreate instance: ${props}`);
+          instanceRef.current = provider.createInstance(props, prevProps);
+        } else if (provider.shouldUpdate(props, prevProps)) {
+          debug(() => `Update instance: ${props}`);
+          provider.updateInstance(instanceRef.current!, props, prevProps);
+        }
+      }
     }
   }, [props, prevProps, provider]);
 

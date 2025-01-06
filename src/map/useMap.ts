@@ -4,7 +4,7 @@ import LayerGroup from 'ol/layer/Group';
 import { useProperties } from '../hooks/useProperties';
 import { useMapContext } from '../context';
 import { usePrevious } from '../hooks/usePrevious';
-import { equalsByProps } from '../utils/common';
+import { equals, equalsByProps } from '../utils/common';
 import { useEvents } from '../events';
 import { MapEvents } from './events';
 import { MapOptions } from './options';
@@ -31,8 +31,12 @@ export const useMap = (
 ): [Ref<HTMLDivElement>, Map | undefined] => {
   const { setMap } = useMapContext();
 
+  // 지도를 담을 div 요소
   const divRef = useRef<HTMLDivElement>(null);
+  // 지도 객체
   const mapRef = useRef<Map>(undefined);
+  // 이전 옵션
+  const prevOpts = usePrevious(options);
 
   if (!mapRef.current && divRef.current) {
     mapRef.current = new Map({
@@ -41,27 +45,32 @@ export const useMap = (
     });
   }
 
-  const prevOpts = usePrevious(options);
-
   useEffect(() => {
-    console.log('useMap useEffect', mapRef.current, divRef.current);
     if (!divRef.current) return;
 
-    if (mapRef.current && equalsByProps(prevOpts, options, createKeys)) {
-      updateMap(mapRef.current, prevOpts, options);
-    } else {
+    // 재생성해야만 하는 속성이 변경되었다면, 지도를 새로 생성한다.
+    if (!equalsByProps(prevOpts, options, shouldCreateKeys)) {
       cleanupMap(mapRef.current);
       mapRef.current = createMap(divRef.current, options);
       setMap(mapRef.current);
+    } else if (mapRef.current && prevOpts !== options) {
+      updateMap(mapRef.current, prevOpts, options);
     }
   }, [prevOpts, options, setMap]);
 
   useProperties(mapRef.current, options);
+
+  // 이벤트를 등록한다.
   useEvents(mapRef.current, events);
 
   return [divRef, mapRef.current];
 };
 
+/**
+ * 지도를 생성하고 반환한다.
+ * @param div - 지도를 담을 div 요소
+ * @param options - {@link MapOptions} 지도 옵션
+ */
 const createMap = (div: HTMLElement, options?: MapOptions) => {
   console.log('createMap', div, options);
   return new Map({
@@ -70,11 +79,21 @@ const createMap = (div: HTMLElement, options?: MapOptions) => {
   });
 };
 
+/**
+ * 지도를 정리한다.
+ * @param map - 지도 객체
+ */
 const cleanupMap = (map: Map | undefined) => {
   map?.setTarget(undefined);
   map?.dispose();
 };
 
+/**
+ * 지도를 수정한다.
+ * @param map - 지도 객체
+ * @param prev - 이전 옵션
+ * @param curr - 현재 옵션
+ */
 const updateMap = (map: Map, prev?: MapOptions, curr?: MapOptions) => {
   updateView(map, prev, curr);
   updateLayers(map, prev, curr);
@@ -84,13 +103,13 @@ const updateMap = (map: Map, prev?: MapOptions, curr?: MapOptions) => {
 };
 
 const updateView = (map: Map, prev?: MapOptions, curr?: MapOptions) => {
-  if (prev?.view !== curr?.view) {
-    map.setView(curr?.view ?? new View());
-  }
+  if (equals(prev?.view, curr?.view)) return;
+  map.setView(curr?.view ?? new View());
 };
 
 const updateLayers = (map: Map, prev?: MapOptions, curr?: MapOptions) => {
-  if (prev?.layers !== curr?.layers && curr?.layers != null) {
+  if (equals(prev?.layers, curr?.layers)) return;
+  if (curr?.layers != null) {
     if (curr.layers instanceof LayerGroup) {
       map.setLayerGroup(curr.layers);
     } else {
@@ -100,21 +119,26 @@ const updateLayers = (map: Map, prev?: MapOptions, curr?: MapOptions) => {
 };
 
 const updateControls = (map: Map, prev?: MapOptions, curr?: MapOptions) => {
-  if (prev?.controls !== curr?.controls && curr?.controls != null) {
+  if (equals(prev?.controls, curr?.controls)) return;
+
+  if (curr?.controls != null) {
     curr.controls.forEach(map.addControl);
   }
 };
 
 const updateInteractions = (map: Map, prev?: MapOptions, curr?: MapOptions) => {
-  if (prev?.interactions !== curr?.interactions && curr?.interactions != null) {
+  if (equals(prev?.interactions, curr?.interactions)) return;
+
+  if (curr?.interactions != null) {
     curr.interactions.forEach(map.addInteraction);
   }
 };
 
 const updateOverlays = (map: Map, prev?: MapOptions, curr?: MapOptions) => {
-  if (prev?.overlays !== curr?.overlays && curr?.overlays != null) {
+  if (equals(prev?.overlays, curr?.overlays)) return;
+  if (curr?.overlays != null) {
     curr.overlays.forEach(map.addOverlay);
   }
 };
 
-const createKeys = ['keyboardEventTarget', 'maxTilesLoading', 'moveTolerance', 'pixelRatio'] as const;
+const shouldCreateKeys = ['keyboardEventTarget', 'maxTilesLoading', 'moveTolerance', 'pixelRatio'] as const;

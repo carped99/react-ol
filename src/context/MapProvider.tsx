@@ -1,5 +1,6 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useState } from 'react';
 import { MapContext, MapState } from '.';
+import { Map } from 'ol';
 
 /**
  * MapContext Provider Props
@@ -7,7 +8,7 @@ import { MapContext, MapState } from '.';
  * @category Context
  */
 export interface MapProviderProps {
-  store: MapState;
+  store?: MapState;
 }
 
 /**
@@ -18,8 +19,8 @@ export interface MapProviderProps {
  * @example
  * - zustand를 사용하는 경우
  * ```tsx
- * export const useMapStore = create<OlMapState>((set, get) => ({
- *   getMap: () => get().map,
+ * const useMapStore = create<MapState>((set) => ({
+ *   map: undefined,
  *   setMap: (map) => set(() => ({ map })),
  * }));
  *
@@ -35,5 +36,15 @@ export interface MapProviderProps {
  * ```
  */
 export const MapProvider = ({ children, store }: PropsWithChildren<MapProviderProps>) => {
+  const defaultStore = useDefaultMapStore();
+  store = store ?? defaultStore;
   return <MapContext.Provider value={store}>{children}</MapContext.Provider>;
+};
+
+const useDefaultMapStore = (): MapState => {
+  const [map, setMap] = useState<Map | undefined>();
+  return {
+    map,
+    setMap,
+  };
 };
