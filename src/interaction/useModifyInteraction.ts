@@ -1,8 +1,9 @@
-import { useMemo } from 'react';
 import { Modify } from 'ol/interaction';
 import { Options } from 'ol/interaction/Modify';
 import { useInteraction } from './useInteraction';
 import { ModifyInteractionEvents } from './event';
+import { useInstance } from '../hooks/useInstance';
+import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link useModifyInteraction} hook.
@@ -26,9 +27,15 @@ export const useModifyInteraction = (
   events?: ModifyInteractionEvents<Modify>,
   active = true,
 ) => {
-  const interaction = useMemo(() => new Modify(options), [options]);
+  const instance = useInstance(provider, options);
 
-  useInteraction(interaction, events, active);
+  useInteraction(instance, events, active);
 
-  return interaction;
+  return instance;
 };
+
+const create = (options: Options) => {
+  return new Modify(options);
+};
+
+const provider = createBaseObjectProvider(create, [], []);

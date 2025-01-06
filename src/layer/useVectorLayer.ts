@@ -1,12 +1,13 @@
-import { useDebugValue } from 'react';
+import { useCallback, useDebugValue } from 'react';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { FeatureLike } from 'ol/Feature';
 import { ExtractedFeatureType } from 'ol/layer/BaseVector';
 import { VectorLayerOptions } from './options';
 import { useInstance } from '../hooks/useInstance';
-import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
-import { useBaseVectorLayer } from './base/useBaseVectorLayer';
+import { useBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { BaseVectorLayerCreateKeys, BaseVectorLayerUpdateKeys } from './base/LayerProperties';
+import { InstanceProvider } from '../hooks/InstanceProvider';
 
 /**
  * {@link VectorLayer}를 생성한다.
@@ -18,36 +19,15 @@ export const useVectorLayer = <
   S extends VectorSource<F> = VectorSource<any>,
   F extends FeatureLike = ExtractedFeatureType<S>,
 >(
-  options: Readonly<VectorLayerOptions<S, F>>,
+  options: VectorLayerOptions<S, F>,
 ) => {
   useDebugValue(options);
 
-  const instance = useInstance(provider, options);
+  const provider = useBaseObjectProvider<VectorLayer<S, F>, VectorLayerOptions<S, F>>(
+    useCallback((options) => new VectorLayer<S, F>(options), []),
+    BaseVectorLayerCreateKeys,
+    BaseVectorLayerUpdateKeys,
+  );
 
-  useBaseVectorLayer<F, S>(instance, options);
-
-  return instance;
+  return useInstance(provider as InstanceProvider<VectorLayer<S, F>, VectorLayerOptions<S, F>>, options);
 };
-
-const create = <S extends VectorSource<F>, F extends FeatureLike>(options?: Readonly<VectorLayerOptions<S, F>>) =>
-  new VectorLayer<S, F>(options);
-
-const createKeys = ['map', 'className', 'updateWhileAnimating', 'updateWhileInteracting'] as const;
-const updateKeys = [
-  'minZoom',
-  'maxZoom',
-  'opacity',
-  'visible',
-  'zIndex',
-  'extent',
-  'minResolution',
-  'maxResolution',
-  'renderOrder',
-  'source',
-  'declutter',
-  'style',
-  'background',
-  'properties',
-] as const;
-
-const provider = createBaseObjectProvider(create, createKeys, updateKeys);

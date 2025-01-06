@@ -1,8 +1,9 @@
-import { useMemo } from 'react';
 import { MouseWheelZoom } from 'ol/interaction';
 import { Options } from 'ol/interaction/MouseWheelZoom';
 import { useInteraction } from './useInteraction';
 import { MouseWheelZoomInteractionEvents } from './event';
+import { useInstance } from '../hooks/useInstance';
+import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link useMouseWheelZoomInteraction} hook.
@@ -22,13 +23,19 @@ export interface MouseWheelZoomInteractionOptions extends Options {}
  * @category Interaction
  */
 export const useMouseWheelZoomInteraction = (
-  options?: MouseWheelZoomInteractionOptions,
+  options: MouseWheelZoomInteractionOptions = {},
   events?: MouseWheelZoomInteractionEvents<MouseWheelZoom>,
   active = true,
 ) => {
-  const interaction = useMemo(() => new MouseWheelZoom(options), [options]);
+  const instance = useInstance(provider, options);
 
-  useInteraction(interaction, events, active);
+  useInteraction(instance, events, active);
 
-  return interaction;
+  return instance;
 };
+
+const create = (options: Options) => {
+  return new MouseWheelZoom(options);
+};
+
+const provider = createBaseObjectProvider(create, [], []);

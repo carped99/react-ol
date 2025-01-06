@@ -1,8 +1,9 @@
-import { useMemo } from 'react';
 import { DblClickDragZoom } from 'ol/interaction';
 import { Options } from 'ol/interaction/DblClickDragZoom';
 import { useInteraction } from './useInteraction';
 import { DblClickDragZoomInteractionEvents } from './event';
+import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { useInstance } from '../hooks/useInstance';
 
 /**
  * Options for the - {@link useDblClickDragZoomInteraction} hook.
@@ -22,13 +23,17 @@ export interface DblClickDragZoomInteractionOptions extends Options {}
  * @category Interaction
  */
 export const useDblClickDragZoomInteraction = (
-  options?: DblClickDragZoomInteractionOptions,
+  options: DblClickDragZoomInteractionOptions = {},
   events?: DblClickDragZoomInteractionEvents<DblClickDragZoom>,
   active = true,
 ) => {
-  const interaction = useMemo(() => new DblClickDragZoom(options), [options]);
+  const instance = useInstance(provider, options);
 
-  useInteraction(interaction, events, active);
+  useInteraction(instance, events, active);
 
-  return interaction;
+  return instance;
 };
+
+const create = (options: Options) => new DblClickDragZoom(options);
+
+const provider = createBaseObjectProvider(create, [], []);

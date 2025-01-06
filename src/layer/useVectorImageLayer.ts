@@ -1,10 +1,12 @@
-import { useDebugValue, useMemo } from 'react';
+import { useCallback, useDebugValue } from 'react';
 import VectorImageLayer from 'ol/layer/VectorImage';
 import { FeatureLike } from 'ol/Feature';
 import VectorSource from 'ol/source/Vector';
 import { ExtractedFeatureType } from 'ol/layer/BaseVector';
-import { useBaseVectorLayer } from './base/useBaseVectorLayer';
 import { VectorImageLayerOptions } from './options';
+import { useInstance } from '../hooks/useInstance';
+import { useBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { BaseVectorLayerUpdateKeys } from './base/LayerProperties';
 
 /**
  * {@link VectorImageLayer}를 생성한다.
@@ -16,17 +18,17 @@ export const useVectorImageLayer = <
   S extends VectorSource<F> = VectorSource<any>,
   F extends FeatureLike = ExtractedFeatureType<S>,
 >(
-  options: Readonly<VectorImageLayerOptions<S, F>>,
+  options: VectorImageLayerOptions<S, F>,
 ) => {
   useDebugValue(options);
 
-  const layer = useMemo(() => {
-    return new VectorImageLayer<S, F>(options);
+  const provider = useBaseObjectProvider<VectorImageLayer<S, F>, VectorImageLayerOptions<S, F>>(
+    useCallback((options) => new VectorImageLayer<S, F>(options), []),
+    createKeys,
+    BaseVectorLayerUpdateKeys,
+  );
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options.imageRatio]);
-
-  useBaseVectorLayer<F, S>(layer, options);
-
-  return layer;
+  return useInstance(provider, options);
 };
+
+const createKeys = ['className', 'imageRatio'] as const;

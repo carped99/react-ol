@@ -1,8 +1,9 @@
-import { useMemo } from 'react';
 import { DragBox } from 'ol/interaction';
 import { Options } from 'ol/interaction/DragBox';
 import { useInteraction } from './useInteraction';
 import { DragBoxInteractionEvents } from './event';
+import { useInstance } from '../hooks/useInstance';
+import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link DragBoxInteraction} hook.
@@ -22,13 +23,17 @@ export interface DragBoxInteractionOptions extends Options {}
  * @category Interaction
  */
 export const useDragBoxInteraction = (
-  options?: DragBoxInteractionOptions,
+  options: DragBoxInteractionOptions = {},
   events?: DragBoxInteractionEvents<DragBox>,
   active = true,
 ) => {
-  const interaction = useMemo(() => new DragBox(options), [options]);
+  const instance = useInstance(provider, options);
 
-  useInteraction(interaction, events, active);
+  useInteraction(instance, events, active);
 
-  return interaction;
+  return instance;
 };
+
+const create = (options: Options) => new DragBox(options);
+
+const provider = createBaseObjectProvider(create, [], []);

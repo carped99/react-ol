@@ -1,8 +1,9 @@
-import { useMemo } from 'react';
 import { KeyboardPan } from 'ol/interaction';
 import { Options } from 'ol/interaction/KeyboardPan';
 import { useInteraction } from './useInteraction';
 import { KeyboardPanInteractionEvents } from './event';
+import { useInstance } from '../hooks/useInstance';
+import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link useKeyboardPanInteraction} hook.
@@ -22,13 +23,19 @@ export interface KeyboardPanInteractionOptions extends Options {}
  * @category Interaction
  */
 export const useKeyboardPanInteraction = (
-  options?: KeyboardPanInteractionOptions,
+  options: KeyboardPanInteractionOptions = {},
   events?: KeyboardPanInteractionEvents<KeyboardPan>,
   active = true,
 ) => {
-  const interaction = useMemo(() => new KeyboardPan(options), [options]);
+  const instance = useInstance(provider, options);
 
-  useInteraction(interaction, events, active);
+  useInteraction(instance, events, active);
 
-  return interaction;
+  return instance;
 };
+
+const create = (options: Options) => {
+  return new KeyboardPan(options);
+};
+
+const provider = createBaseObjectProvider(create, [], []);

@@ -1,5 +1,5 @@
 import { ExtractedFeatureType, Options } from 'ol/layer/VectorTile';
-import { VectorTile } from 'ol/source';
+import VectorTile from 'ol/source/VectorTile';
 import { FeatureLike } from 'ol/Feature';
 
 /**

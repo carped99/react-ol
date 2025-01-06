@@ -1,9 +1,8 @@
-import { useDebugValue, useMemo } from 'react';
+import { useDebugValue } from 'react';
 import Graticule from 'ol/layer/Graticule';
-import VectorSource from 'ol/source/Vector';
-import { Feature } from 'ol';
-import { useBaseVectorLayer } from './base/useBaseVectorLayer';
 import { GraticuleLayerOptions } from './options';
+import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { useInstance } from '../hooks/useInstance';
 
 /**
  * {@link Graticule}를 생성한다.
@@ -14,25 +13,31 @@ import { GraticuleLayerOptions } from './options';
 export const useGraticuleLayer = (options: Readonly<GraticuleLayerOptions>) => {
   useDebugValue(options);
 
-  const layer = useMemo(() => {
-    return new Graticule(options);
+  return useInstance(provider, options);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    options.maxLines,
-    options.strokeStyle,
-    options.targetSize,
-    options.showLabels,
-    options.lonLabelFormatter,
-    options.latLabelFormatter,
-    options.lonLabelPosition,
-    options.latLabelPosition,
-    options.lonLabelStyle,
-    options.latLabelStyle,
-    options.intervals,
-  ]);
-
-  useBaseVectorLayer<Feature, VectorSource<Feature>>(layer, options);
-
-  return layer;
+  // const layer = useMemo(() => {
+  //   return new Graticule(options);
+  //
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [
+  //   options.maxLines,
+  //   options.strokeStyle,
+  //   options.targetSize,
+  //   options.showLabels,
+  //   options.lonLabelFormatter,
+  //   options.latLabelFormatter,
+  //   options.lonLabelPosition,
+  //   options.latLabelPosition,
+  //   options.lonLabelStyle,
+  //   options.latLabelStyle,
+  //   options.intervals,
+  // ]);
+  //
+  // useBaseVectorLayer<Feature, VectorSource<Feature>>(layer, options);
+  //
+  // return layer;
 };
+
+const create = (options: Readonly<GraticuleLayerOptions>) => new Graticule(options);
+
+const provider = createBaseObjectProvider(create);

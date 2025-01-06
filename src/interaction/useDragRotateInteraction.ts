@@ -1,8 +1,9 @@
-import { useMemo } from 'react';
 import { DragRotate } from 'ol/interaction';
 import { Options } from 'ol/interaction/DragRotate';
 import { useInteraction } from './useInteraction';
 import { DragRotateInteractionEvents } from './event';
+import { useInstance } from '../hooks/useInstance';
+import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link useDragRotateInteraction} hook.
@@ -23,13 +24,17 @@ export interface DragRotateInteractionOptions extends Options {}
  * @category Interaction
  */
 export const useDragRotateInteraction = (
-  options?: DragRotateInteractionOptions,
+  options: DragRotateInteractionOptions = {},
   events?: DragRotateInteractionEvents<DragRotate>,
   active = true,
 ) => {
-  const interaction = useMemo(() => new DragRotate(options), [options]);
+  const instance = useInstance(provider, options);
 
-  useInteraction(interaction, events, active);
+  useInteraction(instance, events, active);
 
-  return interaction;
+  return instance;
 };
+
+const create = (options: Options) => new DragRotate(options);
+
+const provider = createBaseObjectProvider(create, [], []);

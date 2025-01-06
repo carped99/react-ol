@@ -13,7 +13,7 @@ import { InstanceProvider } from './InstanceProvider';
  * @param props - 객체를 생성하거나 갱신할 때 사용할 속성 값들
  * @param provider - 객체를 생성하거나 수정하는 로직을 제공하는 객체
  */
-export const useInstance = <T, P extends object>(provider: InstanceProvider<T, P>, props: P): T => {
+export const useInstance = <T, P>(provider: InstanceProvider<T, P>, props: P): T => {
   useDebugValue(props);
 
   // 객체를 저장하기 위한 Ref 객체

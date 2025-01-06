@@ -1,8 +1,9 @@
-import { useMemo } from 'react';
 import { Translate } from 'ol/interaction';
 import { Options } from 'ol/interaction/Translate';
 import { useInteraction } from './useInteraction';
 import { TranslateInteractionEvents } from './event';
+import { useInstance } from '../hooks/useInstance';
+import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link useTranslateInteraction} hook.
@@ -22,13 +23,19 @@ export interface TranslateInteractionOptions extends Options {}
  * @category Interaction
  */
 export const useTranslateInteraction = (
-  options?: TranslateInteractionOptions,
+  options: TranslateInteractionOptions = {},
   events?: TranslateInteractionEvents<Translate>,
   active = true,
 ) => {
-  const translate = useMemo(() => new Translate(options), [options]);
+  const instance = useInstance(provider, options);
 
-  useInteraction(translate, events, active);
+  useInteraction(instance, events, active);
 
-  return translate;
+  return instance;
 };
+
+const create = (options: TranslateInteractionOptions) => {
+  return new Translate(options);
+};
+
+const provider = createBaseObjectProvider(create, [], []);

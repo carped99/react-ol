@@ -1,8 +1,9 @@
-import { useMemo } from 'react';
 import { DoubleClickZoom } from 'ol/interaction';
 import { Options } from 'ol/interaction/DoubleClickZoom';
 import { useInteraction } from './useInteraction';
 import { DblClickZoomInteractionEvents } from './event';
+import { useInstance } from '../hooks/useInstance';
+import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link useDblClickZoomInteraction} hook.
@@ -22,13 +23,17 @@ export interface DblClickZoomInteractionOptions extends Options {}
  * @category Interaction
  */
 export const useDblClickZoomInteraction = (
-  options?: DblClickZoomInteractionOptions,
+  options: DblClickZoomInteractionOptions = {},
   events?: DblClickZoomInteractionEvents<DoubleClickZoom>,
   active = true,
 ) => {
-  const interaction = useMemo(() => new DoubleClickZoom(options), [options]);
+  const instance = useInstance(provider, options);
 
-  useInteraction(interaction, events, active);
+  useInteraction(instance, events, active);
 
-  return interaction;
+  return instance;
 };
+
+const create = (options: Options) => new DoubleClickZoom(options);
+
+const provider = createBaseObjectProvider(create, [], []);

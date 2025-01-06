@@ -1,7 +1,8 @@
-import { useDebugValue, useMemo } from 'react';
+import { useDebugValue } from 'react';
 import WebGLTileLayer from 'ol/layer/WebGLTile';
-import { useBaseTileLayer } from './base/useBaseTileLayer';
 import { WebGLTileLayerOptions } from './options';
+import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { useInstance } from '../hooks/useInstance';
 
 /**
  * {@link WebGLTileLayer}를 생성한다.
@@ -12,12 +13,9 @@ import { WebGLTileLayerOptions } from './options';
 export const useWebGLTileLayer = (options: Readonly<WebGLTileLayerOptions>) => {
   useDebugValue(options);
 
-  const layer = useMemo(() => {
-    return new WebGLTileLayer(options);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useBaseTileLayer(layer, options);
-
-  return layer;
+  return useInstance(provider, options);
 };
+
+const create = (options: Readonly<WebGLTileLayerOptions>) => new WebGLTileLayer(options);
+
+const provider = createBaseObjectProvider(create);

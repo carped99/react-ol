@@ -38,7 +38,7 @@ export const useSnapInteraction = (
   return instance;
 };
 
-const create = (options?: SnapInteractionOptions) => {
+const create = (options: SnapInteractionOptions) => {
   return new Snap(options);
 };
 

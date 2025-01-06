@@ -1,8 +1,9 @@
-import { useMemo } from 'react';
 import { KeyboardZoom } from 'ol/interaction';
 import { Options } from 'ol/interaction/KeyboardZoom';
 import { useInteraction } from './useInteraction';
 import { KeyboardZoomInteractionEvents } from './event';
+import { useInstance } from '../hooks/useInstance';
+import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link useKeyboardZoomInteraction} hook.
@@ -22,13 +23,19 @@ export interface KeyboardZoomInteractionOptions extends Options {}
  * @category Interaction
  */
 export const useKeyboardZoomInteraction = (
-  options?: KeyboardZoomInteractionOptions,
+  options: KeyboardZoomInteractionOptions = {},
   events?: KeyboardZoomInteractionEvents<KeyboardZoom>,
   active = true,
 ) => {
-  const interaction = useMemo(() => new KeyboardZoom(options), [options]);
+  const instance = useInstance(provider, options);
 
-  useInteraction(interaction, events, active);
+  useInteraction(instance, events, active);
 
-  return interaction;
+  return instance;
 };
+
+const create = (options: Options) => {
+  return new KeyboardZoom(options);
+};
+
+const provider = createBaseObjectProvider(create, [], []);

@@ -1,9 +1,10 @@
-import { useDebugValue, useMemo } from 'react';
+import { useCallback, useDebugValue } from 'react';
 import { Tile as TileLayer } from 'ol/layer';
 import { Tile as TileSource } from 'ol/source';
 import { Tile } from 'ol';
-import { useBaseTileLayer } from './base/useBaseTileLayer';
 import { TileLayerOptions } from './options';
+import { useInstance } from '../hooks/useInstance';
+import { useBaseObjectProvider } from '../hooks/BaseObjectProvider';
 
 /**
  * {@link TileLayer}를 생성한다.
@@ -14,12 +15,9 @@ import { TileLayerOptions } from './options';
 export const useTileLayer = <S extends TileSource = TileSource<Tile>>(options: Readonly<TileLayerOptions<S>>) => {
   useDebugValue(options);
 
-  const layer = useMemo(() => {
-    return new TileLayer(options);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const provider = useBaseObjectProvider<TileLayer<S>, TileLayerOptions<S>>(
+    useCallback((options) => new TileLayer<S>(options), []),
+  );
 
-  useBaseTileLayer(layer, options);
-
-  return layer;
+  return useInstance(provider, options);
 };

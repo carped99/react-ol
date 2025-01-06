@@ -1,8 +1,9 @@
-import { useMemo } from 'react';
 import { DragAndDrop } from 'ol/interaction';
 import { Options } from 'ol/interaction/DragAndDrop';
 import { useInteraction } from './useInteraction';
 import { DragAndDropInteractionEvents } from './event';
+import { useInstance } from '../hooks/useInstance';
+import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link useDragAndDropInteraction} hook.
@@ -22,13 +23,17 @@ export interface DragAndDropInteractionOptions extends Options {}
  * @category Interaction
  */
 export const useDragAndDropInteraction = (
-  options?: DragAndDropInteractionOptions,
+  options: DragAndDropInteractionOptions = {},
   events?: DragAndDropInteractionEvents<DragAndDrop>,
   active = true,
 ) => {
-  const interaction = useMemo(() => new DragAndDrop(options), [options]);
+  const instance = useInstance(provider, options);
 
-  useInteraction(interaction, events, active);
+  useInteraction(instance, events, active);
 
-  return interaction;
+  return instance;
 };
+
+const create = (options: Options) => new DragAndDrop(options);
+
+const provider = createBaseObjectProvider(create, [], []);

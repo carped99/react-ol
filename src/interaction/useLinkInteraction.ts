@@ -1,8 +1,9 @@
-import { useMemo } from 'react';
 import { Link } from 'ol/interaction';
 import { Options } from 'ol/interaction/Link';
 import { useInteraction } from './useInteraction';
 import { LinkInteractionEvents } from './event';
+import { useInstance } from '../hooks/useInstance';
+import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link useLinkInteraction} hook.
@@ -22,13 +23,19 @@ export interface LinkInteractionOptions extends Options {}
  * @category Interaction
  */
 export const useLinkInteraction = (
-  options?: LinkInteractionOptions,
+  options: LinkInteractionOptions = {},
   events?: LinkInteractionEvents<Link>,
   active = true,
 ) => {
-  const interaction = useMemo(() => new Link(options), [options]);
+  const instance = useInstance(provider, options);
 
-  useInteraction(interaction, events, active);
+  useInteraction(instance, events, active);
 
-  return interaction;
+  return instance;
 };
+
+const create = (options: Options) => {
+  return new Link(options);
+};
+
+const provider = createBaseObjectProvider(create, [], []);

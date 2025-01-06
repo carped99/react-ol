@@ -1,8 +1,9 @@
-import { useMemo } from 'react';
 import { PinchRotate } from 'ol/interaction';
 import { Options } from 'ol/interaction/PinchRotate';
 import { useInteraction } from './useInteraction';
 import { PinchRotateInteractionEvents } from './event';
+import { useInstance } from '../hooks/useInstance';
+import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link usePinchRotateInteraction} hook.
@@ -22,13 +23,19 @@ export interface PinchRotateInteractionOptions extends Options {}
  * @category Interaction
  */
 export const usePinchRotateInteraction = (
-  options?: PinchRotateInteractionOptions,
+  options: PinchRotateInteractionOptions = {},
   events?: PinchRotateInteractionEvents<PinchRotate>,
   active = true,
 ) => {
-  const interaction = useMemo(() => new PinchRotate(options), [options]);
+  const instance = useInstance(provider, options);
 
-  useInteraction(interaction, events, active);
+  useInteraction(instance, events, active);
 
-  return interaction;
+  return instance;
 };
+
+const create = (options: Options) => {
+  return new PinchRotate(options);
+};
+
+const provider = createBaseObjectProvider(create, [], []);

@@ -1,8 +1,9 @@
-import { useMemo } from 'react';
 import { DragPan } from 'ol/interaction';
 import { Options } from 'ol/interaction/DragPan';
 import { useInteraction } from './useInteraction';
 import { DragPanInteractionEvents } from './event';
+import { useInstance } from '../hooks/useInstance';
+import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for {@link useDragPanInteraction} hook.
@@ -22,13 +23,17 @@ export interface DragPanInteractionOptions extends Options {}
  * @category Interaction
  */
 export const useDragPanInteraction = (
-  options?: DragPanInteractionOptions,
+  options: DragPanInteractionOptions = {},
   events?: DragPanInteractionEvents<DragPan>,
   active = true,
 ) => {
-  const interaction = useMemo(() => new DragPan(options), [options]);
+  const instance = useInstance(provider, options);
 
-  useInteraction(interaction, events, active);
+  useInteraction(instance, events, active);
 
-  return interaction;
+  return instance;
 };
+
+const create = (options: Options) => new DragPan(options);
+
+const provider = createBaseObjectProvider(create, [], []);

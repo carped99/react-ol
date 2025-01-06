@@ -5,6 +5,7 @@ import { ViewEvents } from './events';
 import { ViewOptions } from './options';
 import { useInstance } from '../hooks/useInstance';
 import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { InstanceCreator } from '../hooks/InstanceProvider';
 
 /**
  * Hook for creating an OpenLayers view.
@@ -33,7 +34,7 @@ const updateKeys = [
   'zoomFactor',
 ] as const;
 
-const create = (options?: ViewOptions) => new View(options);
+const create: InstanceCreator<View, ViewOptions> = (options?: ViewOptions) => new View(options);
 
 const provider = createBaseObjectProvider(create, [], updateKeys);
 

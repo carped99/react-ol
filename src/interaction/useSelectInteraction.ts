@@ -46,6 +46,6 @@ const createKeys = [
   'toggleCondition',
 ] as const;
 
-const create = (options?: Options) => new Select(options);
+const create = (options: Options) => new Select(options);
 
 const provider = createBaseObjectProvider(create, createKeys, []);

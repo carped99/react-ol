@@ -1,8 +1,9 @@
-import { useMemo } from 'react';
 import { Extent } from 'ol/interaction';
 import { Options } from 'ol/interaction/Extent';
 import { useInteraction } from './useInteraction';
 import { ExtentInteractionEvents } from './event';
+import { useInstance } from '../hooks/useInstance';
+import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link useExtentInteraction} hook.
@@ -22,13 +23,19 @@ export interface ExtentInteractionOptions extends Options {}
  * @category Interaction
  */
 export const useExtentInteraction = (
-  options?: ExtentInteractionOptions,
+  options: ExtentInteractionOptions = {},
   events?: ExtentInteractionEvents<Extent>,
   active = true,
 ) => {
-  const interaction = useMemo(() => new Extent(options), [options]);
+  const instance = useInstance(provider, options);
 
-  useInteraction(interaction, events, active);
+  useInteraction(instance, events, active);
 
-  return interaction;
+  return instance;
 };
+
+const create = (options: Options) => {
+  return new Extent(options);
+};
+
+const provider = createBaseObjectProvider(create, [], []);

@@ -19,7 +19,7 @@ export const useGeolocation = (options: GeolocationOptions = {}, events?: Geoloc
   return instance;
 };
 
-const create = (options?: GeolocationOptions) => {
+const create = (options: GeolocationOptions) => {
   return new Geolocation(options);
 };
 

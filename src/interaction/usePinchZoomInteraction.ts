@@ -1,8 +1,9 @@
-import { useMemo } from 'react';
 import { PinchZoom } from 'ol/interaction';
 import { Options } from 'ol/interaction/PinchZoom';
 import { useInteraction } from './useInteraction';
 import { PinchZoomInteractionEvents } from './event';
+import { useInstance } from '../hooks/useInstance';
+import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link usePinchZoomInteraction} hook.
@@ -22,13 +23,19 @@ export interface PinchZoomInteractionOptions extends Options {}
  * @category Interaction
  */
 export const usePinchZoomInteraction = (
-  options?: PinchZoomInteractionOptions,
+  options: PinchZoomInteractionOptions = {},
   events?: PinchZoomInteractionEvents<PinchZoom>,
   active = true,
 ) => {
-  const interaction = useMemo(() => new PinchZoom(options), [options]);
+  const instance = useInstance(provider, options);
 
-  useInteraction(interaction, events, active);
+  useInteraction(instance, events, active);
 
-  return interaction;
+  return instance;
 };
+
+const create = (options: Options) => {
+  return new PinchZoom(options);
+};
+
+const provider = createBaseObjectProvider(create, [], []);
