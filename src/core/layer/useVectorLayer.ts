@@ -6,9 +6,9 @@ import { ExtractedFeatureType } from 'ol/layer/BaseVector';
 import { VectorLayerOptions } from './options';
 import { useInstance } from '../hooks/useInstance';
 import { useInstanceProviderByKeys } from '../hooks/BaseObjectProvider';
-import { BaseVectorLayerCreateKeys, BaseVectorLayerUpdateKeys } from './base/LayerProperties';
 import { InstanceProvider } from '../hooks/InstanceProvider';
 import { useBaseVectorLayer } from './base/useBaseVectorLayer';
+import { BaseVectorInstanceProperties } from './base/ObservableProperties';
 
 /**
  * {@link VectorLayer}를 생성한다.
@@ -26,8 +26,7 @@ export const useVectorLayer = <
 
   const provider = useInstanceProviderByKeys<VectorLayer<S, F>, VectorLayerOptions<S, F>>(
     useCallback((options) => new VectorLayer<S, F>(options), []),
-    BaseVectorLayerCreateKeys,
-    BaseVectorLayerUpdateKeys,
+    instanceProperties,
   );
 
   const instance = useInstance(provider as InstanceProvider<VectorLayer<S, F>, VectorLayerOptions<S, F>>, options);
@@ -36,3 +35,5 @@ export const useVectorLayer = <
 
   return instance;
 };
+
+const instanceProperties = [...BaseVectorInstanceProperties] as const;

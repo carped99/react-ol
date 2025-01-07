@@ -7,6 +7,7 @@ import { useBaseVectorLayer } from './base/useBaseVectorLayer';
 import { Feature } from 'ol';
 import { Geometry } from 'ol/geom';
 import VectorSource from 'ol/source/Vector';
+import { BaseVectorInstanceProperties } from './base/ObservableProperties';
 
 /**
  * {@link Graticule}를 생성한다.
@@ -22,30 +23,24 @@ export const useGraticuleLayer = (options: Readonly<GraticuleLayerOptions>) => {
   useBaseVectorLayer<Feature<Geometry>, VectorSource<Feature<Geometry>>>(instance, options);
 
   return instance;
-
-  // const layer = useMemo(() => {
-  //   return new Graticule(options);
-  //
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [
-  //   options.maxLines,
-  //   options.strokeStyle,
-  //   options.targetSize,
-  //   options.showLabels,
-  //   options.lonLabelFormatter,
-  //   options.latLabelFormatter,
-  //   options.lonLabelPosition,
-  //   options.latLabelPosition,
-  //   options.lonLabelStyle,
-  //   options.latLabelStyle,
-  //   options.intervals,
-  // ]);
-  //
-  // useBaseVectorLayer<Feature, VectorSource<Feature>>(layer, options);
-  //
-  // return layer;
 };
+
+const instanceProperties = [
+  ...BaseVectorInstanceProperties,
+  { name: 'strokeStyle', settable: false },
+  { name: 'targetSize', settable: false },
+  { name: 'showLabels', settable: false },
+  { name: 'maxLines', settable: false },
+  { name: 'lonLabelFormatter', settable: false },
+  { name: 'latLabelFormatter', settable: false },
+  { name: 'lonLabelPosition', settable: false },
+  { name: 'latLabelPosition', settable: false },
+  { name: 'lonLabelStyle', settable: false },
+  { name: 'latLabelStyle', settable: false },
+  { name: 'intervals', settable: false },
+  { name: 'wrapX', settable: false },
+] as const;
 
 const create = (options: Readonly<GraticuleLayerOptions>) => new Graticule(options);
 
-const provider = createInstanceProviderByKey(create);
+const provider = createInstanceProviderByKey(create, instanceProperties);

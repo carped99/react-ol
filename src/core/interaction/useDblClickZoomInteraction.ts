@@ -27,7 +27,7 @@ export const useDblClickZoomInteraction = (
   events?: DblClickZoomInteractionEvents,
   active = true,
 ) => {
-  const instance = useInstance(provider, options);
+  const instance = useInstance(instanceProvider, options);
 
   useInteraction(instance, events, active);
 
@@ -36,4 +36,6 @@ export const useDblClickZoomInteraction = (
 
 const createInstance = (options: Options) => new DoubleClickZoom(options);
 
-const provider = createInstanceProviderByKey(createInstance, [], []);
+const instanceProperties = [{ name: 'duration' }, { name: 'delta' }] as const;
+
+const instanceProvider = createInstanceProviderByKey(createInstance, instanceProperties);

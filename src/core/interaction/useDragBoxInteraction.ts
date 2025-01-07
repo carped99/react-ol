@@ -27,13 +27,21 @@ export const useDragBoxInteraction = (
   events?: DragBoxInteractionEvents,
   active = true,
 ) => {
-  const instance = useInstance(provider, options);
+  const instance = useInstance(instanceProvider, options);
 
   useInteraction(instance, events, active);
 
   return instance;
 };
 
-const create = (options: Options) => new DragBox(options);
+const createInstance = (options: Options) => new DragBox(options);
 
-const provider = createInstanceProviderByKey(create, [], []);
+const instanceProperties = [
+  { name: 'className', settable: false },
+  { name: 'condition', settable: false },
+  { name: 'minArea', settable: false },
+  { name: 'boxEndCondition', settable: false },
+  // { name: 'onBoxEnd', settable: true },
+] as const;
+
+const instanceProvider = createInstanceProviderByKey(createInstance, instanceProperties);

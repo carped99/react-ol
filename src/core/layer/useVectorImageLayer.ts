@@ -6,8 +6,8 @@ import { ExtractedFeatureType } from 'ol/layer/BaseVector';
 import { VectorImageLayerOptions } from './options';
 import { useInstance } from '../hooks/useInstance';
 import { useInstanceProviderByKeys } from '../hooks/BaseObjectProvider';
-import { BaseVectorLayerUpdateKeys } from './base/LayerProperties';
 import { useBaseVectorLayer } from './base/useBaseVectorLayer';
+import { BaseVectorInstanceProperties } from './base/ObservableProperties';
 
 /**
  * {@link VectorImageLayer}를 생성한다.
@@ -25,8 +25,7 @@ export const useVectorImageLayer = <
 
   const provider = useInstanceProviderByKeys<VectorImageLayer<S, F>, VectorImageLayerOptions<S, F>>(
     useCallback((options) => new VectorImageLayer<S, F>(options), []),
-    createKeys,
-    BaseVectorLayerUpdateKeys,
+    instanceProperties,
   );
 
   const instance = useInstance(provider, options);
@@ -36,4 +35,4 @@ export const useVectorImageLayer = <
   return instance;
 };
 
-const createKeys = ['className', 'imageRatio'] as const;
+const instanceProperties = [...BaseVectorInstanceProperties, { name: 'imageRatio', settable: false }] as const;

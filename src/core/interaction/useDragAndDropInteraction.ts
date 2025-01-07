@@ -27,13 +27,20 @@ export const useDragAndDropInteraction = (
   events?: DragAndDropInteractionEvents,
   active = true,
 ) => {
-  const instance = useInstance(provider, options);
+  const instance = useInstance(instanceProvider, options);
 
   useInteraction(instance, events, active);
 
   return instance;
 };
 
-const create = (options: Options) => new DragAndDrop(options);
+const createInstance = (options: Options) => new DragAndDrop(options);
 
-const provider = createInstanceProviderByKey(create, [], []);
+const instanceProperties = [
+  { name: 'formatConstructors', settable: false },
+  { name: 'source', settable: false },
+  { name: 'projection', settable: false },
+  { name: 'target', settable: false },
+] as const;
+
+const instanceProvider = createInstanceProviderByKey(createInstance, instanceProperties);

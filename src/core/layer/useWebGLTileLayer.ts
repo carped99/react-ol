@@ -4,6 +4,7 @@ import { WebGLTileLayerOptions } from './options';
 import { createInstanceProviderByKey } from '../hooks/BaseObjectProvider';
 import { useInstance } from '../hooks/useInstance';
 import { useBaseTileLayer } from './base/useBaseTileLayer';
+import { BaseTileLayerInstanceProperties } from './base/ObservableProperties';
 
 /**
  * {@link WebGLTileLayer}를 생성한다.
@@ -23,4 +24,9 @@ export const useWebGLTileLayer = (options: Readonly<WebGLTileLayerOptions>) => {
 
 const create = (options: Readonly<WebGLTileLayerOptions>) => new WebGLTileLayer(options);
 
-const provider = createInstanceProviderByKey(create);
+const instanceProperties = [
+  ...BaseTileLayerInstanceProperties,
+  { name: 'style', settable: true, nullable: true },
+] as const;
+
+const provider = createInstanceProviderByKey(create, instanceProperties);

@@ -23,5 +23,10 @@ const create = (options: GeolocationOptions) => {
   return new Geolocation(options);
 };
 
-const updateKeys = ['tracking', 'trackingOptions', 'projection'] as const;
-const provider = createInstanceProviderByKey(create, [], updateKeys, []);
+const instanceProperties = [
+  { name: 'tracking', settable: true },
+  { name: 'trackingOptions', settable: true },
+  { name: 'projection', settable: true },
+] as const;
+
+const provider = createInstanceProviderByKey(create, instanceProperties);

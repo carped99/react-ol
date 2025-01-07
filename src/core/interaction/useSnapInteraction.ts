@@ -31,17 +31,21 @@ export const useSnapInteraction = (
     throw new Error('snapOptions should have features or source');
   }
 
-  const instance = useInstance(provider, options);
+  const instance = useInstance(instanceProvider, options);
 
   useInteraction(instance, events, active);
 
   return instance;
 };
 
-const create = (options: SnapInteractionOptions) => {
-  return new Snap(options);
-};
+const createInstance = (options: SnapInteractionOptions) => new Snap(options);
 
-const createKeys = ['features', 'edge', 'vertex', 'pixelTolerance'] as const;
+const instanceProperties = [
+  { name: 'features', settable: false },
+  { name: 'edge', settable: false },
+  { name: 'vertex', settable: false },
+  { name: 'pixelTolerance', settable: false },
+  { name: 'source', settable: false },
+] as const;
 
-const provider = createInstanceProviderByKey(create, createKeys, []);
+const instanceProvider = createInstanceProviderByKey(createInstance, instanceProperties);

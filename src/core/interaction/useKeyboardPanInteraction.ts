@@ -27,15 +27,19 @@ export const useKeyboardPanInteraction = (
   events?: KeyboardPanInteractionEvents,
   active = true,
 ) => {
-  const instance = useInstance(provider, options);
+  const instance = useInstance(instanceProvider, options);
 
   useInteraction(instance, events, active);
 
   return instance;
 };
 
-const create = (options: Options) => {
-  return new KeyboardPan(options);
-};
+const createInstance = (options: Options) => new KeyboardPan(options);
 
-const provider = createInstanceProviderByKey(create, [], []);
+const instanceProperties = [
+  { name: 'condition', settable: false },
+  { name: 'duration', settable: false },
+  { name: 'pixelDelta', settable: false },
+] as const;
+
+const instanceProvider = createInstanceProviderByKey(createInstance, instanceProperties);

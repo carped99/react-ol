@@ -8,6 +8,7 @@ import { HeatmapLayerOptions } from './options';
 import { useInstance } from '../hooks/useInstance';
 import { useInstanceProviderByKeys } from '../hooks/BaseObjectProvider';
 import { useBaseVectorLayer } from './base/useBaseVectorLayer';
+import { BaseVectorInstanceProperties } from './base/ObservableProperties';
 
 /**
  * {@link Heatmap}를 생성한다.
@@ -22,6 +23,7 @@ export const useHeatmapLayer = <F extends FeatureLike = Feature<Geometry>, S ext
 
   const provider = useInstanceProviderByKeys<Heatmap<F, S>, HeatmapLayerOptions<F, S>>(
     useCallback((options) => new Heatmap<F, S>(options), []),
+    instanceProperties,
   );
 
   const instance = useInstance(provider, options);
@@ -29,31 +31,12 @@ export const useHeatmapLayer = <F extends FeatureLike = Feature<Geometry>, S ext
   useBaseVectorLayer<F, S>(instance, options);
 
   return instance;
-
-  // const layer = useMemo(() => {
-  //   return new Heatmap<F, S>(options);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [options.weight]);
-  //
-  // useBaseVectorLayer<F, S>(layer, options);
-  //
-  // useEffect(() => {
-  //   if (options.gradient != null && layer.getGradient() !== options.gradient) {
-  //     layer.setGradient(options.gradient);
-  //   }
-  // }, [layer, options.gradient]);
-  //
-  // useEffect(() => {
-  //   if (options.radius != null && layer.getRadius() !== options.radius) {
-  //     layer.setRadius(options.radius);
-  //   }
-  // }, [layer, options.radius]);
-  //
-  // useEffect(() => {
-  //   if (options.blur != null && layer.getBlur() !== options.blur) {
-  //     layer.setBlur(options.blur);
-  //   }
-  // }, [layer, options.blur]);
-  //
-  // return layer;
 };
+
+const instanceProperties = [
+  ...BaseVectorInstanceProperties,
+  { name: 'gradient', settable: true },
+  { name: 'radius', settable: true },
+  { name: 'blur', settable: true },
+  { name: 'weight', settable: true },
+] as const;

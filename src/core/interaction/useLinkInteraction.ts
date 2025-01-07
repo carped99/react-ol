@@ -27,15 +27,20 @@ export const useLinkInteraction = (
   events?: LinkInteractionEvents,
   active = true,
 ) => {
-  const instance = useInstance(provider, options);
+  const instance = useInstance(instanceProvider, options);
 
   useInteraction(instance, events, active);
 
   return instance;
 };
 
-const create = (options: Options) => {
-  return new Link(options);
-};
+const createInstance = (options: Options) => new Link(options);
 
-const provider = createInstanceProviderByKey(create, [], []);
+const instanceProperties = [
+  { name: 'animate', settable: false },
+  { name: 'params', settable: false },
+  { name: 'replace', settable: false },
+  { name: 'prefix', settable: false },
+] as const;
+
+const instanceProvider = createInstanceProviderByKey(createInstance, instanceProperties);

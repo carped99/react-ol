@@ -10,6 +10,10 @@ export * from './events';
 export * from './events/options/LayerObservable';
 export * from './events/options/InteractionObservable';
 
+// Interaction
+export * from './interaction';
+export * from './interaction/event';
+
 // Layer
 export * from './layer';
 export * from './layer/events';
@@ -19,6 +23,5 @@ export * from './layer/options';
 export * from './overlay';
 export * from './overlay/events';
 
-// Interaction
-export * from './interaction';
-export * from './interaction/event';
+// Projection
+export * from './proj';

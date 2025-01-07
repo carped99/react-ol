@@ -4,9 +4,9 @@ import { VectorTile } from 'ol/source';
 import { FeatureLike } from 'ol/Feature';
 import { VectorTileLayerOptions } from './options';
 import { useInstance } from '../hooks/useInstance';
-import { BaseVectorLayerCreateKeys, BaseVectorLayerUpdateKeys } from './base/LayerProperties';
 import { useInstanceProviderByKeys } from '../hooks/BaseObjectProvider';
 import { useBaseVectorLayer } from './base/useBaseVectorLayer';
+import { BaseVectorInstanceProperties } from './base/ObservableProperties';
 
 /**
  * {@link VectorTileLayer}를 생성한다.
@@ -24,9 +24,7 @@ export const useVectorTileLayer = <
 
   const provider = useInstanceProviderByKeys<VectorTileLayer<S, F>, VectorTileLayerOptions<S, F>>(
     useCallback((options) => new VectorTileLayer<S, F>(options), []),
-    createKeys,
-    BaseVectorLayerUpdateKeys,
-    nullishKeys,
+    instanceProperties,
   );
 
   const instance = useInstance(provider, options);
@@ -36,5 +34,9 @@ export const useVectorTileLayer = <
   return instance;
 };
 
-const createKeys = [...BaseVectorLayerCreateKeys, 'preload', 'cacheSize', 'renderMode'] as const;
-const nullishKeys = ['style'] as const;
+const instanceProperties = [
+  ...BaseVectorInstanceProperties,
+  { name: 'preload', settable: false },
+  { name: 'cacheSize', settable: false },
+  { name: 'renderMode', settable: false },
+] as const;

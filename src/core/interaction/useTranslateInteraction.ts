@@ -27,15 +27,21 @@ export const useTranslateInteraction = (
   events?: TranslateInteractionEvents,
   active = true,
 ) => {
-  const instance = useInstance(provider, options);
+  const instance = useInstance(instanceProvider, options);
 
   useInteraction(instance, events, active);
 
   return instance;
 };
 
-const create = (options: TranslateInteractionOptions) => {
-  return new Translate(options);
-};
+const createInstance = (options: TranslateInteractionOptions) => new Translate(options);
 
-const provider = createInstanceProviderByKey(create, [], []);
+const instanceProperties = [
+  { name: 'condition', settable: false },
+  { name: 'features', settable: false },
+  { name: 'layers', settable: false },
+  { name: 'filter', settable: false },
+  { name: 'hitTolerance', settable: false },
+] as const;
+
+const instanceProvider = createInstanceProviderByKey(createInstance, instanceProperties);

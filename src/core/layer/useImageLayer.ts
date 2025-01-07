@@ -5,6 +5,7 @@ import { ImageLayerOptions } from './options';
 import { useInstance } from '../hooks/useInstance';
 import { useInstanceProviderByKeys } from '../hooks/BaseObjectProvider';
 import { useBaseImageLayer } from './base/useBaseImageLayer';
+import { BaseImageLayerInstanceProperties } from './base/ObservableProperties';
 
 /**
  * {@link ImageLayer}를 생성한다.
@@ -17,6 +18,7 @@ export const useImageLayer = <S extends ImageSource>(options: Readonly<ImageLaye
 
   const provider = useInstanceProviderByKeys<ImageLayer<S>, ImageLayerOptions<S>>(
     useCallback((options) => new ImageLayer<S>(options), []),
+    instanceProperties,
   );
 
   const instance = useInstance(provider, options);
@@ -25,3 +27,5 @@ export const useImageLayer = <S extends ImageSource>(options: Readonly<ImageLaye
 
   return instance;
 };
+
+const instanceProperties = [...BaseImageLayerInstanceProperties] as const;

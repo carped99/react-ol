@@ -27,25 +27,26 @@ export const useSelectInteraction = (
   events?: SelectInteractionEvents,
   active = true,
 ): Select => {
-  const instance = useInstance(provider, options);
+  const instance = useInstance(instanceProvider, options);
 
   useInteraction(instance, events, active);
 
   return instance;
 };
 
-const createKeys = [
-  'multi',
-  'style',
-  'layers',
-  'filter',
-  'features',
-  'condition',
-  'addCondition',
-  'removeCondition',
-  'toggleCondition',
+const createInstance = (options: Options) => new Select(options);
+
+const instanceProperties = [
+  { name: 'addCondition', settable: false },
+  { name: 'condition', settable: false },
+  { name: 'layers', settable: false },
+  { name: 'style', settable: false },
+  { name: 'removeCondition', settable: false },
+  { name: 'toggleCondition', settable: false },
+  { name: 'multi', settable: false },
+  { name: 'features', settable: false },
+  { name: 'filter', settable: false },
+  { name: 'hitTolerance', settable: true },
 ] as const;
 
-const create = (options: Options) => new Select(options);
-
-const provider = createInstanceProviderByKey(create, createKeys, []);
+const instanceProvider = createInstanceProviderByKey(createInstance, instanceProperties);

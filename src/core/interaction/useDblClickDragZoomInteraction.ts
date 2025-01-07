@@ -27,13 +27,19 @@ export const useDblClickDragZoomInteraction = (
   events?: DblClickDragZoomInteractionEvents,
   active = true,
 ) => {
-  const instance = useInstance(provider, options);
+  const instance = useInstance(instanceProvider, options);
 
   useInteraction(instance, events, active);
 
   return instance;
 };
 
-const create = (options: Options) => new DblClickDragZoom(options);
+const createInstance = (options: Options) => new DblClickDragZoom(options);
 
-const provider = createInstanceProviderByKey(create, [], []);
+const instanceProperties = [
+  { name: 'condition', settable: false },
+  { name: 'duration', settable: false },
+  { name: 'delta', settable: false },
+] as const;
+
+const instanceProvider = createInstanceProviderByKey(createInstance, instanceProperties);

@@ -27,15 +27,23 @@ export const useMouseWheelZoomInteraction = (
   events?: MouseWheelZoomInteractionEvents,
   active = true,
 ) => {
-  const instance = useInstance(provider, options);
+  const instance = useInstance(instanceProvider, options);
 
   useInteraction(instance, events, active);
 
   return instance;
 };
 
-const create = (options: Options) => {
-  return new MouseWheelZoom(options);
-};
+const createInstance = (options: Options) => new MouseWheelZoom(options);
 
-const provider = createInstanceProviderByKey(create, [], []);
+const instanceProperties = [
+  { name: 'condition', settable: false },
+  { name: 'onFocusOnly', settable: false },
+  { name: 'maxDelta', settable: false },
+  { name: 'duration', settable: false },
+  { name: 'timeout', settable: false },
+  { name: 'useAnchor', settable: true },
+  { name: 'constrainResolution', settable: false },
+] as const;
+
+const instanceProvider = createInstanceProviderByKey(createInstance, instanceProperties);

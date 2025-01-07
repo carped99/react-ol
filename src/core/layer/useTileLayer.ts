@@ -6,23 +6,35 @@ import { TileLayerOptions } from './options';
 import { useInstance } from '../hooks/useInstance';
 import { useInstanceProviderByKeys } from '../hooks/BaseObjectProvider';
 import { useBaseTileLayer } from './base/useBaseTileLayer';
+import { TileLayerEvents } from './events/TileLayerEvents';
+import { useEvents } from '../events';
+import { BaseTileLayerInstanceProperties } from './base/ObservableProperties';
 
 /**
  * {@link TileLayer}를 생성한다.
  * @param options - {@link TileLayerOptions}
+ * @param events - {@link TileLayerEvents}
  *
  * @category Layers
  */
-export const useTileLayer = <S extends TileSource = TileSource<Tile>>(options: Readonly<TileLayerOptions<S>>) => {
+export const useTileLayer = <S extends TileSource = TileSource<Tile>>(
+  options: Readonly<TileLayerOptions<S>>,
+  events?: TileLayerEvents,
+) => {
   useDebugValue(options);
 
   const provider = useInstanceProviderByKeys<TileLayer<S>, TileLayerOptions<S>>(
     useCallback((options) => new TileLayer<S>(options), []),
+    instanceProperties,
   );
 
   const instance = useInstance(provider, options);
+
+  useEvents(instance, events);
 
   useBaseTileLayer(instance, options);
 
   return instance;
 };
+
+const instanceProperties = [...BaseTileLayerInstanceProperties] as const;
