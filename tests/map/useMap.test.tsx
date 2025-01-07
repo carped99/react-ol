@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react';
 import React, { act, MutableRefObject } from 'react';
 import { beforeEach, expect } from 'vitest';
 import { Map, View } from 'ol';
-import { MapOptions, MapProvider, useMap, useMapContext } from '../../src';
+import { MapOptions, MapProvider, useMap, useMapContext } from '../../src/core';
 
 // ol 모듈을 모킹합니다.
 vi.mock('ol', () => ({

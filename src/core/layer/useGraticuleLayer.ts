@@ -1,7 +1,7 @@
 import { useDebugValue } from 'react';
 import Graticule from 'ol/layer/Graticule';
 import { GraticuleLayerOptions } from './options';
-import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { createInstanceProviderByKey } from '../hooks/BaseObjectProvider';
 import { useInstance } from '../hooks/useInstance';
 import { useBaseVectorLayer } from './base/useBaseVectorLayer';
 import { Feature } from 'ol';
@@ -48,4 +48,4 @@ export const useGraticuleLayer = (options: Readonly<GraticuleLayerOptions>) => {
 
 const create = (options: Readonly<GraticuleLayerOptions>) => new Graticule(options);
 
-const provider = createBaseObjectProvider(create);
+const provider = createInstanceProviderByKey(create);

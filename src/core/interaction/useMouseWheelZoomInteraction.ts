@@ -3,7 +3,7 @@ import { Options } from 'ol/interaction/MouseWheelZoom';
 import { useInteraction } from './useInteraction';
 import { MouseWheelZoomInteractionEvents } from './event';
 import { useInstance } from '../hooks/useInstance';
-import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { createInstanceProviderByKey } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link useMouseWheelZoomInteraction} hook.
@@ -38,4 +38,4 @@ const create = (options: Options) => {
   return new MouseWheelZoom(options);
 };
 
-const provider = createBaseObjectProvider(create, [], []);
+const provider = createInstanceProviderByKey(create, [], []);

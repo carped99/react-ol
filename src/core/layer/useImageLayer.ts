@@ -3,7 +3,7 @@ import ImageLayer from 'ol/layer/Image';
 import ImageSource from 'ol/source/Image';
 import { ImageLayerOptions } from './options';
 import { useInstance } from '../hooks/useInstance';
-import { useBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { useInstanceProviderByKeys } from '../hooks/BaseObjectProvider';
 import { useBaseImageLayer } from './base/useBaseImageLayer';
 
 /**
@@ -15,7 +15,7 @@ import { useBaseImageLayer } from './base/useBaseImageLayer';
 export const useImageLayer = <S extends ImageSource>(options: Readonly<ImageLayerOptions<S>>) => {
   useDebugValue(options);
 
-  const provider = useBaseObjectProvider<ImageLayer<S>, ImageLayerOptions<S>>(
+  const provider = useInstanceProviderByKeys<ImageLayer<S>, ImageLayerOptions<S>>(
     useCallback((options) => new ImageLayer<S>(options), []),
   );
 

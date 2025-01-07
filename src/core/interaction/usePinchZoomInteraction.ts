@@ -3,7 +3,7 @@ import { Options } from 'ol/interaction/PinchZoom';
 import { useInteraction } from './useInteraction';
 import { PinchZoomInteractionEvents } from './event';
 import { useInstance } from '../hooks/useInstance';
-import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { createInstanceProviderByKey } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link usePinchZoomInteraction} hook.
@@ -38,4 +38,4 @@ const create = (options: Options) => {
   return new PinchZoom(options);
 };
 
-const provider = createBaseObjectProvider(create, [], []);
+const provider = createInstanceProviderByKey(create, [], []);

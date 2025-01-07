@@ -4,7 +4,7 @@ import { useEvents } from '../events';
 import { useEffect } from 'react';
 import { OverlayEvents } from './events';
 
-export const useOverlay = <T extends Overlay, E extends OverlayEvents>(overlay: T, events?: E) => {
+export const useOverlay = <E extends OverlayEvents>(overlay: Overlay, events?: E) => {
   const { map } = useMapContext();
 
   useEvents(overlay, events);

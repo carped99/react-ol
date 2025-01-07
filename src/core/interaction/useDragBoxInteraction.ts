@@ -3,7 +3,7 @@ import { Options } from 'ol/interaction/DragBox';
 import { useInteraction } from './useInteraction';
 import { DragBoxInteractionEvents } from './event';
 import { useInstance } from '../hooks/useInstance';
-import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { createInstanceProviderByKey } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link DragBoxInteraction} hook.
@@ -36,4 +36,4 @@ export const useDragBoxInteraction = (
 
 const create = (options: Options) => new DragBox(options);
 
-const provider = createBaseObjectProvider(create, [], []);
+const provider = createInstanceProviderByKey(create, [], []);

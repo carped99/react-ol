@@ -1,7 +1,7 @@
 import { useDebugValue } from 'react';
 import WebGLTileLayer from 'ol/layer/WebGLTile';
 import { WebGLTileLayerOptions } from './options';
-import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { createInstanceProviderByKey } from '../hooks/BaseObjectProvider';
 import { useInstance } from '../hooks/useInstance';
 import { useBaseTileLayer } from './base/useBaseTileLayer';
 
@@ -23,4 +23,4 @@ export const useWebGLTileLayer = (options: Readonly<WebGLTileLayerOptions>) => {
 
 const create = (options: Readonly<WebGLTileLayerOptions>) => new WebGLTileLayer(options);
 
-const provider = createBaseObjectProvider(create);
+const provider = createInstanceProviderByKey(create);

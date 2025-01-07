@@ -3,7 +3,7 @@ import { Options } from 'ol/interaction/KeyboardPan';
 import { useInteraction } from './useInteraction';
 import { KeyboardPanInteractionEvents } from './event';
 import { useInstance } from '../hooks/useInstance';
-import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { createInstanceProviderByKey } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link useKeyboardPanInteraction} hook.
@@ -38,4 +38,4 @@ const create = (options: Options) => {
   return new KeyboardPan(options);
 };
 
-const provider = createBaseObjectProvider(create, [], []);
+const provider = createInstanceProviderByKey(create, [], []);

@@ -5,7 +5,7 @@ import { FeatureLike } from 'ol/Feature';
 import { VectorTileLayerOptions } from './options';
 import { useInstance } from '../hooks/useInstance';
 import { BaseVectorLayerCreateKeys, BaseVectorLayerUpdateKeys } from './base/LayerProperties';
-import { useBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { useInstanceProviderByKeys } from '../hooks/BaseObjectProvider';
 import { useBaseVectorLayer } from './base/useBaseVectorLayer';
 
 /**
@@ -22,10 +22,11 @@ export const useVectorTileLayer = <
 ) => {
   useDebugValue(options);
 
-  const provider = useBaseObjectProvider<VectorTileLayer<S, F>, VectorTileLayerOptions<S, F>>(
+  const provider = useInstanceProviderByKeys<VectorTileLayer<S, F>, VectorTileLayerOptions<S, F>>(
     useCallback((options) => new VectorTileLayer<S, F>(options), []),
     createKeys,
     BaseVectorLayerUpdateKeys,
+    nullishKeys,
   );
 
   const instance = useInstance(provider, options);
@@ -36,3 +37,4 @@ export const useVectorTileLayer = <
 };
 
 const createKeys = [...BaseVectorLayerCreateKeys, 'preload', 'cacheSize', 'renderMode'] as const;
+const nullishKeys = ['style'] as const;

@@ -3,7 +3,7 @@ import { useEvents } from '../events';
 import { GeolocationEvents } from './events';
 import { GeolocationOptions } from './options';
 import { useInstance } from '../hooks/useInstance';
-import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { createInstanceProviderByKey } from '../hooks/BaseObjectProvider';
 
 /**
  * 지도를 생성하고 반환한다.
@@ -23,6 +23,5 @@ const create = (options: GeolocationOptions) => {
   return new Geolocation(options);
 };
 
-const createKeys = [] as const;
 const updateKeys = ['tracking', 'trackingOptions', 'projection'] as const;
-const provider = createBaseObjectProvider(create, createKeys, updateKeys);
+const provider = createInstanceProviderByKey(create, [], updateKeys, []);

@@ -3,7 +3,7 @@ import { Options } from 'ol/interaction/Select';
 import { useInteraction } from './useInteraction';
 import { SelectInteractionEvents } from './event';
 import { useInstance } from '../hooks/useInstance';
-import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { createInstanceProviderByKey } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link useSelectInteraction} hook.
@@ -48,4 +48,4 @@ const createKeys = [
 
 const create = (options: Options) => new Select(options);
 
-const provider = createBaseObjectProvider(create, createKeys, []);
+const provider = createInstanceProviderByKey(create, createKeys, []);

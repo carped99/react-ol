@@ -3,7 +3,7 @@ import { Options } from 'ol/interaction/DragRotateAndZoom';
 import { useInteraction } from './useInteraction';
 import { DragRotateAndZoomInteractionEvents } from './event';
 import { useInstance } from '../hooks/useInstance';
-import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { createInstanceProviderByKey } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link useDragRotateAndZoomInteraction} hook.
@@ -36,4 +36,4 @@ export const useDragRotateAndZoomInteraction = (
 
 const create = (options: Options) => new DragRotateAndZoom(options);
 
-const provider = createBaseObjectProvider(create, [], []);
+const provider = createInstanceProviderByKey(create, [], []);

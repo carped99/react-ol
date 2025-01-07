@@ -6,7 +6,7 @@ import { Feature } from 'ol';
 import { Geometry } from 'ol/geom';
 import { HeatmapLayerOptions } from './options';
 import { useInstance } from '../hooks/useInstance';
-import { useBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { useInstanceProviderByKeys } from '../hooks/BaseObjectProvider';
 import { useBaseVectorLayer } from './base/useBaseVectorLayer';
 
 /**
@@ -20,7 +20,7 @@ export const useHeatmapLayer = <F extends FeatureLike = Feature<Geometry>, S ext
 ) => {
   useDebugValue(options);
 
-  const provider = useBaseObjectProvider<Heatmap<F, S>, HeatmapLayerOptions<F, S>>(
+  const provider = useInstanceProviderByKeys<Heatmap<F, S>, HeatmapLayerOptions<F, S>>(
     useCallback((options) => new Heatmap<F, S>(options), []),
   );
 

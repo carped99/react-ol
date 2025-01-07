@@ -3,7 +3,7 @@ import { Options } from 'ol/interaction/DoubleClickZoom';
 import { useInteraction } from './useInteraction';
 import { DblClickZoomInteractionEvents } from './event';
 import { useInstance } from '../hooks/useInstance';
-import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { createInstanceProviderByKey } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link useDblClickZoomInteraction} hook.
@@ -36,4 +36,4 @@ export const useDblClickZoomInteraction = (
 
 const createInstance = (options: Options) => new DoubleClickZoom(options);
 
-const provider = createBaseObjectProvider(createInstance, [], []);
+const provider = createInstanceProviderByKey(createInstance, [], []);

@@ -2,7 +2,7 @@ import { DblClickDragZoom } from 'ol/interaction';
 import { Options } from 'ol/interaction/DblClickDragZoom';
 import { useInteraction } from './useInteraction';
 import { DblClickDragZoomInteractionEvents } from './event';
-import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { createInstanceProviderByKey } from '../hooks/BaseObjectProvider';
 import { useInstance } from '../hooks/useInstance';
 
 /**
@@ -36,4 +36,4 @@ export const useDblClickDragZoomInteraction = (
 
 const create = (options: Options) => new DblClickDragZoom(options);
 
-const provider = createBaseObjectProvider(create, [], []);
+const provider = createInstanceProviderByKey(create, [], []);

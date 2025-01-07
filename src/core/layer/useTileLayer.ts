@@ -4,7 +4,7 @@ import { Tile as TileSource } from 'ol/source';
 import { Tile } from 'ol';
 import { TileLayerOptions } from './options';
 import { useInstance } from '../hooks/useInstance';
-import { useBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { useInstanceProviderByKeys } from '../hooks/BaseObjectProvider';
 import { useBaseTileLayer } from './base/useBaseTileLayer';
 
 /**
@@ -16,7 +16,7 @@ import { useBaseTileLayer } from './base/useBaseTileLayer';
 export const useTileLayer = <S extends TileSource = TileSource<Tile>>(options: Readonly<TileLayerOptions<S>>) => {
   useDebugValue(options);
 
-  const provider = useBaseObjectProvider<TileLayer<S>, TileLayerOptions<S>>(
+  const provider = useInstanceProviderByKeys<TileLayer<S>, TileLayerOptions<S>>(
     useCallback((options) => new TileLayer<S>(options), []),
   );
 

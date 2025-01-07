@@ -27,7 +27,6 @@ export const useInstance = <T, P>(provider: InstanceProvider<T, P>, props: P): T
 
   // 처음 실행 시 객체를 생성한다.
   if (instanceRef.current === undefined) {
-    console.log('======================= createInstance', props);
     debug(() => `Create instance: ${props}`);
     instanceRef.current = provider.createInstance(props, prevProps);
   }
@@ -45,10 +44,10 @@ export const useInstance = <T, P>(provider: InstanceProvider<T, P>, props: P): T
     } else {
       // 초기화가 완료된 이후에만 실행한다.
       if (initialized.current && !equalsDeep(props, prevProps)) {
-        if (provider.shouldCreate(props, prevProps)) {
+        if (provider.shouldCreateInstance(props, prevProps)) {
           debug(() => `Recreate instance: ${props}`);
           instanceRef.current = provider.createInstance(props, prevProps);
-        } else if (provider.shouldUpdate(props, prevProps)) {
+        } else if (provider.shouldUpdateInstance(props, prevProps)) {
           debug(() => `Update instance: ${props}`);
           provider.updateInstance(instanceRef.current!, props, prevProps);
         }

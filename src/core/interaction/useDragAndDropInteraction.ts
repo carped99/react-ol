@@ -3,7 +3,7 @@ import { Options } from 'ol/interaction/DragAndDrop';
 import { useInteraction } from './useInteraction';
 import { DragAndDropInteractionEvents } from './event';
 import { useInstance } from '../hooks/useInstance';
-import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { createInstanceProviderByKey } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link useDragAndDropInteraction} hook.
@@ -36,4 +36,4 @@ export const useDragAndDropInteraction = (
 
 const create = (options: Options) => new DragAndDrop(options);
 
-const provider = createBaseObjectProvider(create, [], []);
+const provider = createInstanceProviderByKey(create, [], []);

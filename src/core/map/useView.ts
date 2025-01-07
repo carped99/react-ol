@@ -3,7 +3,7 @@ import { useEvents } from '../events';
 import { ViewEvents } from './events';
 import { ViewOptions } from './options';
 import { useInstance } from '../hooks/useInstance';
-import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { createInstanceProviderByKey } from '../hooks/BaseObjectProvider';
 
 /**
  * Hook for creating an OpenLayers view.
@@ -20,18 +20,24 @@ export const useView = (options: Readonly<ViewOptions>, events?: ViewEvents) => 
   return view;
 };
 
-const updateKeys = [
+const createKeys = [
+  'constrainRotation',
   'enableRotation',
-  'extent',
-  'maxResolution',
+  'constrainOnlyCenter',
+  'smoothExtentConstraint',
+  'smoothResolutionConstraint',
   'minResolution',
+  'maxResolution',
+  'multiWorld',
+  'showFullExtent',
   'projection',
   'resolutions',
   'zoomFactor',
+  'padding',
 ] as const;
 
-const nullishKeys = ['center', 'zoom', 'minZoom', 'maxZoom', 'constrainResolution', 'rotation'] as const;
+const updateKeys = ['center', 'constrainResolution', 'minZoom', 'maxZoom', 'resolution', 'zoom'] as const;
 
 const create = (options: Readonly<ViewOptions>) => new View(options);
 
-const provider = createBaseObjectProvider(create, [], updateKeys, nullishKeys);
+const provider = createInstanceProviderByKey(create, createKeys, updateKeys, []);

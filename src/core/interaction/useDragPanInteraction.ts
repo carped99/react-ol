@@ -3,7 +3,7 @@ import { Options } from 'ol/interaction/DragPan';
 import { useInteraction } from './useInteraction';
 import { DragPanInteractionEvents } from './event';
 import { useInstance } from '../hooks/useInstance';
-import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { createInstanceProviderByKey } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for {@link useDragPanInteraction} hook.
@@ -36,4 +36,4 @@ export const useDragPanInteraction = (
 
 const create = (options: Options) => new DragPan(options);
 
-const provider = createBaseObjectProvider(create, [], []);
+const provider = createInstanceProviderByKey(create, [], []);

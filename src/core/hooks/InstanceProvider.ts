@@ -38,9 +38,9 @@ export type InstancePredicate<P> = (currProps?: P, prevProps?: P) => boolean;
 export interface InstanceProvider<T, P> {
   createInstance: InstanceCreator<T, P>;
 
-  shouldCreate: InstancePredicate<P>;
+  shouldCreateInstance: InstancePredicate<P>;
 
   updateInstance: InstanceUpdater<T, P>;
 
-  shouldUpdate: InstancePredicate<P>;
+  shouldUpdateInstance: InstancePredicate<P>;
 }

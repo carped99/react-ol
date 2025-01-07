@@ -3,7 +3,7 @@ import { Options } from 'ol/interaction/Link';
 import { useInteraction } from './useInteraction';
 import { LinkInteractionEvents } from './event';
 import { useInstance } from '../hooks/useInstance';
-import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { createInstanceProviderByKey } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link useLinkInteraction} hook.
@@ -38,4 +38,4 @@ const create = (options: Options) => {
   return new Link(options);
 };
 
-const provider = createBaseObjectProvider(create, [], []);
+const provider = createInstanceProviderByKey(create, [], []);

@@ -2,7 +2,7 @@ import { Draw } from 'ol/interaction';
 import { Options } from 'ol/interaction/Draw';
 import { useInteraction } from './useInteraction';
 import { DrawInteractionEvents } from './event';
-import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { createInstanceProviderByKey } from '../hooks/BaseObjectProvider';
 import { useInstance } from '../hooks/useInstance';
 
 /**
@@ -34,4 +34,4 @@ const create = (options: DrawInteractionOptions) => {
   return new Draw(options);
 };
 
-const provider = createBaseObjectProvider(create, [], []);
+const provider = createInstanceProviderByKey(create, [], []);

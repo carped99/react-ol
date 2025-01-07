@@ -3,7 +3,7 @@ import { Options } from 'ol/interaction/Translate';
 import { useInteraction } from './useInteraction';
 import { TranslateInteractionEvents } from './event';
 import { useInstance } from '../hooks/useInstance';
-import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { createInstanceProviderByKey } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link useTranslateInteraction} hook.
@@ -38,4 +38,4 @@ const create = (options: TranslateInteractionOptions) => {
   return new Translate(options);
 };
 
-const provider = createBaseObjectProvider(create, [], []);
+const provider = createInstanceProviderByKey(create, [], []);

@@ -3,7 +3,7 @@ import { Options } from 'ol/interaction/DragRotate';
 import { useInteraction } from './useInteraction';
 import { DragRotateInteractionEvents } from './event';
 import { useInstance } from '../hooks/useInstance';
-import { createBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { createInstanceProviderByKey } from '../hooks/BaseObjectProvider';
 
 /**
  * Options for the - {@link useDragRotateInteraction} hook.
@@ -37,4 +37,4 @@ export const useDragRotateInteraction = (
 
 const create = (options: Options) => new DragRotate(options);
 
-const provider = createBaseObjectProvider(create, [], []);
+const provider = createInstanceProviderByKey(create, [], []);

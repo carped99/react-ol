@@ -5,7 +5,7 @@ import VectorSource from 'ol/source/Vector';
 import { ExtractedFeatureType } from 'ol/layer/BaseVector';
 import { VectorImageLayerOptions } from './options';
 import { useInstance } from '../hooks/useInstance';
-import { useBaseObjectProvider } from '../hooks/BaseObjectProvider';
+import { useInstanceProviderByKeys } from '../hooks/BaseObjectProvider';
 import { BaseVectorLayerUpdateKeys } from './base/LayerProperties';
 import { useBaseVectorLayer } from './base/useBaseVectorLayer';
 
@@ -23,7 +23,7 @@ export const useVectorImageLayer = <
 ) => {
   useDebugValue(options);
 
-  const provider = useBaseObjectProvider<VectorImageLayer<S, F>, VectorImageLayerOptions<S, F>>(
+  const provider = useInstanceProviderByKeys<VectorImageLayer<S, F>, VectorImageLayerOptions<S, F>>(
     useCallback((options) => new VectorImageLayer<S, F>(options), []),
     createKeys,
     BaseVectorLayerUpdateKeys,
