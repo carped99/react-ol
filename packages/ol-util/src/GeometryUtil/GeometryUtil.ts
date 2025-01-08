@@ -4,8 +4,8 @@ import { Feature as OlFeature } from 'ol';
 import { Options as GeoJSONFormatOptions } from 'ol/format/GeoJSON';
 import { LineString as OlLineString, MultiPolygon as OlMultiPolygon, Polygon as OlPolygon } from 'ol/geom';
 import polygonSplitter from 'polygon-splitter';
-import { readGeometry, writeFeatureObject, writeGeometryObject } from './GeoJSONFormat';
-import { intersectPolygon } from './GeoJSONUtil';
+import { readGeometry, writeFeatureObject, writeGeometryObject } from '../GeoJSONUtil/GeoJSONFormat';
+import { intersectPolygon } from '../GeoJSONUtil/GeoJSONApi';
 
 /**
  * 폴리곤을 라인으로 분할하는 내부 함수입니다.

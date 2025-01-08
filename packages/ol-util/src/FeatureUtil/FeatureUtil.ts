@@ -8,13 +8,11 @@ import {
   Polygon as OlPolygon,
 } from 'ol/geom';
 import { difference as turfDiff, featureCollection } from '@turf/turf';
-import { FormatOptions, readFeature, writeFeatureObject } from './GeoJSONFormat';
 import { Options as GeoJSONFormatOptions } from 'ol/format/GeoJSON';
-import { splitPolygonByLine } from './GeometryUtil';
-import { AlwaysTrue, FeatureFilter } from './common';
 import VectorSource from 'ol/source/Vector';
-import BaseLayer from 'ol/layer/Base';
-import VectorLayer from 'ol/layer/Vector';
+import { AlwaysTrue, FeatureFilter } from '../common';
+import { FormatOptions, readFeature, writeFeatureObject } from '../GeoJSONUtil/GeoJSONFormat';
+import { splitPolygonByLine } from '../GeometryUtil';
 
 /**
  * OpenLayers Feature 객체를 다루기 위한 유틸리티 함수들을 제공합니다.
@@ -22,11 +20,7 @@ import VectorLayer from 'ol/layer/Vector';
  */
 type PropertyValidator = (value: unknown) => boolean;
 // 타입 정의
-type FeatureSources<T extends OlGeometry> =
-  | OlFeature<T>[]
-  | Collection<OlFeature<T>>
-  | VectorLayer<VectorSource<OlFeature<T>>>
-  | VectorSource<OlFeature<T>>;
+type FeatureSources<T extends OlGeometry> = OlFeature<T>[] | Collection<OlFeature<T>> | VectorSource<OlFeature<T>>;
 
 export const getFeatureGeometry = <T extends OlGeometry>(feature: OlFeature<T> | OlFeature<T>[]): T[] => {
   if (Array.isArray(feature)) {
@@ -97,7 +91,7 @@ export const findAllFeatureByProperty = <T extends OlGeometry>(
 /**
  * 주어진 조건에 맞는 모든 피처를 찾습니다.
  *
- * @param source - 검색할 피처 배열
+ * @param source - 검색할 피처 배열 (Feature[], Collection, VectorSource, VectorLayer)
  * @param filter - 필터 조건 함수 (선택적)
  * @returns 조건에 맞는 피처 배열
  *
@@ -118,7 +112,15 @@ export const findAllFeature = <T extends OlGeometry>(
 ) => {
   // null, undefined, 빈 배열 처리
   if (!source) return [];
-  return Array.from(iterateFeature(source, filter));
+
+  if (Array.isArray(source)) {
+    return source.filter(filter);
+  } else if (isVectorSource<T>(source)) {
+    return source.getFeatures();
+  } else if (isFeatureCollection<T>(source)) {
+    return source.getArray();
+  }
+  throw new Error('Invalid source type');
 };
 
 export const findFeature = <T extends OlGeometry>(
@@ -400,53 +402,22 @@ export const splitByLine = (
   return splitPolygonByLine(getGeometry(polygon), getGeometry(line), options);
 };
 
-const resolveFeatures = <T extends OlGeometry>(source: FeatureSources<T>): OlFeature<T>[] => {
-  if (isVectorLayer<T>(source)) {
-    return source.getSource()?.getFeatures() ?? [];
-  } else if (isVectorSource<T>(source)) {
-    return source.getFeatures();
-  } else if (isFeatureCollection<T>(source)) {
-    return source.getArray();
-  }
-
-  return source;
-};
-
 const iterateFeatureInternal = <T extends OlGeometry>(source: FeatureSources<T>): Generator<OlFeature<T>> => {
   return (function* () {
-    if (isVectorLayer<T>(source)) {
-      const vectorSource = source.getSource();
-      if (vectorSource) {
-        yield* vectorSource.getFeatures();
-      }
+    if (Array.isArray(source)) {
+      yield* source;
     } else if (isVectorSource<T>(source)) {
       yield* source.getFeatures();
     } else if (isFeatureCollection<T>(source)) {
       yield* source.getArray();
-    } else if (Array.isArray(source)) {
-      yield* source;
     }
   })();
 };
 
-// 타입 가드 함수
-const isLayer = (source: any): source is BaseLayer => {
-  return source instanceof BaseLayer;
-};
-
-const isVectorLayer = <T extends OlGeometry>(
-  source: FeatureSources<T>,
-): source is VectorLayer<VectorSource<OlFeature<T>>> => {
-  return source instanceof VectorLayer;
-};
 const isVectorSource = <T extends OlGeometry>(source: any): source is VectorSource<OlFeature<T>> => {
   return source instanceof VectorSource;
 };
 
 const isFeatureCollection = <T extends OlGeometry>(source: any): source is Collection<OlFeature<T>> => {
   return source instanceof Collection;
-};
-
-const isFeatureArray = <T extends OlGeometry>(source: any): source is OlFeature<T>[] => {
-  return Array.isArray(source);
 };

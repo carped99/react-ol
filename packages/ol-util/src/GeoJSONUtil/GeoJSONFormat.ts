@@ -26,6 +26,7 @@ import {
   Polygon,
 } from 'geojson';
 import { WriteOptions } from 'ol/format/Feature';
+import { isFeature, isFeatureCollection } from './GeoJSONGuard';
 
 /**
  * GeoJSON 관련 유틸리티 함수들
@@ -40,6 +41,13 @@ const defaultFormat = new GeoJSONFormat<OlFeature<OlGeometry>>({
 
 export type FormatOptions<T extends FeatureLike = OlFeature<OlGeometry>> = GeoJSONFormat<T> | GeoJSONFormatOptions<T>;
 
+/**
+ * GeoJSON 형식과 OpenLayers 객체 간의 변환을 위한 포맷을 생성하거나 반환합니다.
+ *
+ * @typeParam T - Feature 타입 (기본값: OlFeature<OlGeometry>)
+ * @param options - GeoJSON 포맷 옵션 또는 기존 GeoJSONFormat 인스턴스
+ * @returns GeoJSON 포맷 인스턴스
+ */
 export function getFormat<T extends FeatureLike = OlFeature<OlGeometry>>(options?: FormatOptions<T>): GeoJSONFormat<T> {
   // 옵션이 이미 GeoJSONFormat 인스턴스인 경우 그대로 반환
   if (options instanceof GeoJSONFormat) {
@@ -117,24 +125,9 @@ export function readGeometry(...args: Parameters<GeoJSONFormat['readGeometry']>)
   return format.readGeometry(source);
 }
 
-function createTypeGuard<T extends GeoJsonObject>(type: T['type']) {
-  return (geometry?: GeoJsonObject | null): geometry is T => geometry != null && geometry.type === type;
-}
-
-// 더 구체적인 타입 정의
-export const isPoint = createTypeGuard<Point>('Point');
-export const isLineString = createTypeGuard<LineString>('LineString');
-export const isPolygon = createTypeGuard<Polygon>('Polygon');
-export const isMultiPoint = createTypeGuard<MultiPoint>('MultiPoint');
-export const isMultiLineString = createTypeGuard<MultiLineString>('MultiLineString');
-export const isMultiPolygon = createTypeGuard<MultiPolygon>('MultiPolygon');
-export const isGeometryCollection = createTypeGuard<GeometryCollection>('GeometryCollection');
-export const isFeature = createTypeGuard<Feature>('Feature');
-export const isFeatureCollection = createTypeGuard<FeatureCollection>('FeatureCollection');
-
 export function getFeaturesOrThrow(value?: GeoJsonObject | null): Feature[] {
   if (!value) {
-    throw new Error('GeoJSON value is null or undefined');
+    throw new TypeError('GeoJSON value must not be null or undefined');
   }
 
   if (isFeatureCollection(value)) {
@@ -145,30 +138,5 @@ export function getFeaturesOrThrow(value?: GeoJsonObject | null): Feature[] {
     return [value];
   }
 
-  throw new Error(`Invalid GeoJSON type: ${value.type}`);
-}
-
-export function isGeometry(value?: GeoJsonObject | null): value is Geometry {
-  if (!value) return false;
-  return [
-    'Point',
-    'LineString',
-    'Polygon',
-    'MultiPoint',
-    'MultiLineString',
-    'MultiPolygon',
-    'GeometryCollection',
-  ].includes(value.type);
-}
-
-export function isPointFeature(feature: Feature): feature is Feature<Point> {
-  return isPoint(feature.geometry);
-}
-
-export function isLineStringFeature(feature: Feature): feature is Feature<LineString> {
-  return isLineString(feature.geometry);
-}
-
-export function isPolygonFeature(feature: Feature): feature is Feature<Polygon> {
-  return isPolygon(feature.geometry);
+  throw new TypeError(`Expected Feature or FeatureCollection, but got: ${value.type}`);
 }
