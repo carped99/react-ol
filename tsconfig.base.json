@@ -1,0 +1,43 @@
+// @formatter:off
+{
+  "compilerOptions": {
+    // 1. 출력 설정
+    "declaration": true,              // 타입 정의 파일 생성(출력 경로는 각 프로젝트별로 설정)
+    "emitDeclarationOnly": true,      // 타입 정의 파일만 생성 (JS 파일은 Vite가 생성)
+
+    // 2. 모듈 시스템 설정
+    "target": "ES2020",               // 컴파일될 JS 버전 (안정적인 최신 버전)
+    "module": "ESNext",               // 모듈 시스템 (import/export)
+    "moduleResolution": "bundler",    // Vite/Rollup 등의 번들러와 호환되는 모듈 해석 방식
+    "esModuleInterop": true,          // CommonJS와 ES Modules 간 상호 운용성 지원
+    "isolatedModules": true,          // 각 파일을 독립적인 모듈로 처리 (Vite 호환)
+
+    // 3. 경로 설정
+    "baseUrl": ".",                   // 모듈 해석의 기준 디렉토리
+    "paths": {
+      "@/*": ["src/*"]                // 별칭 경로 설정 (src 폴더 기준)
+    },
+
+    // 4. 타입 체크
+    "strict": true,                   // 모든 엄격한 타입 체크 옵션 활성화
+    "skipLibCheck": true,             // 외부 라이브러리 타입 체크 스킵 (빌드 성능 향상)
+    "noUnusedLocals": true,           // 사용하지 않는 지역 변수 체크
+    "noUnusedParameters": true,       // 사용하지 않는 매개변수 체크
+    "noFallthroughCasesInSwitch": true,  // switch문의 case fallthrough 방지
+    "forceConsistentCasingInFileNames": true,  // 파일 이름의 대소문자 일관성 강제
+
+    // 5. 라이브러리 지원
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+
+    // 6. 추가 설정
+    "useDefineForClassFields": true,    // 클래스 필드에 대한 최신 ECMAScript 표준 사용
+    "allowImportingTsExtensions": false,  // .ts 확장자 import 비허용
+    "moduleDetection": "force",      // 모든 파일을 모듈로 처리
+    "jsx": "react-jsx",             // React JSX 변환 (런타임 import 불필요)
+    "allowJs": true,                // JavaScript 파일 컴파일 허용
+    "types": [
+      "vitest/globals"             // Vitest 전역 타입 포함
+    ]
+  }
+}
+// @formatter:on

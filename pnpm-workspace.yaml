@@ -1,0 +1,13 @@
+packages:
+  - "packages/*"
+  - "apps"
+
+catalog:
+  ol: ^10
+  "ol-ext": ^4.0.24
+  "@turf/turf": ^7.2.0
+#  "@turf/area": ^6.5.0
+#  "@turf/helpers": ^6.5.0
+#  "@turf/intersect": ^6.5.0
+#  "@turf/random": ^6.5.0
+#  "@turf/voronoi": ^6.5.0

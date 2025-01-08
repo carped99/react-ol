@@ -1,0 +1,1 @@
+{"root":["./src/index.ts","./src/interaction/index.ts","./src/interaction/usedrawholeinteraction.ts","./src/interaction/usetransformhandler.ts","./src/interaction/usetransforminteraction.ts","./src/overlay/index.ts","./src/overlay/usepopupoverlay.ts","./src/overlay/usetooltipoverlay.ts"],"version":"5.7.2"}

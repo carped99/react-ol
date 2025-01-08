@@ -1,0 +1,8 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "out": "./docs",
+  "entryPoints": ["src/index.ts"],
+  "excludeExternals": false,
+  "disableSources": true,
+  "categorizeByGroup": false
+}
