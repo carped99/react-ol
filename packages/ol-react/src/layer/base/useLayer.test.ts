@@ -3,9 +3,9 @@ import Map from 'ol/Map';
 import { renderHook } from '@testing-library/react';
 import { Layer } from 'ol/layer';
 import { useLayer } from './useLayer';
-import { useMapContext } from '../../context/MapContext';
 import { Collection } from 'ol';
 import { expect } from 'vitest';
+import { useMapContext } from '../../context';
 
 // useBaseLayer 모킹
 vi.mock('../../context/MapContext');

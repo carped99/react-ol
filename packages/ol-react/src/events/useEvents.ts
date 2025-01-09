@@ -70,29 +70,42 @@ const isEventListener = (_type: string, value: unknown) => {
   return typeof value === 'function';
 };
 
-const isUpperCase = (char: string) => char === char.toUpperCase();
-
+/**
+ * 이벤트 핸들러 이름을 OpenLayers 이벤트 타입으로 정규화
+ *
+ * @example
+ * ```ts
+ * normalizeEventType('onClick') // -> 'click'
+ * normalizeEventType('onChangeResolution') // -> 'change:resolution'
+ * normalizeEventType('customEvent') // -> 'customEvent'
+ * ```
+ */
 const normalizeEventType = (handlerName: string) => {
-  // 이벤트 핸들러인 경우(`on`으로 시작하고, 세 번째 글자가 대문자인 경우)
-  if (handlerName.length > 2 && handlerName.startsWith('on') && isUpperCase(handlerName[2])) {
-    // `on` 접두사 제거
-    const eventType = handlerName.slice(2);
-
-    // `Change...` 이벤트는 `change:`로 변경
-    if (eventType.length > 6 && eventType.startsWith('Change')) {
-      // camelCase (앞글자만 소문자로 변경하고, 나머지는 그대로 유지)
-      return 'change:' + eventType[6].toLowerCase() + eventType.slice(7);
-    }
-    // 소문자로 변환
-    return eventType.toLowerCase();
+  // 'on' 접두사가 없거나 길이가 3 미만이면 원본 반환
+  if (handlerName.length < 3 || !handlerName.startsWith('on')) {
+    return handlerName;
   }
 
-  // 이벤트 핸들러가 아닌 경우 원본 반환
-  return handlerName;
+  // 세 번째 문자가 대문자가 아니면 원본 반환
+  const thirdChar = handlerName[2];
+  if (thirdChar !== thirdChar.toUpperCase()) {
+    return handlerName;
+  }
+
+  // 'on' 접두사 제거
+  const eventType = handlerName.slice(2);
+
+  // 'Change' 접두사 처리
+  if (eventType.length > 6 && eventType.startsWith('Change')) {
+    return `change:${eventType[6].toLowerCase()}${eventType.slice(7)}`;
+  }
+
+  // 일반 이벤트 타입으로 변환
+  return eventType.toLowerCase();
 };
 
 /**
- * 현재 이벤트 핸들러 목록에서 사용되지 않는 핸들러를 제거한다.
+ * 이벤트 핸들러 목록에서 사용되지 않는 핸들러를 제거한다.
  * @param eventsKeys - 현재 이벤트 핸들러 목록
  * @param handlers - 새로운 이벤트 핸들러 목록
  */
@@ -111,7 +124,7 @@ const pruneEvents = (eventsKeys: EventsKey[], handlers: Listeners) => {
     { validKeys: [] as EventsKey[], invalidKeys: [] as EventsKey[] },
   );
 
-  if (invalidKeys.length > 0) {
+  if (invalidKeys.length) {
     unByKey(invalidKeys);
   }
 

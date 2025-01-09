@@ -180,6 +180,9 @@ importers:
       '@carped99/ol-react':
         specifier: ^0.0.1
         version: 0.0.1(ol@10.3.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@carped99/ol-util':
+        specifier: ^0.0.1
+        version: 0.0.1(ol@10.3.1)
       fast-deep-equal:
         specifier: ^3.1.3
         version: 3.1.3
@@ -320,6 +323,11 @@ packages:
       ol: '>=10'
       react: '>=18'
       react-dom: '>=18'
+
+  '@carped99/ol-util@0.0.1':
+    resolution: {integrity: sha512-EJphkL9kw4MKhjXN89/4w5+itoB98yH3jmDA+dQJV6knpgBpewBZrPZgPCTDxf3pXOB8AQ7mqYC/pvjH9Pm3Ww==}
+    peerDependencies:
+      ol: '>=10.0.0'
 
   '@chromatic-com/storybook@3.2.3':
     resolution: {integrity: sha512-3+hfANx79kIjP1qrOSLxpoAXOiYUA0S7A0WI0A24kASrv7USFNNW8etR5TjUilMb0LmqKUn3wDwUK2h6aceQ9g==}
@@ -4213,6 +4221,14 @@ snapshots:
       ol: 10.3.1
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
+      type-fest: 4.31.0
+
+  '@carped99/ol-util@0.0.1(ol@10.3.1)':
+    dependencies:
+      '@turf/turf': 7.2.0
+      fast-deep-equal: 3.1.3
+      ol: 10.3.1
+      polygon-splitter: 0.0.11
       type-fest: 4.31.0
 
   '@chromatic-com/storybook@3.2.3(react@18.3.1)(storybook@8.4.7(prettier@3.4.2))':
