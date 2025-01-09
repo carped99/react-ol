@@ -1,12 +1,13 @@
 import { Coordinate } from 'ol/coordinate';
 import { Extent, isEmpty } from 'ol/extent';
-import BaseLayer from 'ol/layer/Base';
 import Map from 'ol/Map';
 import { AnimationOptions, FitOptions } from 'ol/View';
-import { Features, Predicate } from '../common';
-import { getFeatureExtent } from '../FeatureUtil';
+import { Features } from '../common';
 import { METERS_PER_UNIT, Units } from 'ol/proj/Units';
-import { findAllLayer } from './FindLayer';
+import { findAllLayer } from './findLayer';
+import { FeatureUtil } from '../FeatureUtil';
+import { AlwaysTrue } from '../Filter/type';
+import { LayerFilter } from '../Filter';
 
 // 상수 정의
 const INCHES_PER_METER = 39.37;
@@ -19,7 +20,7 @@ const DOTS_PER_INCH = 25.4 / 0.28;
  * @param options - fit 옵션
  */
 export const fitToFeature = (map: Map, feature: Features, options?: FitOptions) => {
-  const extent = getFeatureExtent(feature);
+  const extent = FeatureUtil.getFeatureExtent(feature);
   fitToExtent(map, extent, options);
 };
 
@@ -77,7 +78,7 @@ export const setMapZoom = (map: Map, zoom: number, options?: Omit<AnimationOptio
  * @param visible - 표시 여부
  * @param filter - 레이어 필터링 조건 함수
  */
-export const setLayerVisibility = (map: Map, visible: boolean, filter: Predicate<BaseLayer> = () => true) => {
+export const setLayerVisibility = (map: Map, visible: boolean, filter: LayerFilter = AlwaysTrue) => {
   findAllLayer(map, filter).forEach((layer) => layer.setVisible(visible));
 };
 

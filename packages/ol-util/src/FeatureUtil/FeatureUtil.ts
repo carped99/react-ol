@@ -1,4 +1,4 @@
-import { Collection, Feature as OlFeature } from 'ol';
+import { Feature as OlFeature } from 'ol';
 import { Coordinate } from 'ol/coordinate';
 import { createEmpty, extend, Extent, getCenter } from 'ol/extent';
 import {
@@ -9,18 +9,14 @@ import {
 } from 'ol/geom';
 import { difference as turfDiff, featureCollection } from '@turf/turf';
 import { Options as GeoJSONFormatOptions } from 'ol/format/GeoJSON';
-import VectorSource from 'ol/source/Vector';
-import { AlwaysTrue, FeatureFilter } from '../common';
 import { FormatOptions, readFeature, writeFeatureObject } from '../GeoJSONUtil/GeoJSONFormat';
-import { splitPolygonByLine } from '../GeometryUtil';
+import { splitPolygonByLine } from '../GeometryUtil/GeometryUtil';
 
 /**
  * OpenLayers Feature 객체를 다루기 위한 유틸리티 함수들을 제공합니다.
  * @packageDocumentation
  */
 type PropertyValidator = (value: unknown) => boolean;
-// 타입 정의
-type FeatureSources<T extends OlGeometry> = OlFeature<T>[] | Collection<OlFeature<T>> | VectorSource<OlFeature<T>>;
 
 export const getFeatureGeometry = <T extends OlGeometry>(feature: OlFeature<T> | OlFeature<T>[]): T[] => {
   if (Array.isArray(feature)) {
@@ -68,94 +64,6 @@ export const mergeProperties = (feature: OlFeature, properties: Record<string, a
 };
 
 /**
- * Feature 배열에서 특정 속성값을 가진 Feature들을 필터링합니다.
- *
- * @param source - 필터링할 Feature 배열
- * @param property - 필터링할 속성 이름
- * @param value - 필터링할 속성값
- * @returns 필터링된 Feature 배열
- *
- * @example
- * ```typescript
- * const cityFeatures = findFeaturesByProperty(source, 'type', 'city');
- * ```
- */
-export const findAllFeatureByProperty = <T extends OlGeometry>(
-  source: FeatureSources<T> | undefined | null,
-  property: string,
-  value: any,
-) => {
-  return findAllFeature(source, (feature) => feature.get(property) === value);
-};
-
-/**
- * 주어진 조건에 맞는 모든 피처를 찾습니다.
- *
- * @param source - 검색할 피처 배열 (Feature[], Collection, VectorSource, VectorLayer)
- * @param filter - 필터 조건 함수 (선택적)
- * @returns 조건에 맞는 피처 배열
- *
- * @example
- * ```
- * // 모든 피처 반환
- * const allFeatures = findAllFeatures(source);
- *
- * // 특정 조건의 피처만 반환
- * const selectedFeatures = findAllFeatures(source,
- *   feature => feature.get('type') === 'point'
- * );
- * ```
- */
-export const findAllFeature = <T extends OlGeometry>(
-  source: FeatureSources<T> | undefined | null,
-  filter: FeatureFilter<T> = AlwaysTrue,
-) => {
-  // null, undefined, 빈 배열 처리
-  if (!source) return [];
-
-  if (Array.isArray(source)) {
-    return source.filter(filter);
-  } else if (isVectorSource<T>(source)) {
-    return source.getFeatures();
-  } else if (isFeatureCollection<T>(source)) {
-    return source.getArray();
-  }
-  throw new Error('Invalid source type');
-};
-
-export const findFeature = <T extends OlGeometry>(
-  source: FeatureSources<T> | undefined | null,
-  filter: FeatureFilter<T> = AlwaysTrue,
-): OlFeature<T> | undefined => {
-  if (source) {
-    const iter = iterateFeature(source, filter);
-    const result = iter.next();
-    return result.done ? undefined : result.value;
-  }
-  return undefined;
-};
-
-export const iterateFeature = function* <T extends OlGeometry>(
-  source: FeatureSources<T> | undefined | null,
-  filter: FeatureFilter<T> = AlwaysTrue,
-): Generator<OlFeature<T>> {
-  if (!source) return;
-  for (const feature of iterateFeatureInternal(source)) {
-    if (filter(feature)) {
-      yield feature;
-    }
-  }
-};
-
-export const findFeatureByProperty = <T extends OlGeometry>(
-  source: FeatureSources<T> | undefined | null,
-  property: string,
-  value: any,
-) => {
-  return findFeature(source, (feature) => feature.get(property) === value);
-};
-
-/**
  * Feature 배열을 특정 속성값으로 그룹화합니다.
  *
  * @param features - 그룹화할 Feature 배열
@@ -187,7 +95,6 @@ export function groupFeaturesByProperty<T extends OlFeature<OlGeometry>>(
  *
  * @param feature - 복제할 Feature
  * @param options - 복제 옵션
- * @param options.deep - true인 경우 geometry도 복제 (기본값: false)
  * @returns 복제된 Feature
  *
  * @example
@@ -400,24 +307,4 @@ export const splitByLine = (
   },
 ): OlPolygon[] => {
   return splitPolygonByLine(getGeometry(polygon), getGeometry(line), options);
-};
-
-const iterateFeatureInternal = <T extends OlGeometry>(source: FeatureSources<T>): Generator<OlFeature<T>> => {
-  return (function* () {
-    if (Array.isArray(source)) {
-      yield* source;
-    } else if (isVectorSource<T>(source)) {
-      yield* source.getFeatures();
-    } else if (isFeatureCollection<T>(source)) {
-      yield* source.getArray();
-    }
-  })();
-};
-
-const isVectorSource = <T extends OlGeometry>(source: any): source is VectorSource<OlFeature<T>> => {
-  return source instanceof VectorSource;
-};
-
-const isFeatureCollection = <T extends OlGeometry>(source: any): source is Collection<OlFeature<T>> => {
-  return source instanceof Collection;
 };

@@ -1,2 +1,7 @@
-export * from './FindLayer';
-export * from './MapUtil';
+import * as findLayer from './findLayer';
+import * as mapUtil from './MapUtil';
+
+export const MapUtil = {
+  ...findLayer,
+  ...mapUtil,
+};

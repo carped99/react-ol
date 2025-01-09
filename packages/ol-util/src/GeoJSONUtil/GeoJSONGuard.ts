@@ -57,32 +57,32 @@ export const isGeometry: GuardFn<Geometry> = (value): value is Geometry => {
 };
 
 /**
- * Point 타입의 Geometry인지 확인하는 타입 가드 함수
+ * `Point` 타입의 `Geometry`인지 확인하는 타입 가드 함수
  */
 export const isPointGeometry = createGuardByType<Point>('Point');
 
 /**
- * LineString 타입의 Geometry인지 확인하는 타입 가드 함수
+ * `LineString` 타입의 `Geometry`인지 확인하는 타입 가드 함수
  */
 export const isLineGeometry = createGuardByType<LineString>('LineString');
 
 /**
- * Polygon 타입의 Geometry인지 확인하는 타입 가드 함수
+ * Polygon 타입의 `Geometry`인지 확인하는 타입 가드 함수
  */
 export const isPolygonGeometry = createGuardByType<Polygon>('Polygon');
 
 /**
- * MultiPoint 타입의 Geometry인지 확인하는 타입 가드 함수
+ * MultiPoint 타입의 `Geometry`인지 확인하는 타입 가드 함수
  */
 export const isMultiPointGeometry = createGuardByType<MultiPoint>('MultiPoint');
 
 /**
- * MultiLineString 타입의 Geometry인지 확인하는 타입 가드 함수
+ * MultiLineString 타입의 `Geometry`인지 확인하는 타입 가드 함수
  */
 export const isMultiLineGeometry = createGuardByType<MultiLineString>('MultiLineString');
 
 /**
- * MultiPolygon 타입의 Geometry인지 확인하는 타입 가드 함수
+ * MultiPolygon 타입의 `Geometry`인지 확인하는 타입 가드 함수
  */
 export const isMultiPolygonGeometry = createGuardByType<MultiPolygon>('MultiPolygon');
 
