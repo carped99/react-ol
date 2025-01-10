@@ -42,27 +42,36 @@ export const rectangleCellGridStreamSync = function* <P extends GeoJsonPropertie
 
   let batchBuffer: Feature<Polygon, P>[] = [];
 
+  const epsilon = 1e-10; // 부동소수점 오차 허용치
+
   for (let col = 0; col < cols; col++) {
     const x = startX + col * cellWidth;
+
+    // 부동소수점 오차 보정
+    const adjustedX = Math.round(x / epsilon) * epsilon;
 
     for (let row = 0; row < rows; row++) {
       const y = startY + row * cellHeight;
 
+      const adjustedY = Math.round(y / epsilon) * epsilon;
+
+      if (!shouldIncludeCell(adjustedX, adjustedY, cellWidth, cellHeight, bbox, includePartialCells)) {
+        continue;
+      }
+
       // 셀 생성
-      const cell = createCell(x, y, cellWidth, cellHeight, options.properties);
+      const cell = createCell(adjustedX, adjustedY, cellWidth, cellHeight, options.properties);
 
       // 마스크 영역과 교차하는지 확인
       if (options.mask && !booleanIntersects(options.mask, cell)) {
         continue;
       }
 
-      if (shouldIncludeCell(x, y, cellWidth, cellHeight, bbox, includePartialCells)) {
-        batchBuffer.push(cell);
-      }
+      batchBuffer.push(cell);
 
       // 배치가 가득 차면 반환
       if (batchBuffer.length >= batchSize) {
-        // 취소 신호 확인
+        // 배치 단위로 취소 신호를 확인한다.
         if (options.abortSignal?.aborted) {
           throw new AbortError();
         }
@@ -73,7 +82,7 @@ export const rectangleCellGridStreamSync = function* <P extends GeoJsonPropertie
     }
   }
 
-  // flush buffer
+  // 남은 버퍼 처리
   if (batchBuffer.length > 0) {
     yield batchBuffer;
   }

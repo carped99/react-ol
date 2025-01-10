@@ -37,6 +37,6 @@
     "@turf/turf": "catalog:",
     "fast-deep-equal": "^3.1.3",
     "polygon-splitter": "^0.0.11",
-    "type-fest": "^4.31.0"
+    "type-fest": "^4.32.0"
   }
 }

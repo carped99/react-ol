@@ -224,8 +224,8 @@ importers:
         specifier: ^0.0.11
         version: 0.0.11
       type-fest:
-        specifier: ^4.31.0
-        version: 4.31.0
+        specifier: ^4.32.0
+        version: 4.32.0
     devDependencies:
       '@types/geojson':
         specifier: ^7946.0.15
@@ -3775,6 +3775,10 @@ packages:
 
   type-fest@4.31.0:
     resolution: {integrity: sha512-yCxltHW07Nkhv/1F6wWBr8kz+5BGMfP+RbRSYFnegVb0qV/UMT0G0ElBloPVerqn4M2ZV80Ir1FtCcYv1cT6vQ==}
+    engines: {node: '>=16'}
+
+  type-fest@4.32.0:
+    resolution: {integrity: sha512-rfgpoi08xagF3JSdtJlCwMq9DGNDE0IMh3Mkpc1wUypg9vPi786AiqeBBKcqvIkq42azsBM85N490fyZjeUftw==}
     engines: {node: '>=16'}
 
   typed-array-buffer@1.0.3:
@@ -8631,6 +8635,8 @@ snapshots:
   type-fest@2.19.0: {}
 
   type-fest@4.31.0: {}
+
+  type-fest@4.32.0: {}
 
   typed-array-buffer@1.0.3:
     dependencies:
