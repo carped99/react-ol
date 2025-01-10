@@ -1,40 +1,13 @@
 import { Coordinate } from 'ol/coordinate';
-import { Extent, isEmpty } from 'ol/extent';
 import Map from 'ol/Map';
-import { AnimationOptions, FitOptions } from 'ol/View';
-import { Features } from '../common';
+import { AnimationOptions } from 'ol/View';
 import { METERS_PER_UNIT, Units } from 'ol/proj/Units';
-import { findAllLayer } from './findLayer';
-import { FeatureUtil } from '../FeatureUtil';
-import { AlwaysTrue } from '../Filter/type';
-import { LayerFilter } from '../Filter';
+import { findAllLayer } from './basic';
+import { AlwaysTrue, LayerFilter } from '../Filter/predicate';
 
 // 상수 정의
 const INCHES_PER_METER = 39.37;
 const DOTS_PER_INCH = 25.4 / 0.28;
-
-/**
- * 지정된 Feature가 지도에 완전히 보이도록 뷰를 조정합니다.
- * @param map - OpenLayers Map 인스턴스
- * @param feature - 표시할 Feature 또는 Feature 배열
- * @param options - fit 옵션
- */
-export const fitToFeature = (map: Map, feature: Features, options?: FitOptions) => {
-  const extent = FeatureUtil.getFeatureExtent(feature);
-  fitToExtent(map, extent, options);
-};
-
-/**
- * 지정된 영역이 지도에 완전히 보이도록 뷰를 조정합니다
- * @param map - OpenLayers Map 인스턴스
- * @param extent - 표시할 영역
- * @param options - fit 옵션
- */
-export const fitToExtent = (map: Map, extent: Extent, options?: FitOptions) => {
-  if (!isEmpty(extent)) {
-    map.getView().fit(extent, options);
-  }
-};
 
 /**
  * 지도의 중심점을 변경합니다.

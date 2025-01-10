@@ -1,9 +1,10 @@
-import * as api from './GeoJSONApi';
-import * as format from './GeoJSONFormat';
-import * as guard from './GeoJSONGuard';
+import * as format from './format';
+import * as typeGuards from './typeGuards';
+import { GeoJSONManager } from './format/manager';
 
-export const GeoJSONUtil = {
-  ...api,
+export const GeoJSONFormatManager = new GeoJSONManager();
+
+export const GeoJSONUtil: typeof format & typeof typeGuards = {
   ...format,
-  ...guard,
+  ...typeGuards,
 };

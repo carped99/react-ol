@@ -1,34 +1,10 @@
-import { featureCollection, flatten } from '@turf/turf';
+import { featureCollection } from '@turf/turf';
 import { Feature, MultiPolygon, Polygon } from 'geojson';
 import { Feature as OlFeature } from 'ol';
 import { Options as GeoJSONFormatOptions } from 'ol/format/GeoJSON';
-import { LineString as OlLineString, MultiPolygon as OlMultiPolygon, Polygon as OlPolygon } from 'ol/geom';
-import polygonSplitter from 'polygon-splitter';
-import { readGeometry, writeFeatureObject, writeGeometryObject } from '../GeoJSONUtil/GeoJSONFormat';
-import { intersectPolygon } from '../GeoJSONUtil/GeoJSONApi';
-
-/**
- * 폴리곤을 라인으로 분할하는 내부 함수입니다.
- *
- * @param polygon - 분할할 폴리곤
- * @param line - 분할에 사용할 라인
- * @param options - GeoJSON 변환 옵션
- * @returns 분할된 폴리곤 배열
- *
- * @internal
- */
-export const splitPolygonByLine = (
-  polygon: OlPolygon,
-  line: OlLineString,
-  options?: GeoJSONFormatOptions,
-): OlPolygon[] => {
-  const polyJson = writeGeometryObject(polygon, options);
-  const lineJson = writeGeometryObject(line, options);
-
-  return flatten(polygonSplitter(polyJson, lineJson)).features.map(
-    (feature) => readGeometry(feature.geometry, options) as OlPolygon,
-  );
-};
+import { MultiPolygon as OlMultiPolygon, Polygon as OlPolygon } from 'ol/geom';
+import { readGeometry, writeFeatureObject } from '../../GeoJSONUtil/GeoJSONFormat';
+import { intersectPolygon } from '../../GeoJSONUtil/GeoJSONApi';
 
 /**
  * 두 폴리곤의 교차 영역을 계산합니다.

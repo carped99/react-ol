@@ -1,22 +1,5 @@
-import { Constructor } from '../types';
 import BaseObject from 'ol/Object';
-import { getUid } from 'ol';
-import { AlwaysTrue } from './type';
-
-/**
- * 기본 필터 타입
- */
-export interface Predicate<T> {
-  (item: T): boolean;
-}
-
-export const byType = <U>(type: Constructor<U>) => {
-  return (item: any): item is U => item instanceof type;
-};
-
-export const byProperty = (key: string, value: unknown) => {
-  return (item: BaseObject) => item.get(key) === value;
-};
+import { AlwaysTrue } from '../predicate';
 
 /**
  * 객체의 속성값들을 비교하여 필터링하는 함수
@@ -25,8 +8,10 @@ export const byProperty = (key: string, value: unknown) => {
  * @returns 필터 함수
  *
  * @example
+ * ```typescript
  * const filter = byProperties({ type: 'feature', visible: true });
  * const result = filter(layer);
+ * ```
  */
 export const byProperties = (properties: Record<string, unknown>) => {
   // 빈 객체 체크
@@ -42,19 +27,4 @@ const byPropertiesImpl = (obj: BaseObject, properties: Record<string, unknown>):
   return Object.entries(properties).every(
     ([key, value]) => Object.prototype.hasOwnProperty.call(objProps, key) && objProps[key] === value,
   );
-};
-
-export const byName = (name: string) => {
-  return byProperty('name', name);
-};
-
-export const byUid = (uid: ReturnType<typeof getUid>) => {
-  return (item: any) => {
-    try {
-      return getUid(item) === uid;
-    } catch (e) {
-      console.warn('Error getting UID', item, e);
-      return false;
-    }
-  };
 };

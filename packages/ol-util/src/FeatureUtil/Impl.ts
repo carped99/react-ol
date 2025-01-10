@@ -10,13 +10,7 @@ import {
 import { difference as turfDiff, featureCollection } from '@turf/turf';
 import { Options as GeoJSONFormatOptions } from 'ol/format/GeoJSON';
 import { FormatOptions, readFeature, writeFeatureObject } from '../GeoJSONUtil/GeoJSONFormat';
-import { splitPolygonByLine } from '../GeometryUtil/GeometryUtil';
-
-/**
- * OpenLayers Feature 객체를 다루기 위한 유틸리티 함수들을 제공합니다.
- * @packageDocumentation
- */
-type PropertyValidator = (value: unknown) => boolean;
+import { splitPolygonByLine } from '../GeometryUtil/splitPolygon';
 
 export const getFeatureGeometry = <T extends OlGeometry>(feature: OlFeature<T> | OlFeature<T>[]): T[] => {
   if (Array.isArray(feature)) {
@@ -35,32 +29,9 @@ export const getFeatureExtent = (feature: OlFeature | OlFeature[]): Extent => {
   }, createEmpty());
 };
 
-/**
- * Feature의 중심 좌표를 계산합니다.
- *
- * @param feature - 중심 좌표를 계산할 OpenLayers Feature
- * @returns Feature의 extent 중심 좌표
- * @throws {Error} Feature에 geometry가 없는 경우
- *
- * @example
- * ```typescript
- * const center = getFeatureCenter(feature);
- * map.getView().setCenter(center);
- * ```
- */
 export const getFeatureCenter = (feature: OlFeature): Coordinate => {
   const extent = getGeometry(feature).getExtent();
   return getCenter(extent);
-};
-
-/**
- * Feature의 속성을 업데이트합니다.
- *
- * @param feature - 속성을 업데이트할 Feature
- * @param properties - 설정할 속성 객체
- */
-export const mergeProperties = (feature: OlFeature, properties: Record<string, any>) => {
-  feature.setProperties({ ...feature.getProperties(), ...properties });
 };
 
 /**
@@ -90,26 +61,12 @@ export function groupFeaturesByProperty<T extends OlFeature<OlGeometry>>(
   );
 }
 
-/**
- * Feature를 복제합니다.
- *
- * @param feature - 복제할 Feature
- * @param options - 복제 옵션
- * @returns 복제된 Feature
- *
- * @example
- * ```typescript
- * // 얕은 복사
- * const clone = cloneFeature(feature);
- *
- * // 깊은 복사 (geometry도 복제)
- * const deepClone = cloneFeature(feature, { deep: true });
- * ```
- */
 export const cloneFeature = <T extends OlGeometry>(
   feature: OlFeature<T>,
-  { deep = false }: { deep?: boolean } = {},
+  options?: { deep?: boolean },
 ): OlFeature<T> => {
+  const { deep = false } = options || {};
+
   const clone = new OlFeature<T>();
   const properties = { ...feature.getProperties() };
 
@@ -123,53 +80,6 @@ export const cloneFeature = <T extends OlGeometry>(
 
   clone.setProperties(properties);
   return clone;
-};
-
-/**
- * Feature의 특정 속성 존재 여부를 확인합니다.
- *
- * @param feature - 확인할 Feature
- * @param property - 확인할 속성 이름
- * @returns 속성 존재 여부
- *
- * @example
- * ```typescript
- * if (hasProperty(feature, 'name')) {
- *   console.log(feature.get('name'));
- * }
- * ```
- */
-export const hasProperty = (feature: OlFeature<OlGeometry>, property: string): boolean => {
-  return Object.prototype.hasOwnProperty.call(feature.getProperties(), property);
-};
-
-/**
- * Feature의 모든 속성을 제거합니다.
- *
- * @param feature - 속성을 제거할 Feature
- * @param exclude - 제거하지 않을 속성 이름 배열
- *
- * @example
- * ```typescript
- * // 모든 속성 제거
- * clearProperties(feature);
- *
- * // id 속성은 유지하고 나머지 제거
- * clearProperties(feature, ['id']);
- * ```
- */
-export const clearProperties = (feature: OlFeature<OlGeometry>, exclude: readonly string[] = []) => {
-  const geometry = feature.getGeometry();
-
-  // 제외할 프로퍼티를 유지하며 나머지는 제거
-  const preservedProps = Object.fromEntries(
-    exclude.map((prop) => [prop, feature.get(prop)]).filter(([, value]) => value !== undefined),
-  );
-
-  feature.setProperties(preservedProps);
-  if (geometry) {
-    feature.setGeometry(geometry); // 지오메트리를 다시 설정
-  }
 };
 
 /**
@@ -214,33 +124,6 @@ const compareByProperty =
 
     return descending ? -comparison : comparison;
   };
-
-/**
- * Feature의 속성값이 주어진 스키마에 맞는지 검증합니다.
- *
- * @param feature - 검증할 Feature
- * @param schema - 속성별 검증 함수를 담은 객체
- * @returns 검증 결과
- *
- * @example
- * ```typescript
- * const schema = {
- *   name: (value) => typeof value === 'string',
- *   population: (value) => typeof value === 'number' && value >= 0
- * };
- *
- * if (validateFeatureProperties(feature, schema)) {
- *   console.log('Valid feature');
- * }
- * ```
- */
-export function validateFeatureProperties(
-  feature: OlFeature<OlGeometry>,
-  schema: Record<string, PropertyValidator>,
-): boolean {
-  const properties = feature.getProperties();
-  return Object.entries(schema).every(([prop, validate]) => validate(properties[prop]));
-}
 
 export const difference = (
   polygon1: OlFeature<OlPolygon> | OlPolygon,

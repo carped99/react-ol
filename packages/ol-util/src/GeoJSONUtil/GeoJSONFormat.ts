@@ -26,7 +26,7 @@ import {
   Polygon,
 } from 'geojson';
 import { WriteOptions } from 'ol/format/Feature';
-import { isFeature, isFeatureCollection } from './GeoJSONGuard';
+import { isFeature, isFeatureCollection } from './typeGuards';
 
 /**
  * GeoJSON 관련 유틸리티 함수들
@@ -65,7 +65,7 @@ export function getFormat<T extends FeatureLike = OlFeature<OlGeometry>>(options
 
 // @formatter:off
 // prettier-ignore
-type GeometryToGeoJSONGeometry<T extends OlGeometry> = T extends OlPoint
+export type GeometryToGeoJSONGeometry<T extends OlGeometry> = T extends OlPoint
   ? Point
   : T extends OlLineString
     ? LineString
