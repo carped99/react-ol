@@ -1,13 +1,5 @@
 import { BBox, Feature, FeatureCollection, GeoJsonProperties, MultiPolygon, Polygon } from 'geojson';
-import {
-  booleanContains,
-  booleanIntersects,
-  difference,
-  feature,
-  featureCollection,
-  intersect,
-  polygon,
-} from '@turf/turf';
+import { booleanIntersects, difference, feature, featureCollection, intersect, polygon } from '@turf/turf';
 import { CellGridMaskOptions, CellGridOptions } from './index';
 import { calculateGridStart } from './alignment';
 import { isFeature, isFeatureCollection, isGeometry } from '../../GeoJSONUtil';
@@ -23,7 +15,7 @@ class GridGenerationError extends Error {
 }
 
 class AbortError extends GridGenerationError {
-  constructor(message = 'Grid generation was aborted') {
+  constructor(message = 'AbortError') {
     super(message);
     this.name = 'AbortError';
   }
@@ -74,7 +66,7 @@ export const rectangleCellGridStreamSync = function* <P extends GeoJsonPropertie
       const adjustedY = Math.round(y / epsilon) * epsilon;
 
       // 경계에 있는 셀을 포함할지 여부 확인
-      if (includeBoundaryCells && !checkBoundaryCell(adjustedX, adjustedY, cellWidth, cellHeight, bbox)) {
+      if (!includeBoundaryCells && !checkBoundaryCell(adjustedX, adjustedY, cellWidth, cellHeight, bbox)) {
         continue;
       }
 
@@ -148,27 +140,20 @@ const processMask = <P extends GeoJsonProperties>(
   maskFeatures: Feature<Polygon | MultiPolygon>[],
   options: CellGridMaskOptions,
 ): Feature<Polygon | MultiPolygon, P> | null => {
+  const hasIntersection = maskFeatures.some((mask) => booleanIntersects(cellFeature, mask));
   if (options.clip) {
     const collection = featureCollection([cellFeature, ...maskFeatures]);
     // 클리핑 모드
     if (options.mode === 'exclude') {
       return difference(collection) as Feature<Polygon | MultiPolygon, P>;
     } else {
-      // 겹치는 부분을 계산하기 전에 포함 여부를 확인
-      if (maskFeatures.some((mask) => booleanContains(mask, cellFeature))) {
-        return cellFeature;
-      }
-
-      if (maskFeatures.some((mask) => booleanIntersects(cellFeature, mask))) {
+      if (hasIntersection) {
         return intersect(collection);
       }
-
       return null;
     }
-  } else {
-    if (maskFeatures.some((mask) => booleanIntersects(cellFeature, mask))) {
-      return cellFeature;
-    }
+  } else if (hasIntersection) {
+    return cellFeature;
   }
   return null;
 };

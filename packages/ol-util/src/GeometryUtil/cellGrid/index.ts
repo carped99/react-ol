@@ -13,7 +13,6 @@ export const CellGridAlignment = {
   FLOOR: 'floor' as const,
   ROUND: 'round' as const,
   CENTER: 'center' as const,
-  NEAREST: 'nearest' as const,
 } as const;
 
 /**

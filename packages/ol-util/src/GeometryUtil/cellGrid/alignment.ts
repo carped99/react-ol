@@ -24,7 +24,7 @@ import { CellGridAlignment, CellGridAlignmentOptions } from './index';
  * ```
  */
 export const calculateGridStart = (min: number, cellSize: number, options: CellGridAlignmentOptions = {}): number => {
-  const { alignment = 'center', offset = 0, snapToMin = true } = options;
+  const { alignment = 'ceiling', offset = 0, snapToMin = true } = options;
 
   // 오프셋 적용
   const adjustedMin = min - offset;
@@ -44,14 +44,6 @@ export const calculateGridStart = (min: number, cellSize: number, options: CellG
     // 중심점: 셀의 중앙에 정렬
     case CellGridAlignment.CENTER:
       result = Math.floor(adjustedMin / cellSize) * cellSize + cellSize / 2;
-      break;
-
-    // 최근접: 가장 가까운 셀 경계로 정렬
-    case CellGridAlignment.NEAREST:
-      {
-        const distance = adjustedMin % cellSize;
-        result = distance < cellSize / 2 ? adjustedMin - distance : adjustedMin + (cellSize - distance);
-      }
       break;
 
     // 올림: 가장 가까운 큰 셀 경계로 정렬
