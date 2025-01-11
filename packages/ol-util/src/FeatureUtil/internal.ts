@@ -1,6 +1,6 @@
 import { Geometry as OlGeometry } from 'ol/geom';
 import { Collection, Feature as OlFeature } from 'ol';
-import { isFeatureCollection, isVectorSource } from '../typeGuards';
+import { isFeatureCollection, isVectorSource } from './typeGuards';
 import VectorSource from 'ol/source/Vector';
 
 // 타입 정의

@@ -1,8 +1,8 @@
 import Map from 'ol/Map';
 import { FitOptions } from 'ol/View';
-import { fitToExtent } from './fitToExtent';
 import { Features } from '../../common';
-import { FeatureUtil } from '../../FeatureUtil';
+import { fitToExtent } from '../fitToExtent';
+import { getFeatureExtent } from '../../FeatureUtil/Impl';
 
 /**
  * 지정된 Feature가 지도에 완전히 보이도록 뷰를 조정합니다.
@@ -11,6 +11,6 @@ import { FeatureUtil } from '../../FeatureUtil';
  * @param options - fit 옵션
  */
 export const fitToFeature = (map: Map, feature: Features, options?: FitOptions) => {
-  const extent = FeatureUtil.getFeatureExtent(feature);
+  const extent = getFeatureExtent(feature);
   fitToExtent(map, extent, options);
 };

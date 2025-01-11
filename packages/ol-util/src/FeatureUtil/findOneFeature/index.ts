@@ -1,6 +1,6 @@
 import { Feature as OlFeature } from 'ol';
 import { Geometry as OlGeometry } from 'ol/geom';
-import { FeatureSources, resolveFeatureArray } from './internal';
+import { FeatureSources, resolveFeatureArray } from '../internal';
 import { AlwaysTrue, FeatureFilter } from '../../Filter/predicate';
 
 /**
@@ -12,7 +12,7 @@ import { AlwaysTrue, FeatureFilter } from '../../Filter/predicate';
  * @returns 조건에 맞는 첫 번째 피처 또는 undefined
  *
  * @example
- * ```typescript
+ * ```ts
  * // 첫 번째 포인트 피처 찾기
  * const point = findOneFeature(source, FeatureFilters.byGeometryType('Point'));
  *

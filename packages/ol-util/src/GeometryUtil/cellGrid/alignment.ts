@@ -1,4 +1,4 @@
-import { GridAlignment, GridAlignmentOptions } from './index';
+import { CellGridAlignment, CellGridAlignmentOptions } from './index';
 
 /**
  * 그리드 시작점을 계산하는 함수
@@ -23,8 +23,8 @@ import { GridAlignment, GridAlignmentOptions } from './index';
  * calculateGridStart(3.2, 2, { offset: 0.5 }) // returns 2.5
  * ```
  */
-export const calculateGridStart = (min: number, cellSize: number, options: GridAlignmentOptions = {}): number => {
-  const { alignment = GridAlignment.CEILING, offset = 0, snapToMin = true } = options;
+export const calculateGridStart = (min: number, cellSize: number, options: CellGridAlignmentOptions = {}): number => {
+  const { alignment = 'center', offset = 0, snapToMin = true } = options;
 
   // 오프셋 적용
   const adjustedMin = min - offset;
@@ -32,22 +32,22 @@ export const calculateGridStart = (min: number, cellSize: number, options: GridA
   let result: number;
   switch (alignment) {
     // 내림: 가장 가까운 작은 셀 경계로 정렬
-    case GridAlignment.FLOOR:
+    case CellGridAlignment.FLOOR:
       result = Math.floor(adjustedMin / cellSize) * cellSize;
       break;
 
     // 반올림: 가장 가까운 셀 경계로 정렬
-    case GridAlignment.ROUND:
+    case CellGridAlignment.ROUND:
       result = Math.round(adjustedMin / cellSize) * cellSize;
       break;
 
     // 중심점: 셀의 중앙에 정렬
-    case GridAlignment.CENTER:
+    case CellGridAlignment.CENTER:
       result = Math.floor(adjustedMin / cellSize) * cellSize + cellSize / 2;
       break;
 
     // 최근접: 가장 가까운 셀 경계로 정렬
-    case GridAlignment.NEAREST:
+    case CellGridAlignment.NEAREST:
       {
         const distance = adjustedMin % cellSize;
         result = distance < cellSize / 2 ? adjustedMin - distance : adjustedMin + (cellSize - distance);
@@ -55,7 +55,7 @@ export const calculateGridStart = (min: number, cellSize: number, options: GridA
       break;
 
     // 올림: 가장 가까운 큰 셀 경계로 정렬
-    case GridAlignment.CEILING:
+    case CellGridAlignment.CEILING:
     default:
       result = Math.ceil(adjustedMin / cellSize) * cellSize;
       break;

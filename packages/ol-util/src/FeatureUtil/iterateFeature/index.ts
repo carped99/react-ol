@@ -1,7 +1,7 @@
 import { Feature as OlFeature } from 'ol';
 import { Geometry as OlGeometry } from 'ol/geom';
 import { isFeatureCollection, isVectorSource } from '../typeGuards';
-import { FeatureSources } from './internal';
+import { FeatureSources } from '../internal';
 import { AlwaysTrue, FeatureFilter } from '../../Filter/predicate';
 
 /**

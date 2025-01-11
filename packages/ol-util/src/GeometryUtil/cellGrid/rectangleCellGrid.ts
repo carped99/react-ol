@@ -1,4 +1,4 @@
-import { BBox, Feature, FeatureCollection, GeoJsonProperties, Polygon } from 'geojson';
+import { BBox, Feature, FeatureCollection, GeoJsonProperties, MultiPolygon, Polygon } from 'geojson';
 import { rectangleCellGridStreamAsync, rectangleCellGridStreamSync } from './generator';
 import { featureCollection } from '@turf/turf';
 import { CellGridOptions, StreamingMode } from './index';
@@ -42,8 +42,8 @@ const rectangleCellGridSync = <P extends GeoJsonProperties>(
   cellWidth: number,
   cellHeight: number,
   options: CellGridOptions<P>,
-): FeatureCollection<Polygon, P> => {
-  const cells: Feature<Polygon, P>[] = [];
+): FeatureCollection<Polygon | MultiPolygon, P> => {
+  const cells: Feature<Polygon | MultiPolygon, P>[] = [];
   const generator = rectangleCellGridStreamSync(bbox, cellWidth, cellHeight, options);
 
   let result = generator.next();
@@ -62,8 +62,8 @@ const rectangleCellGridAsync = async <P extends GeoJsonProperties>(
   cellWidth: number,
   cellHeight: number,
   options: CellGridOptions<P>,
-): Promise<FeatureCollection<Polygon, P>> => {
-  const cells: Feature<Polygon, P>[] = [];
+): Promise<FeatureCollection<Polygon | MultiPolygon, P>> => {
+  const cells: Feature<Polygon | MultiPolygon, P>[] = [];
   for await (const batch of rectangleCellGridStreamAsync<P>(bbox, cellWidth, cellHeight, options)) {
     cells.push(...batch);
   }

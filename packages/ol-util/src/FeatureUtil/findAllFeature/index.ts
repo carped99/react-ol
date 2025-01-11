@@ -1,6 +1,6 @@
 import { Geometry as OlGeometry } from 'ol/geom';
-import { FeatureSources, resolveFeatureArray } from './internal';
 import { AlwaysTrue, FeatureFilter } from '../../Filter/predicate';
+import { FeatureSources, resolveFeatureArray } from '../internal';
 
 /**
  * 주어진 조건에 맞는 모든 피처를 찾습니다.

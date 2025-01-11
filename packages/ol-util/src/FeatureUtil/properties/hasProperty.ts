@@ -9,7 +9,7 @@ import { Geometry as OlGeometry } from 'ol/geom';
  * @returns 속성 존재 여부
  *
  * @example
- * ```typescript
+ * ```ts
  * if (hasProperty(feature, 'name')) {
  *   console.log(feature.get('name'));
  * }

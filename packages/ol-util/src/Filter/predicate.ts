@@ -16,7 +16,7 @@ export const AlwaysFalse = () => false;
  * @returns 필터 조건에 맞으면 true, 아니면 false
  *
  * @example
- * ```typescript
+ * ```ts
  * // 보이는 레이어만 필터링
  * const visibleFilter: LayerFilter = layer => layer.getVisible();
  *

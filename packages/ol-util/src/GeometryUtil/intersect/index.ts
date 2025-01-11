@@ -15,7 +15,7 @@ import { intersectPolygon } from '../../GeoJSONUtil/GeoJSONApi';
  * @returns 교차 영역 폴리곤 (교차하지 않는 경우 undefined)
  *
  * @example
- * ```typescript
+ * ```ts
  * const intersection = intersectGeometry(polygon1, polygon2);
  * if (intersection) {
  *   console.log('Polygons intersect');

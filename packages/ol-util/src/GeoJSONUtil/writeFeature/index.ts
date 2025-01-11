@@ -1,10 +1,10 @@
 import { Geometry as OlGeometry } from 'ol/geom';
 import { Feature as OlFeature } from 'ol';
-import { Feature, FeatureCollection } from 'geojson';
+import { Feature, FeatureCollection, GeometryCollection } from 'geojson';
 import { WriteOptions } from 'ol/format/Feature';
 import { Options as GeoJSONFormatOptions } from 'ol/format/GeoJSON';
-import { GeoJSONFormatManager } from '../index';
 import { MapToGeoJSONGeometry } from '../typeGuards/typeMapping';
+import { GeoJSON } from 'ol/format';
 
 export type WriteFeatureOptions<T extends OlGeometry> = {
   format?: GeoJSONFormatOptions<OlFeature<T>>;
@@ -27,7 +27,8 @@ export type WriteFeatureOptions<T extends OlGeometry> = {
  * ```
  */
 export const writeFeature = <T extends OlGeometry>(feature: OlFeature<T>, options?: WriteFeatureOptions<T>) => {
-  const format = GeoJSONFormatManager.getFormat(options?.format);
+  // const format = GeoJSONFormatManager.getFormat(options?.format);
+  const format = new GeoJSON(options?.format);
   return format.writeFeatureObject(feature, options?.options) as Feature<MapToGeoJSONGeometry<T>>;
 };
 
@@ -48,6 +49,15 @@ export const writeFeature = <T extends OlGeometry>(feature: OlFeature<T>, option
  *```
  */
 export const writeFeatures = <T extends OlGeometry>(features: OlFeature<T>[], options?: WriteFeatureOptions<T>) => {
-  const format = GeoJSONFormatManager.getFormat(options?.format);
+  // const format = GeoJSONFormatManager.getFormat(options?.format);
+  const format = new GeoJSON(options?.format);
   return format.writeFeaturesObject(features, options?.options) as FeatureCollection<MapToGeoJSONGeometry<T>>;
+};
+
+export const writeGeometry = <T extends OlGeometry>(geometry: T, options?: WriteFeatureOptions<T>) => {
+  // const format = GeoJSONFormatManager.getFormat(options?.format);
+  const format = new GeoJSON(options?.format);
+  return format.writeGeometryObject(geometry, options?.options) as
+    | MapToGeoJSONGeometry<T>
+    | GeometryCollection<MapToGeoJSONGeometry<T>>;
 };

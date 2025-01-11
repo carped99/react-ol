@@ -8,7 +8,7 @@ import { Geometry as OlGeometry } from 'ol/geom';
  * @param exclude - 제거하지 않을 속성 이름 배열
  *
  * @example
- * ```typescript
+ * ```ts
  * // 모든 속성 제거
  * clearProperties(feature);
  *

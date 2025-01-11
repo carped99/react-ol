@@ -9,7 +9,7 @@ import {
   Point as OlPoint,
   Polygon as OlPolygon,
 } from 'ol/geom';
-import { readGeometry } from './readGeometry';
+import { readGeometry } from './index';
 
 describe('readGeometry', () => {
   // 테스트 데이터 사전 정의

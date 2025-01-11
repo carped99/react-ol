@@ -10,8 +10,16 @@ export const resolveViteConfig = (dirname: string) =>
     plugins: [
       // TypeScript 선언 파일 생성 플러그인
       dts({
+        include: ['src'],
         insertTypesEntry: true, // package.json의 types 필드에 자동으로 추가
         rollupTypes: true, // 모든 .d.ts 파일을 하나로 번들링
+        copyDtsFiles: true, // .d.ts 파일을 dist 폴더로 복사
+        compilerOptions: {
+          baseUrl: '.',
+          paths: {
+            '@/*': ['src/*'],
+          },
+        },
       }),
       // 번들 크기 분석 플러그인
       analyze({

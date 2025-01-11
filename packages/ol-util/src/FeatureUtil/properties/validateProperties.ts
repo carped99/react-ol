@@ -15,7 +15,7 @@ type PropertyValidator = (value: unknown) => boolean;
  * @returns 검증 결과
  *
  * @example
- * ```typescript
+ * ```ts
  * const schema = {
  *   name: (value) => typeof value === 'string',
  *   population: (value) => typeof value === 'number' && value >= 0

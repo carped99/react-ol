@@ -1,31 +1,40 @@
-import { Feature, FeatureCollection, GeoJsonProperties, MultiPolygon, Polygon } from 'geojson';
+import { Feature, GeoJsonProperties, Polygon } from 'geojson';
+import { MaskInput, MaskMode } from './generator';
 
 export * from './rectangleCellGrid';
 export * from './squareCellGrid';
 
-/**
- * 그리드 정렬 방식을 정의하는 열거형
- */
-export enum GridAlignment {
-  CEILING = 'ceiling', // 올림 정렬
-  FLOOR = 'floor', // 내림 정렬
-  ROUND = 'round', // 반올림 정렬
-  CENTER = 'center', // 중심점 정렬
-  NEAREST = 'nearest', // 가장 가까운 경계 정렬
-}
+// enum 대신 union type으로 변경
+export type CellGridAlignment = 'ceiling' | 'floor' | 'round' | 'center' | 'nearest';
+
+// 상수 객체로 제공 (선택사항)
+export const CellGridAlignment = {
+  CEILING: 'ceiling' as const,
+  FLOOR: 'floor' as const,
+  ROUND: 'round' as const,
+  CENTER: 'center' as const,
+  NEAREST: 'nearest' as const,
+} as const;
 
 /**
  * 그리드 정렬 옵션 인터페이스
  */
-export interface GridAlignmentOptions {
+export interface CellGridAlignmentOptions {
   /** 그리드 정렬 방식 (기본값: CEILING) */
-  alignment?: GridAlignment;
+  alignment?: CellGridAlignment;
 
   /** 정렬 기준점으로부터의 오프셋 값 (기본값: 0) */
   offset?: number;
 
   /** 최소값에 스냅할지 여부 (기본값: true) */
   snapToMin?: boolean;
+}
+
+export interface CellGridMaskOptions {
+  /** 그리드 생성 영역을 제한하는 마스크 */
+  region: MaskInput;
+  mode?: MaskMode;
+  clip?: boolean;
 }
 
 /**
@@ -38,9 +47,9 @@ export interface CellGridOptions<P extends GeoJsonProperties> {
    * - true: 경계와 일부라도 겹치는 셀 포함
    * - false: 경계 내부에 완전히 포함된 셀만 생성
    */
-  includePartialCells?: boolean;
+  includeBoundaryCells?: boolean;
 
-  alignment?: GridAlignmentOptions;
+  alignment?: CellGridAlignmentOptions;
 
   /**
    * 한 번에 처리할 셀의 수
@@ -53,7 +62,7 @@ export interface CellGridOptions<P extends GeoJsonProperties> {
    * - 마스크와 교차하는 영역에만 그리드 셀 생성
    * - Polygon 또는 MultiPolygon 형태의 GeoJSON Feature나 Geometry
    */
-  mask?: Feature<Polygon | MultiPolygon> | Polygon | MultiPolygon;
+  mask?: CellGridMaskOptions;
 
   /**
    * 생성된 그리드 셀에 추가할 속성
@@ -81,10 +90,6 @@ export interface CellGridOptions<P extends GeoJsonProperties> {
    */
   async?: boolean;
 }
-
-export type CellGridResponse<P extends GeoJsonProperties> =
-  | FeatureCollection<Polygon, P>
-  | Promise<FeatureCollection<Polygon, P>>;
 
 /**
  * 그리드 생성 모드에 따른 반환 타입 정의

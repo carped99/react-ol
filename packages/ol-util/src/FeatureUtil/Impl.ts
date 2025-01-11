@@ -42,7 +42,7 @@ export const getFeatureCenter = (feature: OlFeature): Coordinate => {
  * @returns 속성값을 키로 하는 Feature 배열 맵
  *
  * @example
- * ```typescript
+ * ```ts
  * const groupedByType = groupFeaturesByProperty(features, 'type');
  * const cities = groupedByType['city'];
  * ```
@@ -91,7 +91,7 @@ export const cloneFeature = <T extends OlGeometry>(
  * @returns 정렬된 Feature 배열
  *
  * @example
- * ```typescript
+ * ```ts
  * // 오름차순 정렬
  * const sorted = sortFeatures(features, 'name');
  *
@@ -174,7 +174,7 @@ const getGeometry = <T extends OlGeometry>(source: OlFeature<T> | T) => {
  * @returns 분할된 폴리곤 배열
  *
  * @example
- * ```typescript
+ * ```ts
  * const splitPolygons = splitByLine(polygon, line, {
  *   dataProjection: 'EPSG:4326',
  *   featureProjection: 'EPSG:3857'

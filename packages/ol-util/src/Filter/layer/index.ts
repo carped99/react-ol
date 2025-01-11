@@ -1,9 +1,9 @@
 import BaseLayer from 'ol/layer/Base';
 import VectorLayer from 'ol/layer/Vector';
-import { byType } from '../basic';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorImageLayer from 'ol/layer/VectorImage';
 import TileLayer from 'ol/layer/Tile';
+import { byType } from '../byType';
 
 export * from './byFeature';
 

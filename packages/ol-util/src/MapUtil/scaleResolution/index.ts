@@ -1,59 +1,9 @@
-import { Coordinate } from 'ol/coordinate';
 import Map from 'ol/Map';
-import { AnimationOptions } from 'ol/View';
 import { METERS_PER_UNIT, Units } from 'ol/proj/Units';
-import { findAllLayer } from './basic';
-import { AlwaysTrue, LayerFilter } from '../Filter/predicate';
 
 // 상수 정의
 const INCHES_PER_METER = 39.37;
 const DOTS_PER_INCH = 25.4 / 0.28;
-
-/**
- * 지도의 중심점을 변경합니다.
- * @param map - OpenLayers Map 인스턴스
- * @param coordinate - 새로운 중심 좌표
- * @param options - 애니메이션 옵션
- */
-export const setMapCenter = (map: Map, coordinate: Coordinate, options?: Omit<AnimationOptions, 'center'>) => {
-  const view = map.getView();
-  if (options) {
-    view.animate({
-      ...options,
-      center: coordinate,
-    });
-  } else {
-    view.setCenter(coordinate);
-  }
-};
-
-/**
- * 지도의 줌 레벨을 변경합니다
- * @param map - OpenLayers Map 인스턴스
- * @param zoom - 새로운 줌 레벨
- * @param options - 애니메이션 옵션
- */
-export const setMapZoom = (map: Map, zoom: number, options?: Omit<AnimationOptions, 'zoom'>) => {
-  const view = map.getView();
-  if (options) {
-    view.animate({
-      ...options,
-      zoom: zoom,
-    });
-  } else {
-    view.setZoom(zoom);
-  }
-};
-
-/**
- * 지도의 모든 레이어를 활성화/비활성화합니다
- * @param map - OpenLayers Map 인스턴스
- * @param visible - 표시 여부
- * @param filter - 레이어 필터링 조건 함수
- */
-export const setLayerVisibility = (map: Map, visible: boolean, filter: LayerFilter = AlwaysTrue) => {
-  findAllLayer(map, filter).forEach((layer) => layer.setVisible(visible));
-};
 
 /**
  * 지도의 현재 상태를 반환합니다

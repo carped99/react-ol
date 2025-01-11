@@ -7,7 +7,7 @@ import { Constructor } from 'type-fest';
  * @param type - 검사할 타입의 생성자 함수
  *
  * @example
- * ```typescript
+ * ```ts
  * class User {
  *   name: string;
  *   age: number;
@@ -22,5 +22,5 @@ import { Constructor } from 'type-fest';
  * ```
  */
 export const byType = <T>(type: Constructor<T>) => {
-  return (item: any): item is T => item instanceof type;
+  return (item: unknown): item is T => item instanceof type;
 };
