@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import BaseLayer, { Options as BaseOptions } from 'ol/layer/Base';
 import { equals as equalsExtent } from 'ol/extent';
-import { useProperties } from '../../hooks/useProperties';
+import { useProperties } from '../../base/useProperties';
 
 export const useBaseLayer = (layer: BaseLayer, options: Readonly<BaseOptions>) => {
   useProperties(layer, options);

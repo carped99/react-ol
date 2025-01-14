@@ -2,6 +2,7 @@ export type InstanceProperty = {
   name: string;
   settable?: boolean;
   nullable?: boolean;
+  nullValue?: unknown;
 };
 
 export const InstanceProperties = {

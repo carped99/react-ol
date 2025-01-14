@@ -1,21 +1,50 @@
 import { Overlay } from 'ol';
-import { useMapContext } from '../context';
-import { useEvents } from '../events';
-import { useEffect } from 'react';
+import { Options } from 'ol/Overlay';
 import { OverlayEvents } from './events';
+import { createInstanceProviderByKey, useInstance } from '../base';
+import { InstanceProperty } from '../layer/base/ObservableProperties';
+import { useEffect } from 'react';
+import { useEvents } from '../events';
+import { useMapContext } from '../context';
 
-export const useOverlay = <E extends OverlayEvents>(overlay: Overlay, events?: E) => {
+export const useOverlay = <E extends OverlayEvents>(options: Options, events?: E) => {
   const { map } = useMapContext();
 
-  useEvents(overlay, events);
+  const instance = useInstance(instanceProvider, options);
 
   useEffect(() => {
-    if (!map || !overlay) return;
+    if (!map || !instance) return;
 
-    map.addOverlay(overlay);
+    map.addOverlay(instance);
 
     return () => {
-      map.removeOverlay(overlay);
+      map.removeOverlay(instance);
     };
-  }, [map, overlay]);
+  }, [map, instance]);
+
+  useEvents(instance, events);
+
+  return instance;
 };
+
+const createInstance = (options: Overlay | Options) => {
+  if (options instanceof Overlay) {
+    return options;
+  } else {
+    return new Overlay(options);
+  }
+};
+
+const instanceProperties: InstanceProperty[] = [
+  { name: 'id', settable: false },
+  { name: 'element', settable: true, nullable: true },
+  { name: 'offset', settable: true, nullable: false },
+  { name: 'position', settable: true, nullable: true },
+  { name: 'positioning', settable: true, nullable: true, nullValue: 'top-left' },
+  { name: 'stopEvent', settable: false },
+  { name: 'insertFirst', settable: false },
+  { name: 'autoPan', settable: false },
+  { name: 'className', settable: false },
+] as const;
+
+const instanceProvider = createInstanceProviderByKey(createInstance, instanceProperties);

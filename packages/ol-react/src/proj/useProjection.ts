@@ -1,7 +1,6 @@
 import { Projection } from 'ol/proj';
 import { Options } from 'ol/proj/Projection';
-import { useInstance } from '../hooks/useInstance';
-import { createInstanceProviderByKey } from '../hooks/InstanceProviderByProperties';
+import { createInstanceProviderByKey, useInstance } from '../base';
 
 export const useProjection = (options: Options) => {
   return useInstance(provider, options);

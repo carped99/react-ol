@@ -1,2 +1,2 @@
 export * from './useOverlay';
-export * from './useShowText';
+export * from './useOverlayInstance';

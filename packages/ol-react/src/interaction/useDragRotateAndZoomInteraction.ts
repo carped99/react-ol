@@ -2,8 +2,7 @@ import { DragRotateAndZoom } from 'ol/interaction';
 import { Options } from 'ol/interaction/DragRotateAndZoom';
 import { useInteraction } from './useInteraction';
 import { DragRotateAndZoomInteractionEvents } from './event';
-import { useInstance } from '../hooks/useInstance';
-import { createInstanceProviderByKey } from '../hooks/InstanceProviderByProperties';
+import { createInstanceProviderByKey, useInstance } from '../base';
 
 /**
  * Options for the - {@link useDragRotateAndZoomInteraction} hook.

@@ -2,12 +2,11 @@ import { useCallback, useDebugValue } from 'react';
 import ImageLayer from 'ol/layer/Image';
 import ImageSource from 'ol/source/Image';
 import { ImageLayerOptions } from './options';
-import { useInstance } from '../hooks/useInstance';
-import { useInstanceProviderByKeys } from '../hooks/InstanceProviderByProperties';
 import { useBaseImageLayer } from './base/useBaseImageLayer';
 import { BaseImageLayerInstanceProperties } from './base/ObservableProperties';
 import { ImageLayerEvents } from './events';
 import { useEvents } from '../events';
+import { useInstance, useInstanceProviderByKeys } from '../base';
 
 /**
  * {@link ImageLayer}를 생성한다.

@@ -2,8 +2,7 @@ import { Modify } from 'ol/interaction';
 import { Options } from 'ol/interaction/Modify';
 import { useInteraction } from './useInteraction';
 import { ModifyInteractionEvents } from './event';
-import { useInstance } from '../hooks/useInstance';
-import { createInstanceProviderByKey } from '../hooks/InstanceProviderByProperties';
+import { createInstanceProviderByKey, useInstance } from '../base';
 
 /**
  * Options for the - {@link useModifyInteraction} hook.

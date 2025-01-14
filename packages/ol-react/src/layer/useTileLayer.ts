@@ -3,12 +3,11 @@ import { Tile as TileLayer } from 'ol/layer';
 import { Tile as TileSource } from 'ol/source';
 import { Tile } from 'ol';
 import { TileLayerOptions } from './options';
-import { useInstance } from '../hooks/useInstance';
-import { useInstanceProviderByKeys } from '../hooks/InstanceProviderByProperties';
 import { useBaseTileLayer } from './base/useBaseTileLayer';
 import { TileLayerEvents } from './events/TileLayerEvents';
 import { useEvents } from '../events';
 import { BaseTileLayerInstanceProperties } from './base/ObservableProperties';
+import { useInstance, useInstanceProviderByKeys } from '../base';
 
 /**
  * {@link TileLayer}를 생성한다.

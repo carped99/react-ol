@@ -51,13 +51,18 @@ export const useEvents = <T>(target?: Observable, events?: T) => {
 };
 
 const resolveEventHandlers = (options?: unknown): Listeners => {
-  return Object.entries(options ?? {})
-    .filter(([type, value]) => isEventListener(type, value))
-    .reduce<Listeners>((acc, [type, value]) => {
-      const eventType = normalizeEventType(type);
-      acc[eventType] = value as (event: any) => void;
-      return acc;
-    }, {});
+  if (!options || typeof options !== 'object') {
+    return {};
+  }
+
+  const handlers: Listeners = {};
+
+  for (const [type, value] of Object.entries(options)) {
+    if (!isEventListener(type, value)) continue;
+    handlers[normalizeEventType(type)] = value as (event: any) => void;
+  }
+
+  return handlers;
 };
 
 /**

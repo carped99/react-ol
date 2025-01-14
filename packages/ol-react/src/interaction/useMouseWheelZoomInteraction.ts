@@ -2,8 +2,7 @@ import { MouseWheelZoom } from 'ol/interaction';
 import { Options } from 'ol/interaction/MouseWheelZoom';
 import { useInteraction } from './useInteraction';
 import { MouseWheelZoomInteractionEvents } from './event';
-import { useInstance } from '../hooks/useInstance';
-import { createInstanceProviderByKey } from '../hooks/InstanceProviderByProperties';
+import { createInstanceProviderByKey, useInstance } from '../base';
 
 /**
  * Options for the - {@link useMouseWheelZoomInteraction} hook.

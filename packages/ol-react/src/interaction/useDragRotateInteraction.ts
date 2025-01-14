@@ -2,8 +2,7 @@ import { DragRotate } from 'ol/interaction';
 import { Options } from 'ol/interaction/DragRotate';
 import { useInteraction } from './useInteraction';
 import { DragRotateInteractionEvents } from './event';
-import { useInstance } from '../hooks/useInstance';
-import { createInstanceProviderByKey } from '../hooks/InstanceProviderByProperties';
+import { createInstanceProviderByKey, useInstance } from '../base';
 
 /**
  * Options for the - {@link useDragRotateInteraction} hook.

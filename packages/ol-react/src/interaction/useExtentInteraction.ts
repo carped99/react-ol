@@ -2,8 +2,7 @@ import { Extent } from 'ol/interaction';
 import { Options } from 'ol/interaction/Extent';
 import { useInteraction } from './useInteraction';
 import { ExtentInteractionEvents } from './event';
-import { useInstance } from '../hooks/useInstance';
-import { createInstanceProviderByKey } from '../hooks/InstanceProviderByProperties';
+import { createInstanceProviderByKey, useInstance } from '../base';
 
 /**
  * Options for the - {@link useExtentInteraction} hook.

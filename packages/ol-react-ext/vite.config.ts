@@ -8,6 +8,9 @@ export default mergeConfig(
   defineConfig({
     build: {
       sourcemap: true,
+      rollupOptions: {
+        external: ['@carped99/ol-react'],
+      },
     },
   }),
 );

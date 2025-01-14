@@ -1,6 +1,6 @@
 import Popup, { Options } from 'ol-ext/overlay/Popup';
 import { useMemo } from 'react';
-import { useOverlay } from '@carped99/ol-react';
+import { useOverlayInstance } from '@carped99/ol-react';
 
 /**
  * Options for the overlay.
@@ -21,7 +21,7 @@ export const usePopupOverlay = (options: PopupOverlayOptions) => {
     return new Popup(options);
   }, [options]);
 
-  useOverlay(popup);
+  useOverlayInstance(popup);
 
   return popup;
 };

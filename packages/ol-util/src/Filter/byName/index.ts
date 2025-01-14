@@ -1,9 +1,14 @@
-import { byProperty } from '../byProperty';
+import { AlwaysFalse, Predicate } from '../predicate';
+import BaseObject from 'ol/Object';
+
+/**
+ * 이름 필터를 위한 타입
+ */
+type NameFilter = string | string[] | readonly string[];
 
 /**
  * 주어진 이름과 일치하는 객체를 찾는 필터 함수를 생성합니다.
  *
- * @param  name - 검색할 이름
  *
  * @example
  * ```ts
@@ -26,6 +31,13 @@ import { byProperty } from '../byProperty';
  * );
  *```
  */
-export const byName = (name: string) => {
-  return byProperty('name', name);
+export const byName = (...names: NameFilter[]): Predicate<BaseObject> => {
+  const flatNames = names.flat();
+  if (flatNames.length === 0) {
+    return AlwaysFalse;
+  }
+  return (item) => {
+    const layerName = item.get('name');
+    return typeof layerName === 'string' && flatNames.includes(layerName);
+  };
 };

@@ -2,8 +2,7 @@ import { DragPan } from 'ol/interaction';
 import { Options } from 'ol/interaction/DragPan';
 import { useInteraction } from './useInteraction';
 import { DragPanInteractionEvents } from './event';
-import { useInstance } from '../hooks/useInstance';
-import { createInstanceProviderByKey } from '../hooks/InstanceProviderByProperties';
+import { createInstanceProviderByKey, useInstance } from '../base';
 
 /**
  * Options for {@link useDragPanInteraction} hook.

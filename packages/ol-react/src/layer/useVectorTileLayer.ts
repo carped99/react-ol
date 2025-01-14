@@ -3,12 +3,11 @@ import VectorTileLayer, { ExtractedFeatureType } from 'ol/layer/VectorTile';
 import { VectorTile } from 'ol/source';
 import { FeatureLike } from 'ol/Feature';
 import { VectorTileLayerOptions } from './options';
-import { useInstance } from '../hooks/useInstance';
-import { useInstanceProviderByKeys } from '../hooks/InstanceProviderByProperties';
 import { useBaseVectorLayer } from './base/useBaseVectorLayer';
 import { BaseVectorInstanceProperties } from './base/ObservableProperties';
 import { VectorTileLayerEvents } from './events';
 import { useEvents } from '../events';
+import { useInstance, useInstanceProviderByKeys } from '../base';
 
 /**
  * {@link VectorTileLayer}를 생성한다.

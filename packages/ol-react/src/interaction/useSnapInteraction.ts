@@ -2,8 +2,7 @@ import { Snap } from 'ol/interaction';
 import { Options } from 'ol/interaction/Snap';
 import { useInteraction } from './useInteraction';
 import { SnapInteractionEvents } from './event';
-import { useInstance } from '../hooks/useInstance';
-import { createInstanceProviderByKey } from '../hooks/InstanceProviderByProperties';
+import { createInstanceProviderByKey, useInstance } from '../base';
 
 /**
  * Options for the - {@link useSnapInteraction} hook.

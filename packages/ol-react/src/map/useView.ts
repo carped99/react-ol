@@ -2,8 +2,7 @@ import View from 'ol/View';
 import { useEvents } from '../events';
 import { ViewEvents } from './events';
 import { ViewOptions } from './options';
-import { useInstance } from '../hooks/useInstance';
-import { createInstanceProviderByKey } from '../hooks/InstanceProviderByProperties';
+import { createInstanceProviderByKey, useInstance } from '../base';
 
 /**
  * Hook for creating an OpenLayers view.

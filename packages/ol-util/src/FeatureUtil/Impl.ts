@@ -1,6 +1,4 @@
 import { Feature as OlFeature } from 'ol';
-import { Coordinate } from 'ol/coordinate';
-import { createEmpty, extend, Extent, getCenter } from 'ol/extent';
 import {
   Geometry as OlGeometry,
   LineString as OlLineString,
@@ -10,7 +8,7 @@ import {
 import { difference as turfDiff, featureCollection } from '@turf/turf';
 import { Options as GeoJSONFormatOptions } from 'ol/format/GeoJSON';
 import { FormatOptions, readFeature, writeFeatureObject } from '../GeoJSONUtil/GeoJSONFormat';
-import { splitPolygonByLine } from '../GeometryUtil/splitPolygon';
+import { splitPolygonByLine } from '../GeometryUtil';
 
 export const getFeatureGeometry = <T extends OlGeometry>(feature: OlFeature<T> | OlFeature<T>[]): T[] => {
   if (Array.isArray(feature)) {
@@ -18,20 +16,6 @@ export const getFeatureGeometry = <T extends OlGeometry>(feature: OlFeature<T> |
   }
   const geometry = feature.getGeometry();
   return geometry ? [geometry] : [];
-};
-
-export const getFeatureExtent = (feature: OlFeature | OlFeature[]): Extent => {
-  const geometries = getFeatureGeometry(feature);
-
-  return geometries.reduce((acc, geometry) => {
-    const extent = geometry.getExtent();
-    return extent ? extend(acc, extent) : acc;
-  }, createEmpty());
-};
-
-export const getFeatureCenter = (feature: OlFeature): Coordinate => {
-  const extent = getGeometry(feature).getExtent();
-  return getCenter(extent);
 };
 
 /**

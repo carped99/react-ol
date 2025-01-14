@@ -1,8 +1,6 @@
 import { useDebugValue } from 'react';
 import Graticule from 'ol/layer/Graticule';
 import { GraticuleLayerOptions } from './options';
-import { createInstanceProviderByKey } from '../hooks/InstanceProviderByProperties';
-import { useInstance } from '../hooks/useInstance';
 import { useBaseVectorLayer } from './base/useBaseVectorLayer';
 import { Feature } from 'ol';
 import { Geometry } from 'ol/geom';
@@ -10,6 +8,7 @@ import VectorSource from 'ol/source/Vector';
 import { BaseVectorInstanceProperties } from './base/ObservableProperties';
 import { GraticuleLayerEvents } from './events/GraticuleLayerEvents';
 import { useEvents } from '../events';
+import { createInstanceProviderByKey, useInstance } from '../base';
 
 /**
  * {@link Graticule}를 생성한다.
@@ -45,6 +44,6 @@ const instanceProperties = [
   { name: 'wrapX', settable: false },
 ] as const;
 
-const create = (options: Readonly<GraticuleLayerOptions>) => new Graticule(options);
+const createInstance = (options: Readonly<GraticuleLayerOptions>) => new Graticule(options);
 
-const provider = createInstanceProviderByKey(create, instanceProperties);
+const provider = createInstanceProviderByKey(createInstance, instanceProperties);

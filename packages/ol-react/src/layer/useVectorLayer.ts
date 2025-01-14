@@ -4,13 +4,11 @@ import VectorSource from 'ol/source/Vector';
 import { FeatureLike } from 'ol/Feature';
 import { ExtractedFeatureType } from 'ol/layer/BaseVector';
 import { VectorLayerOptions } from './options';
-import { useInstance } from '../hooks/useInstance';
-import { useInstanceProviderByKeys } from '../hooks/InstanceProviderByProperties';
-import { InstanceProvider } from '../hooks/InstanceProvider';
 import { useBaseVectorLayer } from './base/useBaseVectorLayer';
 import { BaseVectorInstanceProperties } from './base/ObservableProperties';
 import { VectorLayerEvents } from './events';
 import { useEvents } from '../events';
+import { InstanceProvider, useInstance, useInstanceProviderByKeys } from '../base';
 
 /**
  * {@link VectorLayer}를 생성한다.

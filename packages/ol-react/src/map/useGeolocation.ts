@@ -2,8 +2,7 @@ import { Geolocation } from 'ol';
 import { useEvents } from '../events';
 import { GeolocationEvents } from './events';
 import { GeolocationOptions } from './options';
-import { useInstance } from '../hooks/useInstance';
-import { createInstanceProviderByKey } from '../hooks/InstanceProviderByProperties';
+import { createInstanceProviderByKey, useInstance } from '../base';
 
 /**
  * 지도를 생성하고 반환한다.

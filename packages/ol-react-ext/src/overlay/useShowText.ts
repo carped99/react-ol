@@ -5,8 +5,7 @@ import { getVectorContext } from 'ol/render';
 import { unByKey } from 'ol/Observable';
 import { EventsKey } from 'ol/events';
 import { FeatureLike } from 'ol/Feature';
-import { useMapContext } from '../context';
-import { useVectorLayer } from '../layer';
+import { useMapContext, useVectorLayer } from '@carped99/ol-react';
 
 export const useShowText = () => {
   const { map } = useMapContext();

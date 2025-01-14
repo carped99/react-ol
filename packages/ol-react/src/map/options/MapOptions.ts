@@ -1,5 +1,5 @@
 import { MapOptions as OLMapOptions } from 'ol/Map';
-import { BaseObjectOptions } from '../../hooks/useProperties';
+import { BaseObjectOptions } from '../../base/useProperties';
 
 /**
  * 지도 옵션

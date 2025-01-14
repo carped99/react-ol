@@ -1,5 +1,5 @@
 import { ViewOptions as OLViewOptions } from 'ol/View';
-import { BaseObjectOptions } from '../../hooks/useProperties';
+import { BaseObjectOptions } from '../../base/useProperties';
 
 /**
  * Options for the view.

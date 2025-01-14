@@ -1,3 +1,5 @@
+export * from './base';
+
 export * from './map';
 export * from './map/events';
 export * from './map/options';
@@ -25,3 +27,6 @@ export * from './overlay/events';
 
 // Projection
 export * from './proj';
+
+// Projection
+export * from './components';

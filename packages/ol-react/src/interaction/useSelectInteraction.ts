@@ -2,8 +2,7 @@ import { Select } from 'ol/interaction';
 import { Options } from 'ol/interaction/Select';
 import { useInteraction } from './useInteraction';
 import { SelectInteractionEvents } from './event';
-import { useInstance } from '../hooks/useInstance';
-import { createInstanceProviderByKey } from '../hooks/InstanceProviderByProperties';
+import { createInstanceProviderByKey, useInstance } from '../base';
 
 /**
  * Options for the - {@link useSelectInteraction} hook.

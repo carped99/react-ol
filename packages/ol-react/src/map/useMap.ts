@@ -3,19 +3,19 @@ import LayerGroup from 'ol/layer/Group';
 import { Ref, useEffect, useRef } from 'react';
 import { useMapContext } from '../context';
 import { useEvents } from '../events';
-import { usePrevious } from '../hooks/usePrevious';
-import { useProperties } from '../hooks/useProperties';
 import { equals, equalsByProps } from '../utils/common';
 import { MapEvents } from './events';
 import { MapOptions } from './options';
+import { usePrevious } from '../base';
+import { useProperties } from '../base/useProperties';
 
 /**
  * 지도를 생성하고 관리하는 React Hook입니다.
- * 
+ *
  * @param options - 지도 생성 옵션
  * @param events - 지도 이벤트 핸들러
  * @returns [HTMLDivElement에 대한 ref, 생성된 Map 인스턴스]
- * 
+ *
  * @example
  * ```tsx
  * const MapComponent = () => {
@@ -25,7 +25,7 @@ import { MapOptions } from './options';
  *       zoom: 2
  *     })
  *   });
- * 
+ *
  *   return <div ref={targetRef} style={{ width: '100%', height: '400px' }} />;
  * };
  * ```
@@ -73,11 +73,11 @@ export const useMap = (
 
 /**
  * OpenLayers Map 인스턴스를 생성합니다.
- * 
+ *
  * @param div - 지도를 렌더링할 HTML 요소
  * @param options - 지도 생성 옵션
  * @returns 생성된 Map 인스턴스
- * 
+ *
  * @internal
  */
 const createMap = (div: HTMLElement, options?: MapOptions) => {
@@ -90,9 +90,9 @@ const createMap = (div: HTMLElement, options?: MapOptions) => {
 
 /**
  * Map 인스턴스의 리소스를 정리합니다.
- * 
+ *
  * @param map - 정리할 Map 인스턴스
- * 
+ *
  * @internal
  */
 const cleanupMap = (map: Map | undefined) => {
@@ -102,11 +102,11 @@ const cleanupMap = (map: Map | undefined) => {
 
 /**
  * Map 인스턴스의 설정을 업데이트합니다.
- * 
+ *
  * @param map - 업데이트할 Map 인스턴스
  * @param prev - 이전 옵션
  * @param curr - 새로운 옵션
- * 
+ *
  * @internal
  */
 const updateMap = (map: Map, prev?: MapOptions, curr?: MapOptions) => {
@@ -129,10 +129,10 @@ const updateView = (map: Map, prev?: MapOptions, curr?: MapOptions) => {
     const zoom = oldView.getZoom();
     const rotation = oldView.getRotation();
     const projection = oldView.getProjection();
-    
+
     if (center) newView.setCenter(center);
     if (zoom != null) newView.setZoom(zoom);
-    if (rotation !=null) newView.setRotation(rotation);
+    if (rotation != null) newView.setRotation(rotation);
     if (projection) newView.set('projection', projection);
   }
 
@@ -152,35 +152,35 @@ const updateLayers = (map: Map, prev?: MapOptions, curr?: MapOptions) => {
 
 const updateControls = (map: Map, prev?: MapOptions, curr?: MapOptions) => {
   if (equals(prev?.controls, curr?.controls)) return;
-  
+
   // 기존 컨트롤 제거
   map.getControls().clear();
-  
+
   // 새 컨트롤 추가
   if (curr?.controls != null) {
-    curr.controls.forEach(control => map.addControl(control));
+    curr.controls.forEach((control) => map.addControl(control));
   }
 };
 
 const updateInteractions = (map: Map, prev?: MapOptions, curr?: MapOptions) => {
   if (equals(prev?.interactions, curr?.interactions)) return;
-  
+
   // 기존 인터랙션 제거
   map.getInteractions().clear();
-  
+
   if (curr?.interactions != null) {
-    curr.interactions.forEach(interaction => map.addInteraction(interaction));
+    curr.interactions.forEach((interaction) => map.addInteraction(interaction));
   }
 };
 
 const updateOverlays = (map: Map, prev?: MapOptions, curr?: MapOptions) => {
   if (equals(prev?.overlays, curr?.overlays)) return;
-  
+
   // 기존 오버레이 제거
   map.getOverlays().clear();
-  
+
   if (curr?.overlays != null) {
-    curr.overlays.forEach(overlay => map.addOverlay(overlay));
+    curr.overlays.forEach((overlay) => map.addOverlay(overlay));
   }
 };
 
