@@ -2,7 +2,8 @@ import { Feature as OlFeature } from 'ol';
 import { Geometry as OlGeometry } from 'ol/geom';
 import { isFeatureCollection, isVectorSource } from '../typeGuards';
 import { FeatureSources } from '../internal';
-import { AlwaysTrue, FeatureFilter } from '../../Filter/predicate';
+import { FeatureFilter } from '../../Filter/predicate';
+import { TRUE } from 'ol/functions';
 
 /**
  * 주어진 소스의 피처들을 순회하는 제너레이터 함수입니다.
@@ -13,7 +14,7 @@ import { AlwaysTrue, FeatureFilter } from '../../Filter/predicate';
  */
 export const iterateFeature = function* <T extends OlGeometry>(
   source?: FeatureSources<T> | null,
-  filter: FeatureFilter<T> = AlwaysTrue,
+  filter: FeatureFilter<T> = TRUE,
 ): Generator<OlFeature<T>> {
   if (!source) return;
   for (const feature of iterateFeatureInternal(source)) {

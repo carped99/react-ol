@@ -2,7 +2,8 @@ import BaseLayer from 'ol/layer/Base';
 import LayerGroup from 'ol/layer/Group';
 import Map from 'ol/Map';
 import { isLayerGroup } from '../../common';
-import { AlwaysTrue, LayerFilter } from '../../Filter/predicate';
+import { LayerFilter } from '../../Filter/predicate';
+import { TRUE } from 'ol/functions';
 
 /**
  * 주어진 소스(Map 또는 LayerGroup)에서 필터 조건을 만족하는 모든 레이어를 찾아 반환합니다.
@@ -10,7 +11,7 @@ import { AlwaysTrue, LayerFilter } from '../../Filter/predicate';
  * @param filter - 레이어 필터링 함수 (기본값: 모든 레이어 포함)
  * @returns 필터 조건을 만족하는 레이어들의 배열
  */
-export const findAllLayer = (source: Map | LayerGroup, filter: LayerFilter = AlwaysTrue): BaseLayer[] => {
+export const findAllLayer = (source: Map | LayerGroup, filter: LayerFilter = TRUE): BaseLayer[] => {
   // 결과를 저장할 배열 초기화
   const result: BaseLayer[] = [];
 

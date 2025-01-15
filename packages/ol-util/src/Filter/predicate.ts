@@ -4,10 +4,6 @@ import { Feature } from 'ol';
 
 export type Predicate<T> = (value: T) => boolean;
 
-export const AlwaysTrue = () => true;
-
-export const AlwaysFalse = () => false;
-
 /**
  * 레이어 필터링을 위한 콜백 함수 타입
  *

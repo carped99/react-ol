@@ -1,6 +1,7 @@
 import { Geometry as OlGeometry } from 'ol/geom';
-import { AlwaysTrue, FeatureFilter } from '../../Filter/predicate';
+import { FeatureFilter } from '../../Filter/predicate';
 import { FeatureSources, resolveFeatureArray } from '../internal';
+import { TRUE } from 'ol/functions';
 
 /**
  * 주어진 조건에 맞는 모든 피처를 찾습니다.
@@ -22,7 +23,7 @@ import { FeatureSources, resolveFeatureArray } from '../internal';
  */
 export const findAllFeature = <T extends OlGeometry>(
   source?: FeatureSources<T> | null,
-  filter: FeatureFilter<T> = AlwaysTrue,
+  filter: FeatureFilter<T> = TRUE,
 ) => {
   return source ? resolveFeatureArray(source).filter(filter) : [];
 };

@@ -1,7 +1,8 @@
 import { Feature as OlFeature } from 'ol';
 import { Geometry as OlGeometry } from 'ol/geom';
 import { FeatureSources, resolveFeatureArray } from '../internal';
-import { AlwaysTrue, FeatureFilter } from '../../Filter/predicate';
+import { FeatureFilter } from '../../Filter/predicate';
+import { TRUE } from 'ol/functions';
 
 /**
  * 주어진 소스에서 조건에 맞는 첫 번째 피처를 찾습니다.
@@ -28,7 +29,7 @@ import { AlwaysTrue, FeatureFilter } from '../../Filter/predicate';
  */
 export const findOneFeature = <T extends OlGeometry>(
   source?: FeatureSources<T> | null,
-  filter: FeatureFilter<T> = AlwaysTrue,
+  filter: FeatureFilter<T> = TRUE,
 ): OlFeature<T> | undefined => {
   return source ? resolveFeatureArray(source).find(filter) : undefined;
 };

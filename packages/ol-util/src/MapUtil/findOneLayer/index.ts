@@ -2,7 +2,8 @@ import BaseLayer from 'ol/layer/Base';
 import LayerGroup from 'ol/layer/Group';
 import Map from 'ol/Map';
 import { isLayerGroup } from '../../common';
-import { AlwaysTrue, LayerFilter } from '../../Filter/predicate';
+import { LayerFilter } from '../../Filter/predicate';
+import { TRUE } from 'ol/functions';
 
 /**
  * 주어진 소스에서 필터 조건을 만족하는 첫 번째 레이어를 찾아 반환합니다.
@@ -10,7 +11,7 @@ import { AlwaysTrue, LayerFilter } from '../../Filter/predicate';
  * @param filter - 레이어 필터링 함수 (기본값: 모든 레이어 포함)
  * @returns 조건을 만족하는 첫 번째 레이어 또는 undefined
  */
-export const findOneLayer = (source: Map | LayerGroup, filter: LayerFilter = AlwaysTrue): BaseLayer | undefined => {
+export const findOneLayer = (source: Map | LayerGroup, filter: LayerFilter = TRUE): BaseLayer | undefined => {
   // source가 LayerGroup이고 필터 조건을 만족하면 바로 반환
   if (isLayerGroup(source) && filter(source)) {
     return source;

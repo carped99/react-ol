@@ -1,5 +1,5 @@
 import BaseObject from 'ol/Object';
-import { AlwaysTrue } from '../predicate';
+import { TRUE } from 'ol/functions';
 
 /**
  * 특정 속성의 값을 기준으로 필터링하는 함수를 생성합니다.
@@ -38,7 +38,7 @@ export const byProperty = (key: string, value: unknown) => {
 export const byProperties = (properties: Record<string, unknown>) => {
   // 빈 객체 체크
   if (!properties || Object.keys(properties).length === 0) {
-    return AlwaysTrue;
+    return TRUE;
   }
 
   return (item: BaseObject) => byPropertiesImpl(item, properties);

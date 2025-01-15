@@ -1,5 +1,6 @@
-import { AlwaysFalse, Predicate } from '../predicate';
+import { Predicate } from '../predicate';
 import BaseObject from 'ol/Object';
+import { FALSE } from 'ol/functions';
 
 /**
  * 이름 필터를 위한 타입
@@ -34,7 +35,7 @@ type NameFilter = string | string[] | readonly string[];
 export const byName = (...names: NameFilter[]): Predicate<BaseObject> => {
   const flatNames = names.flat();
   if (flatNames.length === 0) {
-    return AlwaysFalse;
+    return FALSE;
   }
   return (item) => {
     const layerName = item.get('name');

@@ -5,3 +5,4 @@ export * from './fitToFeature';
 export * from './setMapCenter';
 export * from './setMapZoom';
 export * from './scaleResolution';
+export * from './drawTemporalFeature';

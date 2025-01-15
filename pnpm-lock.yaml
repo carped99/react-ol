@@ -175,8 +175,8 @@ importers:
         specifier: 0.0.1-alpha.4
         version: 0.0.1-alpha.4(ol@10.3.1)(react@19.0.0)
       '@carped99/ol-util':
-        specifier: ^0.0.1
-        version: 0.0.1(ol@10.3.1)
+        specifier: 0.0.1-alpha.19
+        version: 0.0.1-alpha.19(ol@10.3.1)
       fast-deep-equal:
         specifier: ^3.1.3
         version: 3.1.3
@@ -320,8 +320,8 @@ packages:
       ol: '>=10'
       react: '>=18'
 
-  '@carped99/ol-util@0.0.1':
-    resolution: {integrity: sha512-EJphkL9kw4MKhjXN89/4w5+itoB98yH3jmDA+dQJV6knpgBpewBZrPZgPCTDxf3pXOB8AQ7mqYC/pvjH9Pm3Ww==}
+  '@carped99/ol-util@0.0.1-alpha.19':
+    resolution: {integrity: sha512-HioSCxgupOCGdYEBOUa/geeXO95KAIuuE87SxFSrzGy1tgkUElyBRstJmMwfhHMjuLmUHEbeIW4kLtbxRgdHxg==}
     peerDependencies:
       ol: '>=10.0.0'
 
@@ -4264,7 +4264,7 @@ snapshots:
       react: 19.0.0
       type-fest: 4.32.0
 
-  '@carped99/ol-util@0.0.1(ol@10.3.1)':
+  '@carped99/ol-util@0.0.1-alpha.19(ol@10.3.1)':
     dependencies:
       '@turf/turf': 7.2.0
       fast-deep-equal: 3.1.3
