@@ -172,11 +172,11 @@ importers:
   packages/ol-react-ext:
     dependencies:
       '@carped99/ol-react':
-        specifier: 0.0.1-alpha.4
-        version: 0.0.1-alpha.4(ol@10.3.1)(react@19.0.0)
+        specifier: 0.0.1-alpha.7
+        version: 0.0.1-alpha.7(ol@10.3.1)(react@19.0.0)
       '@carped99/ol-util':
-        specifier: 0.0.1-alpha.19
-        version: 0.0.1-alpha.19(ol@10.3.1)
+        specifier: 0.0.1-alpha.21
+        version: 0.0.1-alpha.21(ol@10.3.1)
       fast-deep-equal:
         specifier: ^3.1.3
         version: 3.1.3
@@ -313,15 +313,15 @@ packages:
   '@bufbuild/protobuf@2.2.3':
     resolution: {integrity: sha512-tFQoXHJdkEOSwj5tRIZSPNUuXK3RaR7T1nUrPgbYX1pUbvqqaaZAsfo+NXBPsz5rZMSKVFrgK1WL8Q/MSLvprg==}
 
-  '@carped99/ol-react@0.0.1-alpha.4':
-    resolution: {integrity: sha512-a7wGctiEeuN2h0ahkeQsvY3NfJ3SoftQmKVH5kHhIDviNZQl9XfLq4/B59Ph/q02voZKJbZc2EHnCU82DMWyzQ==}
+  '@carped99/ol-react@0.0.1-alpha.7':
+    resolution: {integrity: sha512-ymp7aJ393t2Weku+XYoIg2WAoKRcsDMbdNrNtbirroiMZYzdGxpjfer6J6nEPq222E1d1IAUbmB4eGXty/nOFw==}
     engines: {node: '>=20', pnpm: '>=9'}
     peerDependencies:
       ol: '>=10'
       react: '>=18'
 
-  '@carped99/ol-util@0.0.1-alpha.19':
-    resolution: {integrity: sha512-HioSCxgupOCGdYEBOUa/geeXO95KAIuuE87SxFSrzGy1tgkUElyBRstJmMwfhHMjuLmUHEbeIW4kLtbxRgdHxg==}
+  '@carped99/ol-util@0.0.1-alpha.21':
+    resolution: {integrity: sha512-PZuWuVHTexQJjpqa/MSXaVzNrNeHkaIQphD2b+zi6bpKgUZ2KJwliV927in5kx58/nir0DS6r9ftAjECeZixfQ==}
     peerDependencies:
       ol: '>=10.0.0'
 
@@ -4257,14 +4257,14 @@ snapshots:
   '@bufbuild/protobuf@2.2.3':
     optional: true
 
-  '@carped99/ol-react@0.0.1-alpha.4(ol@10.3.1)(react@19.0.0)':
+  '@carped99/ol-react@0.0.1-alpha.7(ol@10.3.1)(react@19.0.0)':
     dependencies:
       fast-deep-equal: 3.1.3
       ol: 10.3.1
       react: 19.0.0
       type-fest: 4.32.0
 
-  '@carped99/ol-util@0.0.1-alpha.19(ol@10.3.1)':
+  '@carped99/ol-util@0.0.1-alpha.21(ol@10.3.1)':
     dependencies:
       '@turf/turf': 7.2.0
       fast-deep-equal: 3.1.3

@@ -1,14 +1,12 @@
-import { Feature } from 'ol';
-import { Style } from 'ol/style';
 import { useMapContext } from '@carped99/ol-react';
-import { drawTemporalFeature, DrawTemporalFeatureLayer, DrawTemporalFeatureStyle } from '@carped99/ol-util';
 import { useCallback, useEffect, useRef } from 'react';
+import { drawTemporal, DrawTemporalCallback, DrawTemporalConfig, DrawTemporalLayer } from '@carped99/ol-util';
 
-export const useDrawTemporalFeature = () => {
+export const useDrawTemporal = () => {
   const { map } = useMapContext();
-  // 현재 실행 중인 cleanup 함수 참조
   const cleanupRef = useRef<(() => void) | undefined>(undefined);
 
+  // 정리 함수
   const cleanup = useCallback(() => {
     if (cleanupRef.current) {
       cleanupRef.current();
@@ -22,17 +20,17 @@ export const useDrawTemporalFeature = () => {
   }, [cleanup]);
 
   return useCallback(
-    <F extends Feature = Feature>(
-      layer: DrawTemporalFeatureLayer,
-      features: F[],
-      style: DrawTemporalFeatureStyle<F> | Style,
-      duration: number,
-    ) => {
+    (layer: DrawTemporalLayer, callback: DrawTemporalCallback, config: DrawTemporalConfig) => {
       if (!map) return;
 
+      // 이전 작업 정리
       cleanup();
 
-      cleanupRef.current = drawTemporalFeature(map, layer, features, style, duration);
+      // 새 작업 시작
+      cleanupRef.current = drawTemporal(map, layer, callback, config);
+
+      // 정리 함수 반환
+      return cleanup;
     },
     [map, cleanup],
   );
