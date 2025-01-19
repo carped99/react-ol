@@ -37,8 +37,8 @@ const createInstance = (options: Options) => new KeyboardZoom(options);
 
 const instanceProperties = [
   { name: 'condition', settable: false },
-  { name: 'condition', settable: false },
-  { name: 'condition', settable: false },
+  { name: 'duration', settable: false },
+  { name: 'delta', settable: false },
 ] as const;
 
 const instanceProvider = createInstanceProviderByKey(createInstance, instanceProperties);

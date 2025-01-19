@@ -1,9 +1,22 @@
 import { useMemo } from 'react';
-import { InstanceProperty } from '../layer/base/ObservableProperties';
-import { equalsDeep } from '../utils/common';
 import { debug } from '../utils/logger';
 import { InstanceCreator, InstancePredicate, InstanceProvider, InstanceUpdater } from './InstanceProvider';
+import { equalsDeep } from '../utils';
 
+export type InstanceProperty = {
+  name: string;
+  settable?: boolean;
+  nullable?: boolean;
+  nullValue?: unknown;
+};
+
+/**
+ * 속성에 따라 객체를 생성하고, 수정하는 함수를 제공하는 훅
+ * @param createInstance - 객체를 생성하는 함수
+ * @param properties - 객체를 생성하거나 수정하는데 사용할 속성 목록
+ *
+ * @see InstanceProvider
+ */
 export const useInstanceProviderByKeys = <T, P extends object>(
   createInstance: InstanceCreator<T, P>,
   properties: ReadonlyArray<InstanceProperty>,
@@ -14,7 +27,7 @@ export const useInstanceProviderByKeys = <T, P extends object>(
 };
 
 /**
- * 속성에 따라 객체를 생성하고, 수정하는 함수를 제공하는 훅
+ * 속성에 따라 객체를 생성하고, 수정하는 함수를 제공하는 함수
  * @param createInstance - 객체를 생성하는 함수
  * @param properties - 객체를 생성하거나 수정하는데 사용할 속성 목록
  *

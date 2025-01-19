@@ -1,6 +1,6 @@
 import { Interaction } from 'ol/interaction';
 import { useEffect } from 'react';
-import { useEvents } from '../events';
+import { ObservableEvents, useEvents } from '../events';
 import { useMapContext } from '../context';
 
 /**
@@ -12,7 +12,11 @@ import { useMapContext } from '../context';
  *
  * @category Interaction
  */
-export const useInteraction = <T>(interaction: Interaction, events?: T, active: boolean = true) => {
+export const useInteraction = <T extends Interaction>(
+  interaction: T,
+  events?: ObservableEvents<T>,
+  active: boolean = true,
+) => {
   const { map } = useMapContext();
 
   useEvents(interaction, events);

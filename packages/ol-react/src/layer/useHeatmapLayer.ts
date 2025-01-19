@@ -6,10 +6,10 @@ import { Feature } from 'ol';
 import { Geometry } from 'ol/geom';
 import { HeatmapLayerOptions } from './options';
 import { useBaseVectorLayer } from './base/useBaseVectorLayer';
-import { BaseVectorInstanceProperties } from './base/ObservableProperties';
 import { HeatmapLayerEvents } from './events';
 import { useEvents } from '../events';
 import { useInstance, useInstanceProviderByKeys } from '../base';
+import { BaseVectorInstanceProperties } from './base/LayerProperties';
 
 /**
  * {@link Heatmap}를 생성한다.

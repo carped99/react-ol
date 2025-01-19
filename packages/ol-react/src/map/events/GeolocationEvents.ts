@@ -17,7 +17,4 @@ export interface GeolocationEvents extends BaseEvents {
   onChangeSpeed?: (e: ObjectEvent) => void;
   onChangeTracking?: (e: ObjectEvent) => void;
   onChangeTrackingOptions?: (e: ObjectEvent) => void;
-
-  // 동적으로 추가되는 속성
-  [key: string]: ((e: any) => void) | undefined;
 }

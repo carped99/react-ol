@@ -4,10 +4,10 @@ import { VectorTile } from 'ol/source';
 import { FeatureLike } from 'ol/Feature';
 import { VectorTileLayerOptions } from './options';
 import { useBaseVectorLayer } from './base/useBaseVectorLayer';
-import { BaseVectorInstanceProperties } from './base/ObservableProperties';
 import { VectorTileLayerEvents } from './events';
 import { useEvents } from '../events';
 import { useInstance, useInstanceProviderByKeys } from '../base';
+import { BaseVectorInstanceProperties } from './base/LayerProperties';
 
 /**
  * {@link VectorTileLayer}를 생성한다.

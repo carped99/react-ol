@@ -5,10 +5,10 @@ import VectorSource from 'ol/source/Vector';
 import { ExtractedFeatureType } from 'ol/layer/BaseVector';
 import { VectorImageLayerOptions } from './options';
 import { useBaseVectorLayer } from './base/useBaseVectorLayer';
-import { BaseVectorInstanceProperties } from './base/ObservableProperties';
 import { VectorImageLayerEvents } from './events';
 import { useEvents } from '../events';
 import { useInstance, useInstanceProviderByKeys } from '../base';
+import { BaseVectorInstanceProperties } from './base/LayerProperties';
 
 /**
  * {@link VectorImageLayer}를 생성한다.

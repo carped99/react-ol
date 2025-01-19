@@ -3,10 +3,10 @@ import ImageLayer from 'ol/layer/Image';
 import ImageSource from 'ol/source/Image';
 import { ImageLayerOptions } from './options';
 import { useBaseImageLayer } from './base/useBaseImageLayer';
-import { BaseImageLayerInstanceProperties } from './base/ObservableProperties';
 import { ImageLayerEvents } from './events';
 import { useEvents } from '../events';
 import { useInstance, useInstanceProviderByKeys } from '../base';
+import { BaseImageLayerInstanceProperties } from './base/LayerProperties';
 
 /**
  * {@link ImageLayer}를 생성한다.

@@ -1,22 +1,4 @@
-export type InstanceProperty = {
-  name: string;
-  settable?: boolean;
-  nullable?: boolean;
-  nullValue?: unknown;
-};
-
-export const InstanceProperties = {
-  className: { name: 'className', settable: false }, // A CSS class name to set to the layer element.
-  opacity: { name: 'opacity', settable: true }, // Opacity (0, 1).
-  visible: { name: 'visible', settable: true }, // Visibility.
-  extent: { name: 'extent', settable: true, nullable: true }, // The bounding extent for layer rendering. The layer will not be rendered outside of this extent.
-  zIndex: { name: 'zIndex', settable: true, nullable: true }, // The z-index for layer rendering. At rendering time, the layers will be ordered, first by Z-index and then by position.
-  minZoom: { name: 'minZoom', settable: true }, // The minimum view zoom level (exclusive) above which this layer will be visible.
-  maxZoom: { name: 'maxZoom', settable: true }, // The maximum view zoom level (inclusive) at which this layer will be visible.
-  minResolution: { name: 'minResolution', settable: true }, // The minimum resolution (inclusive) at which this layer will be visible.
-  maxResolution: { name: 'maxResolution', settable: true }, // The maximum resolution (exclusive) below which this layer will be visible.
-  background: { name: 'background', settable: false, nullable: true }, // Background color for the layer. If not specified, no background will be rendered.
-};
+import { InstanceProperty } from '../../base';
 
 const BaseLayerInstanceProperties: ReadonlyArray<InstanceProperty> = [
   { name: 'className' }, // A CSS class name to set to the layer element.

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { Interaction } from 'ol/interaction';
-import { Class } from 'type-fest';
 import { useMapContext } from '../context';
 import { findInteraction } from '../utils/common';
+import { Class } from '../types';
 
 /**
  * {@link Interaction}을 활성화/비활성화 하는 훅

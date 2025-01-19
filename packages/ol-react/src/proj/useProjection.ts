@@ -3,7 +3,7 @@ import { Options } from 'ol/proj/Projection';
 import { createInstanceProviderByKey, useInstance } from '../base';
 
 export const useProjection = (options: Options) => {
-  return useInstance(provider, options);
+  return useInstance(instanceProvider, options);
 };
 
 const createInstance = (options: Options) => new Projection(options);
@@ -19,4 +19,4 @@ const instanceProperties = [
   { name: 'getPointResolution', settable: true },
 ] as const;
 
-const provider = createInstanceProviderByKey(createInstance, instanceProperties);
+const instanceProvider = createInstanceProviderByKey(createInstance, instanceProperties);

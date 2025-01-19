@@ -90,7 +90,4 @@ export interface MapEvents extends BaseEvents {
   onChangeSize?: (e: ObjectEvent) => void;
   onChangeTarget?: (e: ObjectEvent) => void;
   onChangeView?: (e: ObjectEvent) => void;
-
-  // 동적으로 추가되는 속성
-  [key: string]: ((e: any) => void) | undefined;
 }

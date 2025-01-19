@@ -2,10 +2,10 @@ import { useDebugValue } from 'react';
 import WebGLTileLayer from 'ol/layer/WebGLTile';
 import { WebGLTileLayerOptions } from './options';
 import { useBaseTileLayer } from './base/useBaseTileLayer';
-import { BaseTileLayerInstanceProperties } from './base/ObservableProperties';
 import { WebGLTileLayerEvents } from './events';
 import { useEvents } from '../events';
 import { createInstanceProviderByKey, useInstance } from '../base';
+import { BaseTileLayerInstanceProperties } from './base/LayerProperties';
 
 /**
  * {@link WebGLTileLayer}를 생성한다.
@@ -16,7 +16,7 @@ import { createInstanceProviderByKey, useInstance } from '../base';
 export const useWebGLTileLayer = (options: Readonly<WebGLTileLayerOptions>, events?: WebGLTileLayerEvents) => {
   useDebugValue(options);
 
-  const instance = useInstance(provider, options);
+  const instance = useInstance(instanceProvider, options);
 
   useEvents(instance, events);
 
@@ -32,4 +32,4 @@ const instanceProperties = [
   { name: 'style', settable: true, nullable: true },
 ] as const;
 
-const provider = createInstanceProviderByKey(createInstance, instanceProperties);
+const instanceProvider = createInstanceProviderByKey(createInstance, instanceProperties);

@@ -5,10 +5,10 @@ import { useBaseVectorLayer } from './base/useBaseVectorLayer';
 import { Feature } from 'ol';
 import { Geometry } from 'ol/geom';
 import VectorSource from 'ol/source/Vector';
-import { BaseVectorInstanceProperties } from './base/ObservableProperties';
 import { GraticuleLayerEvents } from './events/GraticuleLayerEvents';
 import { useEvents } from '../events';
 import { createInstanceProviderByKey, useInstance } from '../base';
+import { BaseVectorInstanceProperties } from './base/LayerProperties';
 
 /**
  * {@link Graticule}를 생성한다.

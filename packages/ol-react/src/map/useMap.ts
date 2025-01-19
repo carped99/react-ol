@@ -3,11 +3,11 @@ import LayerGroup from 'ol/layer/Group';
 import { Ref, useEffect, useRef } from 'react';
 import { useMapContext } from '../context';
 import { useEvents } from '../events';
-import { equals, equalsByProps } from '../utils/common';
 import { MapEvents } from './events';
 import { MapOptions } from './options';
 import { usePrevious } from '../base';
 import { useProperties } from '../base/useProperties';
+import { equals, equalsByProps } from '../utils';
 
 /**
  * 지도를 생성하고 관리하는 React Hook입니다.

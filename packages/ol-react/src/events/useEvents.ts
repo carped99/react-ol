@@ -1,39 +1,52 @@
 import { useEffect, useRef } from 'react';
 import { EventsKey, ListenerFunction } from 'ol/events';
 import Observable, { EventTypes, unByKey } from 'ol/Observable';
+import { ObservableEvents } from './ObservableEvents';
 
 type Listeners = Record<string, ListenerFunction>;
 
 /**
- * {@link Observable}에 이벤트 핸들러를 등록한다.
+ * Observable 객체의 이벤트를 관리하는 훅
  *
- * @typeParam T - Type of target observable object
- * @param target - 이벤트를 등록할 OpenLayers 객체
- * @param events - 이벤트 핸들러를 포함한 속성
+ * @typeParam T - Observable 객체 타입
+ * @param target - 이벤트를 등록할 Observable 객체
+ * @param handlers - 이벤트 핸들러 객체
  *
- * @see - {@link https://openlayers.org/en/latest/apidoc/module-ol_Observable-Observable.html | Observable}
+ * @example
+ * ```tsx
+ * // Map 이벤트
+ * useEvents(map, {
+ *   click: (e) => console.log('Map clicked:', e),
+ *   movestart: (e) => console.log('Map move started:', e)
+ * });
  *
- * @category Event
+ * // Layer 이벤트
+ * useEvents(layer, {
+ *   change: (e) => console.log('Layer changed:', e),
+ *   propertychange: (e) => console.log('Layer property changed:', e)
+ * });
+ * ```
  */
-export const useEvents = <T>(target?: Observable, events?: T) => {
+export const useEvents = <T extends Observable>(target: T | undefined, handlers?: ObservableEvents<T>) => {
   // 이벤트 핸들러를 관리하기 위해 이벤트 키 목록 저장
   const eventsKeysRef = useRef<EventsKey[]>([]);
 
-  // 대상이 변경되면 이벤트 핸들러를 모두 제거
+  // target이 변경되면 모든 이벤트 정리
   useEffect(() => {
-    if (!target) return;
-
     return () => {
-      unByKey(eventsKeysRef.current);
-      eventsKeysRef.current = [];
+      if (eventsKeysRef.current.length > 0) {
+        unByKey(eventsKeysRef.current);
+        eventsKeysRef.current = [];
+      }
     };
   }, [target]);
 
+  // handlers가 변경되면 이벤트 갱신
   useEffect(() => {
     if (!target) return;
 
     // 속성 중 이벤트 핸들러만 추출
-    const eventHandlers = resolveEventHandlers(events);
+    const eventHandlers = resolveEventHandlers(handlers);
 
     // 사용되지 않는 이벤트 핸들러 제거
     const newEventsKeys = pruneEvents(eventsKeysRef.current, eventHandlers);
@@ -47,7 +60,7 @@ export const useEvents = <T>(target?: Observable, events?: T) => {
       });
 
     eventsKeysRef.current = newEventsKeys;
-  }, [target, events]);
+  }, [target, handlers]);
 };
 
 const resolveEventHandlers = (options?: unknown): Listeners => {

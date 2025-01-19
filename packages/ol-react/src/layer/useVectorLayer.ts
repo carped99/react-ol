@@ -5,10 +5,10 @@ import { FeatureLike } from 'ol/Feature';
 import { ExtractedFeatureType } from 'ol/layer/BaseVector';
 import { VectorLayerOptions } from './options';
 import { useBaseVectorLayer } from './base/useBaseVectorLayer';
-import { BaseVectorInstanceProperties } from './base/ObservableProperties';
 import { VectorLayerEvents } from './events';
 import { useEvents } from '../events';
 import { InstanceProvider, useInstance, useInstanceProviderByKeys } from '../base';
+import { BaseVectorInstanceProperties } from './base/LayerProperties';
 
 /**
  * {@link VectorLayer}를 생성한다.

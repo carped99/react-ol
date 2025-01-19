@@ -1,13 +1,12 @@
 import { Overlay } from 'ol';
 import { Options } from 'ol/Overlay';
 import { OverlayEvents } from './events';
-import { createInstanceProviderByKey, useInstance } from '../base';
-import { InstanceProperty } from '../layer/base/ObservableProperties';
+import { createInstanceProviderByKey, InstanceProperty, useInstance } from '../base';
 import { useEffect } from 'react';
 import { useEvents } from '../events';
 import { useMapContext } from '../context';
 
-export const useOverlay = <E extends OverlayEvents>(options: Options, events?: E) => {
+export const useOverlay = (options: Options, events?: OverlayEvents) => {
   const { map } = useMapContext();
 
   const instance = useInstance(instanceProvider, options);
