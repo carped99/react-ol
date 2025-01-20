@@ -4,10 +4,14 @@ import { Ref, useEffect, useRef } from 'react';
 import { useMapContext } from '../context';
 import { useEvents } from '../events';
 import { MapEvents } from './events';
-import { MapOptions } from './options';
 import { usePrevious } from '../base';
-import { useProperties } from '../base/useProperties';
+import { BaseObjectOptions, useProperties } from '../base/useProperties';
 import { equals, equalsByProps } from '../utils';
+import { MapOptions as OLMapOptions } from 'ol/Map';
+
+export interface MapOptions extends Omit<OLMapOptions, 'target'>, MapEvents {
+  properties?: BaseObjectOptions['properties'];
+}
 
 /**
  * 지도를 생성하고 관리하는 React Hook입니다.
@@ -30,10 +34,7 @@ import { equals, equalsByProps } from '../utils';
  * };
  * ```
  */
-export const useMap = (
-  options: Readonly<MapOptions> = {},
-  events?: MapEvents,
-): [Ref<HTMLDivElement>, Map | undefined] => {
+export const useMap = (options: Readonly<MapOptions> = {}): [Ref<HTMLDivElement>, Map | undefined] => {
   const { setMap } = useMapContext();
 
   // 지도를 담을 div 요소
@@ -66,7 +67,7 @@ export const useMap = (
   useProperties(mapRef.current, options);
 
   // 이벤트를 등록한다.
-  useEvents(mapRef.current, events);
+  useEvents(mapRef.current, options);
 
   return [divRef, mapRef.current];
 };

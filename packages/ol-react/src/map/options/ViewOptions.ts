@@ -1,5 +1,6 @@
 import { ViewOptions as OLViewOptions } from 'ol/View';
 import { BaseObjectOptions } from '../../base/useProperties';
+import { ViewEvents } from '../events';
 
 /**
  * Options for the view.
@@ -8,6 +9,6 @@ import { BaseObjectOptions } from '../../base/useProperties';
  *
  * @category Base/Options
  */
-export interface ViewOptions extends OLViewOptions {
+export interface ViewOptions extends OLViewOptions, ViewEvents {
   properties?: BaseObjectOptions['properties'];
 }

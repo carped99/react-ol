@@ -2,7 +2,6 @@ export * from './base';
 
 export * from './map';
 export * from './map/events';
-export * from './map/options';
 
 // Context
 export * from './context';
@@ -19,7 +18,6 @@ export * from './interaction/event';
 // Layer
 export * from './layer';
 export * from './layer/events';
-export * from './layer/options';
 
 // Overlay
 export * from './overlay';

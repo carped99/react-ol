@@ -1,19 +1,20 @@
 import { Geolocation } from 'ol';
 import { useEvents } from '../events';
 import { GeolocationEvents } from './events';
-import { GeolocationOptions } from './options';
 import { createInstanceProviderByKey, useInstance } from '../base';
+import { Options } from 'ol/Geolocation';
+
+export interface GeolocationOptions extends Options, GeolocationEvents {}
 
 /**
  * 지도를 생성하고 반환한다.
  * @param options - {@link GeolocationEvents} 지도 옵션
- * @param events - Events for the Map.
  * @category Base
  */
-export const useGeolocation = (options: GeolocationOptions = {}, events?: GeolocationEvents) => {
+export const useGeolocation = (options: GeolocationOptions = {}) => {
   const instance = useInstance(provider, options);
 
-  useEvents(instance, events);
+  useEvents(instance, options);
 
   return instance;
 };

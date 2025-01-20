@@ -6,7 +6,10 @@ import { useEffect } from 'react';
 import { useEvents } from '../events';
 import { useMapContext } from '../context';
 
-export const useOverlay = (options: Options, events?: OverlayEvents) => {
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface OverlayOptions extends Options {}
+
+export const useOverlay = (options: OverlayOptions, events?: OverlayEvents) => {
   const { map } = useMapContext();
 
   const instance = useInstance(instanceProvider, options);

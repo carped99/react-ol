@@ -1,20 +1,23 @@
-import View from 'ol/View';
+import View, { ViewOptions as OLViewOptions } from 'ol/View';
 import { useEvents } from '../events';
 import { ViewEvents } from './events';
-import { ViewOptions } from './options';
 import { createInstanceProviderByKey, useInstance } from '../base';
+import { BaseObjectOptions } from '../base/useProperties';
+
+export interface ViewOptions extends OLViewOptions, ViewEvents {
+  properties?: BaseObjectOptions['properties'];
+}
 
 /**
  * Hook for creating an OpenLayers view.
  * @param options - Options for the view.
- * @param events - Events for the View.
  *
  * @category Base
  */
-export const useView = (options: Readonly<ViewOptions>, events?: ViewEvents) => {
+export const useView = (options: Readonly<ViewOptions>) => {
   const view = useInstance(provider, options);
 
-  useEvents(view, events);
+  useEvents(view, options);
 
   return view;
 };

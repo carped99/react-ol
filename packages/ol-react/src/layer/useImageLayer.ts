@@ -1,12 +1,15 @@
 import { useCallback, useDebugValue } from 'react';
 import ImageLayer from 'ol/layer/Image';
 import ImageSource from 'ol/source/Image';
-import { ImageLayerOptions } from './options';
+import { Options } from 'ol/layer/BaseImage';
 import { useBaseImageLayer } from './base/useBaseImageLayer';
 import { ImageLayerEvents } from './events';
 import { useEvents } from '../events';
 import { useInstance, useInstanceProviderByKeys } from '../base';
 import { BaseImageLayerInstanceProperties } from './base/LayerProperties';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface ImageLayerOptions<S extends ImageSource> extends Options<S> {}
 
 /**
  * {@link ImageLayer}를 생성한다.

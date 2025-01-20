@@ -61,6 +61,8 @@ import Graticule from 'ol/layer/Graticule';
 import { GraticuleLayerEvents } from '../layer/events/GraticuleLayerEvents';
 import { TileLayerEvents } from '../layer/events/TileLayerEvents';
 import Heatmap from 'ol/layer/Heatmap';
+import VectorSource from 'ol/source/Vector';
+import { VectorSourceEvents } from '../source/useVectorSource';
 
 /**
  * Events for an observable.
@@ -83,6 +85,7 @@ export type DefaultObservableEvents<T> =
   T extends ImageLayer<any> ? ImageLayerEvents :
   T extends Graticule ? GraticuleLayerEvents :
   T extends Heatmap<any, any> ? HeatmapLayerEvents :
+  T extends VectorSource<any> ? VectorSourceEvents :
   // Interaction
   T extends Select ? SelectInteractionEvents :
   T extends Modify ? ModifyInteractionEvents :

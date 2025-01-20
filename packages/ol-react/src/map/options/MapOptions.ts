@@ -1,5 +1,6 @@
 import { MapOptions as OLMapOptions } from 'ol/Map';
 import { BaseObjectOptions } from '../../base/useProperties';
+import { MapEvents } from '../events';
 
 /**
  * 지도 옵션
@@ -7,6 +8,6 @@ import { BaseObjectOptions } from '../../base/useProperties';
  *
  * @category Base/Options
  */
-export interface MapOptions extends Omit<OLMapOptions, 'target'> {
+export interface MapOptions extends Omit<OLMapOptions, 'target'>, MapEvents {
   properties?: BaseObjectOptions['properties'];
 }

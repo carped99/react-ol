@@ -1,9 +1,10 @@
 import { Options } from 'ol/Geolocation';
+import { GeolocationEvents } from '../events';
 
 /**
  * Options for the - {@link useGeolocation} hook.
  *
  * @category Base/Options
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface GeolocationOptions extends Options {}
+
+export interface GeolocationOptions extends Options, GeolocationEvents {}

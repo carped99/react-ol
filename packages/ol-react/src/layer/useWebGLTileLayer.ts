@@ -1,11 +1,13 @@
 import { useDebugValue } from 'react';
-import WebGLTileLayer from 'ol/layer/WebGLTile';
-import { WebGLTileLayerOptions } from './options';
+import WebGLTileLayer, { Options } from 'ol/layer/WebGLTile';
 import { useBaseTileLayer } from './base/useBaseTileLayer';
 import { WebGLTileLayerEvents } from './events';
 import { useEvents } from '../events';
 import { createInstanceProviderByKey, useInstance } from '../base';
 import { BaseTileLayerInstanceProperties } from './base/LayerProperties';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface WebGLTileLayerOptions extends Options {}
 
 /**
  * {@link WebGLTileLayer}를 생성한다.

@@ -1,6 +1,5 @@
 import { useDebugValue } from 'react';
-import Graticule from 'ol/layer/Graticule';
-import { GraticuleLayerOptions } from './options';
+import Graticule, { Options } from 'ol/layer/Graticule';
 import { useBaseVectorLayer } from './base/useBaseVectorLayer';
 import { Feature } from 'ol';
 import { Geometry } from 'ol/geom';
@@ -9,6 +8,9 @@ import { GraticuleLayerEvents } from './events/GraticuleLayerEvents';
 import { useEvents } from '../events';
 import { createInstanceProviderByKey, useInstance } from '../base';
 import { BaseVectorInstanceProperties } from './base/LayerProperties';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface GraticuleLayerOptions extends Options {}
 
 /**
  * {@link Graticule}를 생성한다.
