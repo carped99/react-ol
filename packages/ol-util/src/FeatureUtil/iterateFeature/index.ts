@@ -1,6 +1,6 @@
 import { Feature as OlFeature } from 'ol';
 import { Geometry as OlGeometry } from 'ol/geom';
-import { isFeatureCollection, isVectorSource } from '../typeGuards';
+import { isCollection, isVectorSource } from '../typeGuards';
 import { FeatureSources } from '../internal';
 import { FeatureFilter } from '../../Filter/predicate';
 import { TRUE } from 'ol/functions';
@@ -29,7 +29,7 @@ const iterateFeatureInternal = function* <T extends OlGeometry>(source: FeatureS
     yield* source;
   } else if (isVectorSource<T>(source)) {
     yield* source.getFeatures();
-  } else if (isFeatureCollection<T>(source)) {
+  } else if (isCollection<T>(source)) {
     yield* source.getArray();
   }
 };

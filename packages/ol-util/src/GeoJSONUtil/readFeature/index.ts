@@ -3,9 +3,9 @@ import { Options as GeoJSONFormatOptions } from 'ol/format/GeoJSON';
 import { ReadOptions } from 'ol/format/Feature';
 import { FeatureLike } from 'ol/Feature';
 import { Feature as OlFeature } from 'ol';
-import { Feature, FeatureCollection, Geometry } from 'geojson';
+import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson';
 import { GeoJSON } from 'ol/format';
-import { MapToOlGeometry } from '../typeGuards/typeMapping';
+import { ToOlGeometry } from '../typeGuards/typeMapping';
 
 export type ReadFeatureOptions<T extends FeatureLike = OlFeature<OlGeometry>> = {
   format?: GeoJSONFormatOptions<T>;
@@ -19,7 +19,10 @@ export type ReadFeatureOptions<T extends FeatureLike = OlFeature<OlGeometry>> = 
  * @param options - 변환 옵션
  * @returns OpenLayers Feature 객체
  */
-export const readFeature = <G extends Geometry | null = Geometry>(source: Feature<G>, options?: ReadFeatureOptions) => {
+export const readFeature = <G extends Geometry = Geometry, P extends GeoJsonProperties = GeoJsonProperties>(
+  source: Feature<G, P>,
+  options?: ReadFeatureOptions,
+) => {
   // const format = GeoJSONFormatManager.getFormat(options?.format);
   const format = new GeoJSON(options?.format);
   return format.readFeature(source, options?.options);
@@ -42,17 +45,19 @@ export const readFeature = <G extends Geometry | null = Geometry>(source: Featur
  * // FeatureCollection 변환
  * const olFeatures = readFeatures(featureCollection);
  */
-export const readFeatures = <G extends Geometry | null = Geometry>(
-  source: Feature<G> | Feature<G>[] | FeatureCollection<G>,
+export const readFeatures = <T extends Geometry = Geometry>(
+  source: Feature<T, any> | Feature<T, any>[] | FeatureCollection<T, any> | Document | Element | ArrayBuffer | string,
   options?: ReadFeatureOptions,
-): OlFeature<OlGeometry>[] => {
+): OlFeature<ToOlGeometry<T>>[] => {
   const format = new GeoJSON(options?.format);
-  // const format = GeoJSONFormatManager.getFormat(options?.format);
-  return format.readFeatures(source, options?.options);
+  return format.readFeatures(source, options?.options) as OlFeature<ToOlGeometry<T>>[];
 };
 
-export const readGeometry = <T extends Geometry>(source: T, options?: ReadFeatureOptions): MapToOlGeometry<T> => {
+export const readGeometry = <T extends Geometry = Geometry>(
+  source: T | Document | Element | string,
+  options?: ReadFeatureOptions,
+): ToOlGeometry<T> => {
   // const format = GeoJSONFormatManager.getFormat(options?.format);
   const format = new GeoJSON(options?.format);
-  return format.readGeometry(source, options?.options) as MapToOlGeometry<T>;
+  return format.readGeometry(source, options?.options) as ToOlGeometry<T>;
 };

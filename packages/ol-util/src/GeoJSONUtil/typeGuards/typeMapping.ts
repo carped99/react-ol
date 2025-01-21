@@ -33,7 +33,7 @@ type GeometryTypeMap = {
 /**
  * GeoJSON `Geometry`를 OpenLayers `Geometry`로 매핑하는 타입
  */
-export type MapToOlGeometry<T extends Geometry> = T extends { type: keyof GeometryTypeMap }
+export type ToOlGeometry<T extends Geometry> = T extends { type: keyof GeometryTypeMap }
   ? GeometryTypeMap[T['type']]
   : OlGeometry;
 
@@ -59,7 +59,7 @@ type OlGeometryTypeMap = Record<OlGeometryType, Geometry> & {
 /**
  * OpenLayers `Geometry`를 GeoJSON `Geometry`로 매핑하는 타입
  */
-export type MapToGeoJSONGeometry<T extends OlGeometry> = T extends { getType(): infer R }
+export type ToGeoJSONGeometry<T extends OlGeometry> = T extends { getType(): infer R }
   ? R extends keyof OlGeometryTypeMap
     ? OlGeometryTypeMap[R]
     : Geometry

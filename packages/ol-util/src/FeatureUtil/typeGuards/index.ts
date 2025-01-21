@@ -18,7 +18,7 @@ export const isVectorSource = <T extends Geometry>(source: unknown): source is V
  * @param source - 검사할 객체
  * @returns Feature Collection 여부
  */
-export const isFeatureCollection = <T extends Geometry>(source: unknown): source is Collection<Feature<T>> => {
+export const isCollection = <T extends Geometry>(source: unknown): source is Collection<Feature<T>> => {
   return source instanceof Collection;
 };
 
