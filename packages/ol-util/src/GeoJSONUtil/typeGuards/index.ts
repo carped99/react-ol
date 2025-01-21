@@ -70,18 +70,6 @@ const createGuardByType =
     isGeoJson(value) && value.type === type;
 
 /**
- * 특정 Geometry 타입을 가진 Feature 객체를 검사하는 함수를 생성하는 유틸리티 함수
- * Feature 객체는 geometry 속성에 특정 타입의를 포함하는 GeoJSON 객체입니다.
- *
- * @param geomGuard - Geometry 검사 함수
- * @returns Feature 객체가 특정 타입의를 포함하는지 검사하는 함수
- */
-const createFeatureGuard =
-  <T extends Geometry>(geomGuard: GuardFn<T>): GuardFn<Feature<T>> =>
-  (value): value is Feature<T> =>
-    isFeature(value) && geomGuard(value.geometry);
-
-/**
  * 주어진 값이 지정된 GeoJSON Geometry 타입들 중 하나인지 검사하는 함수
  * 여러 Geometry 타입을 한번에 검사할 수 있습니다.
  *
@@ -141,44 +129,41 @@ export const isGeometryCollection = createGuardByType<GeometryCollection>('Geome
 /**
  * GeoJSON Feature 타입인지 확인
  */
-export const isFeature = createGuardByType<Feature>('Feature');
+export const isFeature = <T extends Geometry['type'] | undefined = undefined>(
+  value: unknown,
+  geometryType?: T,
+): value is Feature<T extends Geometry['type'] ? Extract<Geometry, { type: T }> : Geometry> => {
+  if (!value || typeof value !== 'object') return false;
+
+  const feature = value as Feature;
+  if (feature.type !== 'Feature') {
+    return false;
+  }
+
+  if (geometryType) {
+    return feature.geometry?.type === geometryType;
+  }
+
+  return true;
+};
 
 /**
  * GeoJSON FeatureCollection 타입인지 확인
  */
-export const isFeatureCollection = createGuardByType<FeatureCollection>('FeatureCollection');
+export const isFeatureCollection = <T extends Geometry['type'] | undefined = undefined>(
+  value: unknown,
+  geometryType?: T,
+): value is FeatureCollection<T extends Geometry['type'] ? Extract<Geometry, { type: T }> : Geometry> => {
+  if (!value || typeof value !== 'object') return false;
 
-/**
- * `Point`를 포함하는 `Feature`인지 확인
- */
-export const isPointFeature = createFeatureGuard(isPointGeometry);
+  const collection = value as FeatureCollection;
+  if (collection.type !== 'FeatureCollection' || !Array.isArray(collection.features)) {
+    return false;
+  }
 
-/**
- * `LineString`를 포함하는 `Feature`인지 확인
- */
-export const isLineFeature = createFeatureGuard(isLineGeometry);
+  if (geometryType) {
+    return collection.features.every((feature) => feature.geometry?.type === geometryType);
+  }
 
-/**
- * `Polygon`를 포함하는 `Feature`인지 확인
- */
-export const isPolygonFeature = createFeatureGuard(isPolygonGeometry);
-
-/**
- * `MultiPoint`를 포함하는 `Feature`인지 확인
- */
-export const isMultiPointFeature = createFeatureGuard(isMultiPointGeometry);
-
-/**
- * `MultiLineString`를 포함하는 `Feature`인지 확인
- */
-export const isMultiLineFeature = createFeatureGuard(isMultiLineGeometry);
-
-/**
- * `MultiPolygon`를 포함하는 `Feature`인지 확인
- */
-export const isMultiPolygonFeature = createFeatureGuard(isMultiPolygonGeometry);
-
-/**
- * `GeometryCollection`를 포함하는 `Feature`인지 확인
- */
-export const isGeometryCollectionFeature = createFeatureGuard(isGeometryCollection);
+  return true;
+};
