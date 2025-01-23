@@ -13,19 +13,19 @@ export interface MapEvents extends BaseEvents {
    * A click with no dragging. A double click will fire two of this.
    * @param e - {@link MapBrowserEvent}
    */
-  onClick?: (e: MapBrowserEvent<UIEvent>) => void;
+  onClick?: (e: MapBrowserEvent<PointerEvent>) => void;
 
   /**
    * A true single click with no dragging and no double click. Note that this event is delayed by 250 ms to ensure that it is not a double click.
    * @param e - {@link MapBrowserEvent}
    */
-  onSingleClick?: (e: MapBrowserEvent<UIEvent>) => void;
+  onSingleClick?: (e: MapBrowserEvent<PointerEvent>) => void;
 
   /**
    * A true double click, with no dragging.
    * @param e - {@link MapBrowserEvent}
    */
-  onDblClick?: (e: MapBrowserEvent<UIEvent>) => void;
+  onDblClick?: (e: MapBrowserEvent<PointerEvent>) => void;
 
   /**
    * Triggered when loading of additional map data (tiles, images, features) starts.
@@ -55,13 +55,13 @@ export interface MapEvents extends BaseEvents {
    *  Triggered when a pointer is dragged.
    * @param e - {@link MapBrowserEvent}
    */
-  onPointerDrag?: (e: MapBrowserEvent<UIEvent>) => void;
+  onPointerDrag?: (e: MapBrowserEvent<PointerEvent>) => void;
 
   /**
    * Triggered when a pointer is moved. Note that on touch devices this is triggered when the map is panned, so is not the same as mousemove.
    * @param e - {@link MapBrowserEvent}
    */
-  onPointerMove?: (e: MapBrowserEvent<UIEvent>) => void;
+  onPointerMove?: (e: MapBrowserEvent<PointerEvent>) => void;
 
   /**
    * Triggered after a map frame is rendered.

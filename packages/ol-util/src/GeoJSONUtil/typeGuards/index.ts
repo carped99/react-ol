@@ -133,19 +133,97 @@ export const isFeature = <T extends Geometry['type'] | undefined = undefined>(
   value: unknown,
   geometryType?: T,
 ): value is Feature<T extends Geometry['type'] ? Extract<Geometry, { type: T }> : Geometry> => {
-  if (!value || typeof value !== 'object') return false;
-
-  const feature = value as Feature;
-  if (feature.type !== 'Feature') {
+  try {
+    assertFeature(value, geometryType);
+    return true;
+  } catch {
     return false;
   }
+};
 
-  if (geometryType) {
-    return feature.geometry?.type === geometryType;
+type ValidationError = Error & {
+  value: unknown;
+  details: {
+    expected: string;
+    received: unknown;
+  };
+};
+
+const createValidationError = (
+  message: string,
+  value: unknown,
+  details: {
+    expected: string;
+    received: unknown;
+  },
+): ValidationError => {
+  const error = new Error(message) as ValidationError;
+  error.name = 'ValidationError';
+  error.value = value;
+  error.details = details;
+  return error;
+};
+
+/**
+ * 주어진 값이 GeoJSON Feature인지 검증합니다.
+ * 유효하지 않은 경우 ValidationError를 발생시킵니다.
+ *
+ * @param value - 검증할 값
+ * @param geometryType - 검증할 geometry 타입 (선택사항)
+ *
+ * @example
+ * ```typescript
+ * // 기본 사용
+ * assertFeature(value);
+ *
+ * // geometry 타입 지정
+ * assertFeature(value, 'Polygon');
+ *
+ * // 에러 처리
+ * try {
+ *   assertFeature(value);
+ * } catch (error) {
+ *   if (error instanceof Error && 'details' in error) {
+ *     console.error(error.details);
+ *   }
+ * }
+ * ```
+ */
+export function assertFeature<T extends Geometry['type'] | undefined = undefined>(
+  value: unknown,
+  geometryType?: T,
+): asserts value is Feature<T extends Geometry['type'] ? Extract<Geometry, { type: T }> : Geometry> {
+  if (!value) {
+    throw createValidationError('Feature cannot be null or undefined', value, {
+      expected: 'Feature object',
+      received: value,
+    });
   }
 
-  return true;
-};
+  if (typeof value !== 'object') {
+    throw createValidationError('Feature must be an object', value, { expected: 'object', received: typeof value });
+  }
+
+  const feature = value as Feature;
+
+  if (feature.type !== 'Feature') {
+    throw createValidationError('Invalid feature type', value, { expected: 'Feature', received: feature.type });
+  }
+
+  if (!feature.geometry) {
+    throw createValidationError('Feature must have geometry', value, {
+      expected: 'geometry object',
+      received: feature.geometry,
+    });
+  }
+
+  if (geometryType && feature.geometry.type !== geometryType) {
+    throw createValidationError(`Feature geometry must be type "${geometryType}"`, value, {
+      expected: geometryType,
+      received: feature.geometry.type,
+    });
+  }
+}
 
 /**
  * GeoJSON FeatureCollection 타입인지 확인
@@ -167,3 +245,54 @@ export const isFeatureCollection = <T extends Geometry['type'] | undefined = und
 
   return true;
 };
+
+export function assertFeatureCollection<T extends Geometry['type'] | undefined = undefined>(
+  value: unknown,
+  geometryType?: T,
+): asserts value is FeatureCollection<T extends Geometry['type'] ? Extract<Geometry, { type: T }> : Geometry> {
+  if (!value) {
+    throw createValidationError('FeatureCollection cannot be null or undefined', value, {
+      expected: 'FeatureCollection object',
+      received: value,
+    });
+  }
+
+  if (typeof value !== 'object') {
+    throw createValidationError('FeatureCollection must be an object', value, {
+      expected: 'object',
+      received: typeof value,
+    });
+  }
+
+  const collection = value as FeatureCollection;
+
+  if (collection.type !== 'FeatureCollection') {
+    throw createValidationError('Invalid GeoJSON type', value, {
+      expected: 'FeatureCollection',
+      received: collection.type,
+    });
+  }
+
+  if (!Array.isArray(collection.features)) {
+    throw createValidationError('features must be an array', value, {
+      expected: 'array',
+      received: typeof collection.features,
+    });
+  }
+
+  // 각 feature 검증
+  collection.features.forEach((feature, index) => {
+    try {
+      assertFeature(feature, geometryType);
+    } catch (error) {
+      if (error instanceof Error && 'details' in error) {
+        const validationError = error as ValidationError;
+        throw createValidationError(`Invalid feature at index ${index}: ${error.message}`, feature, {
+          expected: validationError.details.expected,
+          received: validationError.details.received,
+        });
+      }
+      throw error;
+    }
+  });
+}
