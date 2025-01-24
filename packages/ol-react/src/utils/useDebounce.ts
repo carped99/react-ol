@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useRef } from 'react';
 
 export interface DebounceOptions {
-  delay?: number;
+  delay?: number; // 디바운스 시간, 0이면 requestAnimationFrame 사용
   leading?: boolean; // 첫 번째 호출 즉시 실행 여부
-  maxWait?: number;
+  maxWait?: number; // 최대 대기 시간, 0이면 디바운스 시간을 사용
 }
 
 export function useDebounce<T extends (...args: any[]) => void>(callback: T, options: DebounceOptions = {}) {
-  const { delay = 0, leading = false, maxWait = delay * 2 } = options;
+  const { delay = 200, leading = false, maxWait = delay * 2 } = options;
 
   const rafRef = useRef<number>();
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
@@ -28,6 +28,19 @@ export function useDebounce<T extends (...args: any[]) => void>(callback: T, opt
     };
   }, []);
 
+  const executeCallback = useCallback(() => {
+    if (argsRef.current) {
+      callbackRef.current(...argsRef.current);
+      lastCallRef.current = Date.now();
+
+      // maxWait 타이머 정리
+      if (maxWaitRef.current) {
+        clearTimeout(maxWaitRef.current);
+        maxWaitRef.current = undefined;
+      }
+    }
+  }, []);
+
   return useCallback(
     (...args: Parameters<T>) => {
       argsRef.current = args;
@@ -35,8 +48,7 @@ export function useDebounce<T extends (...args: any[]) => void>(callback: T, opt
 
       // leading edge 실행
       if (leading && now - lastCallRef.current > delay) {
-        callbackRef.current(...args);
-        lastCallRef.current = now;
+        executeCallback();
         return;
       }
 
@@ -46,29 +58,16 @@ export function useDebounce<T extends (...args: any[]) => void>(callback: T, opt
 
       // maxWait 타이머 설정
       if (maxWait && !maxWaitRef.current) {
-        maxWaitRef.current = setTimeout(() => {
-          if (argsRef.current) {
-            callbackRef.current(...argsRef.current);
-            lastCallRef.current = Date.now();
-            maxWaitRef.current = undefined;
-          }
-        }, maxWait);
+        maxWaitRef.current = setTimeout(executeCallback, maxWait);
       }
 
-      rafRef.current = requestAnimationFrame(() => {
-        if (delay > 0) {
-          timeoutRef.current = setTimeout(() => {
-            callbackRef.current(...(argsRef.current as Parameters<T>));
-            lastCallRef.current = Date.now();
-            maxWaitRef.current = undefined;
-          }, delay);
-        } else {
-          callbackRef.current(...(argsRef.current as Parameters<T>));
-          lastCallRef.current = Date.now();
-          maxWaitRef.current = undefined;
-        }
-      });
+      // 메인 디바운스 로직
+      if (delay > 0) {
+        timeoutRef.current = setTimeout(executeCallback, delay);
+      } else {
+        rafRef.current = requestAnimationFrame(executeCallback);
+      }
     },
-    [delay, leading, maxWait],
+    [delay, executeCallback, leading, maxWait],
   );
 }

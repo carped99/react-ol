@@ -1,8 +1,8 @@
+import { DebounceOptions, useDebounce } from '../utils/useDebounce';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useMapContext } from '../context';
-import { useCallback, useEffect, useRef } from 'react';
 import { Map } from 'ol';
 import { unByKey } from 'ol/Observable';
-import { DebounceOptions, useDebounce } from '../utils/useDebounce';
 
 interface ViewportState {
   center: number[];
@@ -12,34 +12,47 @@ interface ViewportState {
 }
 
 interface ViewportOptions extends DebounceOptions {
-  tolerance: number;
+  tolerance?: number;
 }
 
-export const useViewportChange = (
-  callback: (event: ViewportState) => void,
-  options: ViewportOptions = {
-    delay: 300,
-    tolerance: 0.00001,
-  },
-) => {
-  const prevState = useRef<ViewportState>(undefined);
+/**
+ * 지도의 뷰포트(중심점, 줌, 회전) 변경을 감지하고 현재 상태를 반환하는 훅
+ *
+ * @param options - 뷰포트 감지 옵션
+ *
+ * @returns 현재 뷰포트 상태
+ */
+export const useViewportState = (options: ViewportOptions = {}) => {
+  const { tolerance = 0.000001 } = options;
+  const [viewportState, setViewportState] = useState<ViewportState>();
+  const prevState = useRef<ViewportState>();
   const { map } = useMapContext();
 
-  const handleViewportChange = useCallback(() => {
-    if (!map) return;
-    const currentState = getViewportState(map);
-    if (hasViewportChanged(currentState, prevState.current, options.tolerance)) {
-      prevState.current = currentState;
-      callback(currentState);
+  const handleChange = useCallback(() => {
+    if (!map || !map.getView()) {
+      setViewportState(undefined);
+      prevState.current = undefined;
+      return;
     }
-  }, [map, callback, options.tolerance]);
 
-  const debounce = useDebounce(() => handleViewportChange(), { delay: options.delay });
+    const currentState = getViewportState(map);
+    if (hasViewportChanged(currentState, prevState.current, tolerance)) {
+      prevState.current = currentState;
+      setViewportState(currentState);
+    }
+  }, [map, tolerance]);
+
+  const debounce = useDebounce(() => handleChange(), {
+    delay: options.delay,
+    leading: options.leading,
+    maxWait: options.maxWait,
+  });
 
   useEffect(() => {
     if (!map) return;
 
     const view = map.getView();
+    if (!view) return;
 
     const eventKeys = [
       view.on('change:center', debounce),
@@ -48,12 +61,13 @@ export const useViewportChange = (
       map.on('moveend', debounce),
     ];
 
-    debounce();
-
     return () => {
       unByKey(eventKeys);
+      prevState.current = undefined;
     };
-  }, [debounce, handleViewportChange, map]);
+  }, [debounce, handleChange, map]);
+
+  return viewportState;
 };
 
 const getViewportState = (map: Map): ViewportState => {
