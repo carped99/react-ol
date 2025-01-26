@@ -1,8 +1,8 @@
-import { OSM, Tile as TileSource } from 'ol/source';
+import { Options } from 'ol/layer/BaseTile.js';
+import { Options as OMSOptions } from 'ol/source/OSM.js';
+import { OSM, Tile as TileSource } from 'ol/source.js';
 import { useDebugValue, useMemo } from 'react';
 import { useTileLayer } from './useTileLayer';
-import { Options } from 'ol/layer/BaseTile';
-import { Options as OMSOptions } from 'ol/source/OSM';
 
 export interface OSMLayerOptions extends Omit<Options<TileSource>, 'source'> {
   source?: OMSOptions;

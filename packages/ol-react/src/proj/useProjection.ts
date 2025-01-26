@@ -1,5 +1,5 @@
-import { Projection } from 'ol/proj';
-import { Options } from 'ol/proj/Projection';
+import { Options } from 'ol/proj/Projection.js';
+import { Projection } from 'ol/proj.js';
 import { createInstanceProviderByKey, useInstance } from '../base';
 
 export const useProjection = (options: Options) => {

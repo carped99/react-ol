@@ -1,5 +1,5 @@
+import { DragAndDropEvent } from 'ol/interaction/DragAndDrop.js';
 import { InteractionEvents } from './InteractionEvents';
-import { DragAndDropEvent } from 'ol/interaction/DragAndDrop';
 
 /**
  * DragAndDrop Interaction 이벤트

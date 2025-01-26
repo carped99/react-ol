@@ -1,7 +1,7 @@
-import { Overlay } from 'ol';
+import Overlay from 'ol/Overlay.js';
+import { useEffect } from 'react';
 import { useMapContext } from '../context';
 import { useEvents } from '../events';
-import { useEffect } from 'react';
 import { OverlayEvents } from './events';
 
 export const useOverlayInstance = <E extends OverlayEvents>(overlay: Overlay, events?: E) => {

@@ -1,8 +1,7 @@
-import { Link } from 'ol/interaction';
-import { Options } from 'ol/interaction/Link';
-import { useInteraction } from './useInteraction';
-import { LinkInteractionEvents } from './event';
+import Link, { Options } from 'ol/interaction/Link.js';
 import { createInstanceProviderByKey, useInstance } from '../base';
+import { LinkInteractionEvents } from './event';
+import { useInteraction } from './useInteraction';
 
 /**
  * Options for the - {@link useLinkInteraction} hook.

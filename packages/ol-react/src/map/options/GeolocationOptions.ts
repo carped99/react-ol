@@ -1,4 +1,4 @@
-import { Options } from 'ol/Geolocation';
+import { Options } from 'ol/Geolocation.js';
 import { GeolocationEvents } from '../events';
 
 /**

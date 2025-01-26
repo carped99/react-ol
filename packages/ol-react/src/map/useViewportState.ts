@@ -1,8 +1,8 @@
-import { DebounceOptions, useDebounce } from '../utils/useDebounce';
+import Map from 'ol/Map.js';
+import { unByKey } from 'ol/Observable.js';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useMapContext } from '../context';
-import { Map } from 'ol';
-import { unByKey } from 'ol/Observable';
+import { DebounceOptions, useDebounce } from '../utils/useDebounce';
 
 interface ViewportState {
   center: number[];

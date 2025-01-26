@@ -1,5 +1,5 @@
+import { DragBoxEvent } from 'ol/interaction/DragBox.js';
 import { InteractionEvents } from './InteractionEvents';
-import { DragBoxEvent } from 'ol/interaction/DragBox';
 
 /**
  * DragBox Interaction 이벤트 타입

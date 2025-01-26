@@ -1,4 +1,4 @@
-import { Map } from 'ol';
+import Map from 'ol/Map.js';
 import { createContext, useContext } from 'react';
 
 /**

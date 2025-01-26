@@ -1,4 +1,4 @@
-import {
+import type {
   Geometry,
   GeometryCollection,
   LineString,
@@ -8,6 +8,7 @@ import {
   Point,
   Polygon,
 } from 'geojson';
+import { Type as OlGeometryType } from 'ol/geom/Geometry.js';
 import {
   Geometry as OlGeometry,
   GeometryCollection as OlGeometryCollection,
@@ -17,8 +18,7 @@ import {
   MultiPolygon as OlMultiPolygon,
   Point as OlPoint,
   Polygon as OlPolygon,
-} from 'ol/geom';
-import { Type as OlGeometryType } from 'ol/geom/Geometry';
+} from 'ol/geom.js';
 
 type GeometryTypeMap = {
   Point: OlPoint;

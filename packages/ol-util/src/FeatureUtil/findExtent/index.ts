@@ -1,4 +1,4 @@
-import { createEmpty, extend, Extent, isEmpty } from 'ol/extent';
+import { createEmpty, extend, Extent, isEmpty } from 'ol/extent.js';
 import { FeatureOrGeometry, resolveGeometry } from '../../Util/internal';
 
 /**

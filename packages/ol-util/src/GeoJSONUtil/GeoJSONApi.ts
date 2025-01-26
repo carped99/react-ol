@@ -1,5 +1,5 @@
-import { BBox, Feature, FeatureCollection, GeoJsonProperties, MultiPolygon, Polygon } from 'geojson';
 import * as turf from '@turf/turf';
+import type { BBox, Feature, FeatureCollection, GeoJsonProperties, MultiPolygon, Polygon } from 'geojson';
 
 /**
  * 두 경계 상자(BBox)의 교집합을 계산합니다.

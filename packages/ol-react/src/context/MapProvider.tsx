@@ -1,6 +1,6 @@
+import Map from 'ol/Map.js';
 import { PropsWithChildren, useState } from 'react';
 import { MapContext, MapState } from '.';
-import { Map } from 'ol';
 
 /**
  * MapContext Provider Props

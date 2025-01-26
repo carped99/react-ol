@@ -1,7 +1,7 @@
-import BaseVectorLayer, { Options } from 'ol/layer/BaseVector';
-import { FeatureLike } from 'ol/Feature';
-import VectorSource from 'ol/source/Vector';
-import VectorTile from 'ol/source/VectorTile';
+import { FeatureLike } from 'ol/Feature.js';
+import BaseVectorLayer, { Options } from 'ol/layer/BaseVector.js';
+import VectorSource from 'ol/source/Vector.js';
+import VectorTile from 'ol/source/VectorTile.js';
 import { useLayer } from './useLayer';
 
 export const useBaseVectorLayer = <F extends FeatureLike, S extends VectorSource<F> | VectorTile<F>>(

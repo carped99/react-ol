@@ -1,7 +1,8 @@
 import { DrawTemporalConfig, DrawTemporalLayer, DrawTemporalStyle } from '@carped99/ol-util';
+import { Geometry } from 'ol/geom.js';
 import { useCallback } from 'react';
+
 import { useDrawTemporal } from './useDrawTemporal';
-import { Geometry } from 'ol/geom';
 
 export const useDrawTemporalGeometry = () => {
   const drawTemporal = useDrawTemporal();

@@ -1,4 +1,4 @@
-import { ObjectEvent } from 'ol/Object';
+import { ObjectEvent } from 'ol/Object.js';
 import { BaseEvents } from '../../events/BaseEvents';
 
 /**

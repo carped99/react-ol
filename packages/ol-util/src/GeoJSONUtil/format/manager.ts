@@ -1,6 +1,5 @@
-import { GeoJSON } from 'ol/format';
-import { Options } from 'ol/format/GeoJSON';
-import { FeatureLike } from 'ol/Feature';
+import { FeatureLike } from 'ol/Feature.js';
+import GeoJSON, { Options } from 'ol/format/GeoJSON.js';
 
 export class GeoJSONManager {
   private formatCache: Map<string, GeoJSON<FeatureLike>> = new Map();

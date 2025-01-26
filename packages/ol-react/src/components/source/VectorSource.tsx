@@ -1,5 +1,5 @@
 import { MutableRefObject, PropsWithChildren, useEffect } from 'react';
-import { Vector } from 'ol/source';
+import Vector from 'ol/source/Vector.js';
 import { useVectorSource, VectorSourceOptions } from '../../source/useVectorSource';
 
 export const VectorSource = ({

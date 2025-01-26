@@ -1,13 +1,13 @@
-import { Map } from 'ol';
-import VectorLayer from 'ol/layer/Vector';
-import { EventsKey } from 'ol/events';
-import { unByKey } from 'ol/Observable';
-import RenderEvent from 'ol/render/Event';
-import { getVectorContext } from 'ol/render';
-import VectorImageLayer from 'ol/layer/VectorImage';
-import VectorContext from 'ol/render/VectorContext';
-import { Style } from 'ol/style';
-import { FrameState } from 'ol/Map';
+import Map from 'ol/Map.js';
+import { EventsKey } from 'ol/events.js';
+import VectorLayer from 'ol/layer/Vector.js';
+import VectorImageLayer from 'ol/layer/VectorImage.js';
+import { FrameState } from 'ol/Map.js';
+import { unByKey } from 'ol/Observable.js';
+import RenderEvent from 'ol/render/Event.js';
+import VectorContext from 'ol/render/VectorContext.js';
+import { getVectorContext } from 'ol/render.js';
+import { Style } from 'ol/style.js';
 
 /**
  * 렌더링 옵션 인터페이스

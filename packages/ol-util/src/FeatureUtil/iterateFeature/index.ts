@@ -1,9 +1,9 @@
-import { Feature as OlFeature } from 'ol';
-import { Geometry as OlGeometry } from 'ol/geom';
-import { isCollection, isVectorSource } from '../typeGuards';
-import { FeatureSources } from '../internal';
+import OlFeature from 'ol/Feature';
+import { TRUE } from 'ol/functions.js';
+import { Geometry as OlGeometry } from 'ol/geom.js';
 import { FeatureFilter } from '../../Filter/predicate';
-import { TRUE } from 'ol/functions';
+import { FeatureSources } from '../internal';
+import { isCollection, isVectorSource } from '../typeGuards';
 
 /**
  * 주어진 소스의 피처들을 순회하는 제너레이터 함수입니다.

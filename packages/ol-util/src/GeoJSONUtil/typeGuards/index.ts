@@ -1,4 +1,4 @@
-import {
+import type {
   Feature,
   FeatureCollection,
   GeoJsonGeometryTypes,
@@ -40,7 +40,7 @@ const GEOJSON_TYPES = [...GEOMETRY_TYPES, 'Feature', 'FeatureCollection'] as con
  *
  * @param value - 검사할 값
  */
-const isGeoJson = (value: unknown): value is GeoJsonObject => {
+export const isGeoJson = (value: unknown): value is GeoJsonObject => {
   if (!value || typeof value !== 'object') return false;
   const type = (value as { type?: unknown }).type;
   return typeof type === 'string' && GEOJSON_TYPES.includes(type as GeoJsonTypes);

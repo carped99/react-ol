@@ -1,6 +1,6 @@
+import { FALSE } from 'ol/functions.js';
+import BaseObject from 'ol/Object.js';
 import { Predicate } from '../predicate';
-import BaseObject from 'ol/Object';
-import { FALSE } from 'ol/functions';
 
 /**
  * 이름 필터를 위한 타입

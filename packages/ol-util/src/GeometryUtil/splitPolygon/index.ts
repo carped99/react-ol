@@ -1,6 +1,6 @@
 import { flatten } from '@turf/turf';
-import { Options as GeoJSONFormatOptions } from 'ol/format/GeoJSON';
-import { LineString as OlLineString, Polygon as OlPolygon } from 'ol/geom';
+import { Options as GeoJSONFormatOptions } from 'ol/format/GeoJSON.js';
+import { LineString as OlLineString, Polygon as OlPolygon } from 'ol/geom.js';
 import polygonSplitter from 'polygon-splitter';
 import { readGeometry, writeGeometryObject } from '../../GeoJSONUtil/GeoJSONFormat';
 

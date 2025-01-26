@@ -1,4 +1,3 @@
-import Observable from 'ol/Observable';
 import {
   DblClickDragZoom,
   DoubleClickZoom,
@@ -19,7 +18,8 @@ import {
   Select,
   Snap,
   Translate,
-} from 'ol/interaction';
+} from 'ol/interaction.js';
+import Observable from 'ol/Observable.js';
 import {
   DblClickDragZoomInteractionEvents,
   DblClickZoomInteractionEvents,

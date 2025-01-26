@@ -1,8 +1,8 @@
-import { Feature as OlFeature } from 'ol';
-import { Geometry as OlGeometry } from 'ol/geom';
-import { FeatureSources, resolveFeatureArray } from '../internal';
+import OlFeature from 'ol/Feature.js';
+import { TRUE } from 'ol/functions.js';
+import { Geometry as OlGeometry } from 'ol/geom.js';
 import { FeatureFilter } from '../../Filter/predicate';
-import { TRUE } from 'ol/functions';
+import { FeatureSources, resolveFeatureArray } from '../internal';
 
 /**
  * 주어진 소스에서 조건에 맞는 첫 번째 피처를 찾습니다.

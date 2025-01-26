@@ -1,6 +1,6 @@
 import { useMapContext } from '@carped99/ol-react';
-import { useCallback, useEffect, useRef } from 'react';
 import { drawTemporal, DrawTemporalCallback, DrawTemporalConfig, DrawTemporalLayer } from '@carped99/ol-util';
+import { useCallback, useEffect, useRef } from 'react';
 
 export const useDrawTemporal = () => {
   const { map } = useMapContext();

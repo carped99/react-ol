@@ -1,8 +1,7 @@
-import { Geolocation } from 'ol';
+import Geolocation, { Options } from 'ol/Geolocation.js';
+import { createInstanceProviderByKey, useInstance } from '../base';
 import { useEvents } from '../events';
 import { GeolocationEvents } from './events';
-import { createInstanceProviderByKey, useInstance } from '../base';
-import { Options } from 'ol/Geolocation';
 
 export interface GeolocationOptions extends Options, GeolocationEvents {}
 

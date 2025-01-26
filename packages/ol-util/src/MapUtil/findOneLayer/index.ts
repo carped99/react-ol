@@ -1,9 +1,9 @@
-import BaseLayer from 'ol/layer/Base';
-import LayerGroup from 'ol/layer/Group';
-import Map from 'ol/Map';
+import { TRUE } from 'ol/functions.js';
+import BaseLayer from 'ol/layer/Base.js';
+import LayerGroup from 'ol/layer/Group.js';
+import Map from 'ol/Map.js';
 import { isLayerGroup } from '../../common';
 import { LayerFilter } from '../../Filter/predicate';
-import { TRUE } from 'ol/functions';
 
 /**
  * 주어진 소스에서 필터 조건을 만족하는 첫 번째 레이어를 찾아 반환합니다.

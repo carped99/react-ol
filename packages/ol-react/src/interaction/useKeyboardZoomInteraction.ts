@@ -1,8 +1,7 @@
-import { KeyboardZoom } from 'ol/interaction';
-import { Options } from 'ol/interaction/KeyboardZoom';
-import { useInteraction } from './useInteraction';
-import { KeyboardZoomInteractionEvents } from './event';
+import KeyboardZoom, { Options } from 'ol/interaction/KeyboardZoom.js';
 import { createInstanceProviderByKey, useInstance } from '../base';
+import { KeyboardZoomInteractionEvents } from './event';
+import { useInteraction } from './useInteraction';
 
 /**
  * Options for the - {@link useKeyboardZoomInteraction} hook.

@@ -1,8 +1,7 @@
-import { DragBox } from 'ol/interaction';
-import { Options } from 'ol/interaction/DragBox';
-import { useInteraction } from './useInteraction';
-import { DragBoxInteractionEvents } from './event';
+import DragBox, { Options } from 'ol/interaction/DragBox.js';
 import { createInstanceProviderByKey, useInstance } from '../base';
+import { DragBoxInteractionEvents } from './event';
+import { useInteraction } from './useInteraction';
 
 /**
  * Options for the - {@link DragBoxInteraction} hook.

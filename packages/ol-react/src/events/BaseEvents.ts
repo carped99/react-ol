@@ -1,5 +1,5 @@
-import BaseEvent from 'ol/events/Event';
-import { ObjectEvent } from 'ol/Object';
+import BaseEvent from 'ol/events/Event.js';
+import { ObjectEvent } from 'ol/Object.js';
 
 export interface BaseEvents {
   /**

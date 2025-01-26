@@ -1,8 +1,8 @@
-import View, { ViewOptions as OLViewOptions } from 'ol/View';
-import { useEvents } from '../events';
-import { ViewEvents } from './events';
+import View, { ViewOptions as OLViewOptions } from 'ol/View.js';
 import { createInstanceProviderByKey, useInstance } from '../base';
 import { BaseObjectOptions } from '../base/useProperties';
+import { useEvents } from '../events';
+import { ViewEvents } from './events';
 
 export interface ViewOptions extends OLViewOptions, ViewEvents {
   properties?: BaseObjectOptions['properties'];

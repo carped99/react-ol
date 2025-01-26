@@ -1,4 +1,4 @@
-import { SelectEvent } from 'ol/interaction/Select';
+import { SelectEvent } from 'ol/interaction/Select.js';
 import { InteractionEvents } from './InteractionEvents';
 
 /**

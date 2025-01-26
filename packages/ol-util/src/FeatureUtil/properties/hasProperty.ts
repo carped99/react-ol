@@ -1,5 +1,5 @@
-import { Feature as OlFeature } from 'ol';
-import { Geometry as OlGeometry } from 'ol/geom';
+import OlFeature from 'ol/Feature.js';
+import { Geometry as OlGeometry } from 'ol/geom.js';
 
 /**
  * Feature의 특정 속성 존재 여부를 확인합니다.

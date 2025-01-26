@@ -1,10 +1,10 @@
 import { featureCollection } from '@turf/turf';
-import { Feature, MultiPolygon, Polygon } from 'geojson';
-import { Feature as OlFeature } from 'ol';
-import { Options as GeoJSONFormatOptions } from 'ol/format/GeoJSON';
-import { MultiPolygon as OlMultiPolygon, Polygon as OlPolygon } from 'ol/geom';
-import { readGeometry, writeFeatureObject } from '../../GeoJSONUtil/GeoJSONFormat';
+import type { Feature, MultiPolygon, Polygon } from 'geojson';
+import OlFeature from 'ol/Feature.js';
+import { Options as GeoJSONFormatOptions } from 'ol/format/GeoJSON.js';
+import { MultiPolygon as OlMultiPolygon, Polygon as OlPolygon } from 'ol/geom.js';
 import { intersectPolygon } from '../../GeoJSONUtil/GeoJSONApi';
+import { readGeometry, writeFeatureObject } from '../../GeoJSONUtil/GeoJSONFormat';
 
 /**
  * 두 폴리곤의 교차 영역을 계산합니다.

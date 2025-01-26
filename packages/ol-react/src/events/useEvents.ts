@@ -1,6 +1,6 @@
+import { EventsKey, ListenerFunction } from 'ol/events.js';
+import Observable, { EventTypes, unByKey } from 'ol/Observable.js';
 import { useEffect, useRef } from 'react';
-import { EventsKey, ListenerFunction } from 'ol/events';
-import Observable, { EventTypes, unByKey } from 'ol/Observable';
 import { ObservableEvents } from './ObservableEvents';
 
 type Listeners = Record<string, ListenerFunction>;

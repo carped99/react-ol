@@ -1,8 +1,8 @@
-import { BBox, Feature, FeatureCollection, GeoJsonProperties, MultiPolygon, Polygon } from 'geojson';
 import { booleanIntersects, difference, feature, featureCollection, intersect, polygon } from '@turf/turf';
-import { CellGridMaskOptions, CellGridOptions } from './index';
-import { calculateGridStart } from './alignment';
+import type { BBox, Feature, FeatureCollection, GeoJsonProperties, MultiPolygon, Polygon } from 'geojson';
 import { isFeature, isFeatureCollection, isGeometry } from '../../GeoJSONUtil';
+import { calculateGridStart } from './alignment';
+import { CellGridMaskOptions, CellGridOptions } from './index';
 
 /**
  * 그리드 생성 관련 에러

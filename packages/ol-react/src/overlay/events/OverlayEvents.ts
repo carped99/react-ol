@@ -1,5 +1,5 @@
+import { ObjectEvent } from 'ol/Object.js';
 import { BaseEvents } from '../../events/BaseEvents';
-import { ObjectEvent } from 'ol/Object';
 
 /**
  * Overlay 이벤트

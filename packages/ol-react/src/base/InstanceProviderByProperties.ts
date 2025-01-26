@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
+import { equalsDeep } from '../utils';
 import { debug } from '../utils/logger';
 import { InstanceCreator, InstancePredicate, InstanceProvider, InstanceUpdater } from './InstanceProvider';
-import { equalsDeep } from '../utils';
 
 export type InstanceProperty = {
   name: string;

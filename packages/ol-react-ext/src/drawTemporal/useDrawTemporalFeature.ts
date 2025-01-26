@@ -1,6 +1,7 @@
-import { Feature } from 'ol';
 import { DrawTemporalConfig, DrawTemporalLayer, DrawTemporalStyle } from '@carped99/ol-util';
+import Feature from 'ol/Feature.js';
 import { useCallback } from 'react';
+
 import { useDrawTemporal } from './useDrawTemporal';
 
 export const useDrawTemporalFeature = () => {

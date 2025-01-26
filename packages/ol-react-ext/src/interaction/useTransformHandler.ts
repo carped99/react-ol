@@ -1,7 +1,8 @@
-import { Options as TransformOptions } from 'ol-ext/interaction/Transform';
-import { useEffect, useMemo } from 'react';
-import { unByKey } from 'ol/Observable';
 import type { Layer } from 'ol/layer';
+import { unByKey } from 'ol/Observable.js';
+import { Options as TransformOptions } from 'ol-ext/interaction/Transform.js';
+import { useEffect, useMemo } from 'react';
+
 import { useTransformInteraction } from './useTransformInteraction';
 
 export const RotateAnglePropertyName = 'rotate:angle';

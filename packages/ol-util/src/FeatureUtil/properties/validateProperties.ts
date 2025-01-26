@@ -1,5 +1,5 @@
-import { Feature as OlFeature } from 'ol';
-import { Geometry as OlGeometry } from 'ol/geom';
+import OlFeature from 'ol/Feature.js';
+import { Geometry as OlGeometry } from 'ol/geom.js';
 
 /**
  * OpenLayers Feature 객체를 다루기 위한 유틸리티 함수들을 제공합니다.

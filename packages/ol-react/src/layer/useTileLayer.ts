@@ -1,13 +1,13 @@
+import { Options } from 'ol/layer/BaseTile.js';
+import TileLayer from 'ol/layer/Tile.js';
+import TileSource from 'ol/source/Tile.js';
+import Tile from 'ol/Tile.js';
 import { useCallback, useDebugValue } from 'react';
-import { Tile as TileLayer } from 'ol/layer';
-import { Tile as TileSource } from 'ol/source';
-import { Tile } from 'ol';
-import { Options } from 'ol/layer/BaseTile';
+import { useInstance, useInstanceProviderByKeys } from '../base';
+import { useEvents } from '../events';
+import { BaseTileLayerInstanceProperties } from './base/LayerProperties';
 import { useBaseTileLayer } from './base/useBaseTileLayer';
 import { TileLayerEvents } from './events/TileLayerEvents';
-import { useEvents } from '../events';
-import { useInstance, useInstanceProviderByKeys } from '../base';
-import { BaseTileLayerInstanceProperties } from './base/LayerProperties';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface TileLayerOptions<S extends TileSource = TileSource<Tile>> extends Options<S> {}

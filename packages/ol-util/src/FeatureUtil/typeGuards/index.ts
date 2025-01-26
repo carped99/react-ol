@@ -1,6 +1,7 @@
-import { Collection, Feature } from 'ol';
-import { Geometry, LineString, MultiLineString, MultiPoint, MultiPolygon, Point, Polygon } from 'ol/geom';
-import VectorSource from 'ol/source/Vector';
+import Collection from 'ol/Collection.js';
+import Feature from 'ol/Feature.js';
+import { Geometry, LineString, MultiLineString, MultiPoint, MultiPolygon, Point, Polygon } from 'ol/geom.js';
+import VectorSource from 'ol/source/Vector.js';
 
 /**
  * 주어진 객체가 VectorSource 인스턴스인지 확인합니다.

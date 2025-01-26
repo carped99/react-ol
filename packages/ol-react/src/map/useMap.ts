@@ -1,13 +1,13 @@
-import { Map, View } from 'ol';
-import LayerGroup from 'ol/layer/Group';
+import LayerGroup from 'ol/layer/Group.js';
+import Map, { MapOptions as OLMapOptions } from 'ol/Map.js';
+import View from 'ol/View.js';
 import { Ref, useEffect, useRef } from 'react';
-import { useMapContext } from '../context';
-import { useEvents } from '../events';
-import { MapEvents } from './events';
 import { usePrevious } from '../base';
 import { BaseObjectOptions, useProperties } from '../base/useProperties';
+import { useMapContext } from '../context';
+import { useEvents } from '../events';
 import { equals, equalsByProps } from '../utils';
-import { MapOptions as OLMapOptions } from 'ol/Map';
+import { MapEvents } from './events';
 
 export interface MapOptions extends Omit<OLMapOptions, 'target'>, MapEvents {
   properties?: BaseObjectOptions['properties'];

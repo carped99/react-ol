@@ -1,5 +1,5 @@
+import PointerInteraction, { Options } from 'ol/interaction/Pointer.js';
 import { useMemo } from 'react';
-import PointerInteraction, { Options } from 'ol/interaction/Pointer';
 import { useInteraction } from './useInteraction';
 
 /**

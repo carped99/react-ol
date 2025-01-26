@@ -1,12 +1,12 @@
+import { Options } from 'ol/layer/BaseImage.js';
+import ImageLayer from 'ol/layer/Image.js';
+import ImageSource from 'ol/source/Image.js';
 import { useCallback, useDebugValue } from 'react';
-import ImageLayer from 'ol/layer/Image';
-import ImageSource from 'ol/source/Image';
-import { Options } from 'ol/layer/BaseImage';
+import { useInstance, useInstanceProviderByKeys } from '../base';
+import { useEvents } from '../events';
+import { BaseImageLayerInstanceProperties } from './base/LayerProperties';
 import { useBaseImageLayer } from './base/useBaseImageLayer';
 import { ImageLayerEvents } from './events';
-import { useEvents } from '../events';
-import { useInstance, useInstanceProviderByKeys } from '../base';
-import { BaseImageLayerInstanceProperties } from './base/LayerProperties';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface ImageLayerOptions<S extends ImageSource> extends Options<S> {}

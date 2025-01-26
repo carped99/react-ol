@@ -1,10 +1,10 @@
+import WebGLTileLayer, { Options } from 'ol/layer/WebGLTile.js';
 import { useDebugValue } from 'react';
-import WebGLTileLayer, { Options } from 'ol/layer/WebGLTile';
+import { createInstanceProviderByKey, useInstance } from '../base';
+import { useEvents } from '../events';
+import { BaseTileLayerInstanceProperties } from './base/LayerProperties';
 import { useBaseTileLayer } from './base/useBaseTileLayer';
 import { WebGLTileLayerEvents } from './events';
-import { useEvents } from '../events';
-import { createInstanceProviderByKey, useInstance } from '../base';
-import { BaseTileLayerInstanceProperties } from './base/LayerProperties';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface WebGLTileLayerOptions extends Options {}

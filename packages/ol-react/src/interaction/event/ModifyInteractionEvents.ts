@@ -1,5 +1,5 @@
+import { ModifyEvent } from 'ol/interaction/Modify.js';
 import { InteractionEvents } from './InteractionEvents';
-import { ModifyEvent } from 'ol/interaction/Modify';
 
 /**
  * Modify Interaction 이벤트

@@ -1,5 +1,5 @@
-import { useMap, useView } from '.';
 import { MapViewOptions } from './options';
+import { useMap, useView } from '.';
 
 /**
  * 지도를 생성하고 반환한다.

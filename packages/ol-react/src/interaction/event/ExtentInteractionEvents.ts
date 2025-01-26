@@ -1,5 +1,5 @@
+import { ExtentEvent } from 'ol/interaction/Extent.js';
 import { InteractionEvents } from './InteractionEvents';
-import { ExtentEvent } from 'ol/interaction/Extent';
 
 /**
  * Extent Interaction 이벤트

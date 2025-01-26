@@ -1,6 +1,6 @@
-import BaseLayer from 'ol/layer/Base';
-import { Geometry } from 'ol/geom';
-import { Feature } from 'ol';
+import Feature from 'ol/Feature.js';
+import { Geometry } from 'ol/geom.js';
+import BaseLayer from 'ol/layer/Base.js';
 
 export type Predicate<T> = (value: T) => boolean;
 

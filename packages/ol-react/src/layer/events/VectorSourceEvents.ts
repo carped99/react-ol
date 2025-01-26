@@ -1,4 +1,4 @@
-import VectorSource, { VectorSourceEvent } from 'ol/source/Vector';
+import VectorSource, { VectorSourceEvent } from 'ol/source/Vector.js';
 import { BaseEvents } from '../../events/BaseEvents';
 
 export interface VectorSourceEvents extends BaseEvents {

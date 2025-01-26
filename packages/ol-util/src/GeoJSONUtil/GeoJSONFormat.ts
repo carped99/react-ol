@@ -1,18 +1,4 @@
-import { GeoJSON as GeoJSONFormat } from 'ol/format';
-import { Options as GeoJSONFormatOptions } from 'ol/format/GeoJSON';
-import { Feature as OlFeature } from 'ol';
-import {
-  Geometry as OlGeometry,
-  GeometryCollection as OlGeometryCollection,
-  LineString as OlLineString,
-  MultiLineString as OlMultiLineString,
-  MultiPoint as OlMultiPoint,
-  MultiPolygon as OlMultiPolygon,
-  Point as OlPoint,
-  Polygon as OlPolygon,
-} from 'ol/geom';
-import { FeatureLike } from 'ol/Feature';
-import {
+import type {
   Feature,
   FeatureCollection,
   GeoJsonObject,
@@ -25,7 +11,21 @@ import {
   Point,
   Polygon,
 } from 'geojson';
-import { WriteOptions } from 'ol/format/Feature';
+import OlFeature, { FeatureLike } from 'ol/Feature.js';
+
+import { WriteOptions } from 'ol/format/Feature.js';
+import GeoJSONFormat, { Options as GeoJSONFormatOptions } from 'ol/format/GeoJSON.js';
+
+import {
+  Geometry as OlGeometry,
+  GeometryCollection as OlGeometryCollection,
+  LineString as OlLineString,
+  MultiLineString as OlMultiLineString,
+  MultiPoint as OlMultiPoint,
+  MultiPolygon as OlMultiPolygon,
+  Point as OlPoint,
+  Polygon as OlPolygon,
+} from 'ol/geom.js';
 import { isFeature, isFeatureCollection } from './typeGuards';
 
 /**

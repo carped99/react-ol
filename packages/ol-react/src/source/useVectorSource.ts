@@ -1,5 +1,5 @@
+import VectorSource, { Options, VectorSourceEvent } from 'ol/source/Vector.js';
 import { createInstanceProviderByKey, useInstance } from '../base';
-import VectorSource, { Options, VectorSourceEvent } from 'ol/source/Vector';
 import { useEvents } from '../events';
 import { BaseEvents } from '../events/BaseEvents';
 

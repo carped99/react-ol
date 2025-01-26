@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
+import { splitEvents } from '../../events/splitEvents';
 import { useVectorImageLayer, VectorImageLayerOptions } from '../../layer';
 import { VectorImageLayerEvents } from '../../layer/events';
-import { splitEvents } from '../../events/splitEvents';
 
 export const VectorImageLayer = ({
   children,

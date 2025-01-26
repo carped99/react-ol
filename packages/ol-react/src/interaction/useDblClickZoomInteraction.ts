@@ -1,8 +1,7 @@
-import { DoubleClickZoom } from 'ol/interaction';
-import { Options } from 'ol/interaction/DoubleClickZoom';
-import { useInteraction } from './useInteraction';
-import { DblClickZoomInteractionEvents } from './event';
+import DoubleClickZoom, { Options } from 'ol/interaction/DoubleClickZoom.js';
 import { createInstanceProviderByKey, useInstance } from '../base';
+import { DblClickZoomInteractionEvents } from './event';
+import { useInteraction } from './useInteraction';
 
 /**
  * Options for the - {@link useDblClickZoomInteraction} hook.

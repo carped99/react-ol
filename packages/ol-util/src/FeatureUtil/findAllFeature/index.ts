@@ -1,7 +1,7 @@
-import { Geometry as OlGeometry } from 'ol/geom';
+import { TRUE } from 'ol/functions.js';
+import { Geometry as OlGeometry } from 'ol/geom.js';
 import { FeatureFilter } from '../../Filter/predicate';
 import { FeatureSources, resolveFeatureArray } from '../internal';
-import { TRUE } from 'ol/functions';
 
 /**
  * 주어진 조건에 맞는 모든 피처를 찾습니다.

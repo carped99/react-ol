@@ -1,5 +1,5 @@
-import Map from 'ol/Map';
-import { METERS_PER_UNIT, Units } from 'ol/proj/Units';
+import Map from 'ol/Map.js';
+import { METERS_PER_UNIT, Units } from 'ol/proj/Units.js';
 
 // 상수 정의
 const INCHES_PER_METER = 39.37;

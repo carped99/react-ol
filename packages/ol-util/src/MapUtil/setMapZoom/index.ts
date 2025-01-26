@@ -1,5 +1,5 @@
-import Map from 'ol/Map';
-import { AnimationOptions } from 'ol/View';
+import Map from 'ol/Map.js';
+import { AnimationOptions } from 'ol/View.js';
 
 /**
  * 지도의 줌 레벨을 변경합니다

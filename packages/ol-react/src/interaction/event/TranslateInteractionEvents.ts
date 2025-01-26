@@ -1,5 +1,5 @@
+import { TranslateEvent } from 'ol/interaction/Translate.js';
 import { InteractionEvents } from './InteractionEvents';
-import { TranslateEvent } from 'ol/interaction/Translate';
 
 /**
  * Translate Interaction 이벤트 타입

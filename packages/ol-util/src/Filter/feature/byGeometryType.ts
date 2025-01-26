@@ -1,6 +1,6 @@
-import { Feature } from 'ol';
-import { Geometry } from 'ol/geom';
-import { Type } from 'ol/geom/Geometry';
+import Feature from 'ol/Feature.js';
+import { Type } from 'ol/geom/Geometry.js';
+import { Geometry } from 'ol/geom.js';
 import { Predicate } from '../predicate';
 
 export type ByGeometryType<T extends Geometry = Geometry> = Predicate<Feature<T>>;

@@ -1,14 +1,13 @@
+import Feature, { FeatureLike } from 'ol/Feature.js';
+import { Geometry } from 'ol/geom.js';
+import Heatmap, { Options } from 'ol/layer/Heatmap.js';
+import VectorSource from 'ol/source/Vector.js';
 import { useCallback, useDebugValue } from 'react';
-import Heatmap, { Options } from 'ol/layer/Heatmap';
-import VectorSource from 'ol/source/Vector';
-import { FeatureLike } from 'ol/Feature';
-import { Feature } from 'ol';
-import { Geometry } from 'ol/geom';
+import { useInstance, useInstanceProviderByKeys } from '../base';
+import { useEvents } from '../events';
+import { BaseVectorInstanceProperties } from './base/LayerProperties';
 import { useBaseVectorLayer } from './base/useBaseVectorLayer';
 import { HeatmapLayerEvents } from './events';
-import { useEvents } from '../events';
-import { useInstance, useInstanceProviderByKeys } from '../base';
-import { BaseVectorInstanceProperties } from './base/LayerProperties';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface HeatmapLayerOptions<

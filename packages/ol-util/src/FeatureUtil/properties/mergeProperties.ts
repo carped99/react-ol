@@ -1,4 +1,4 @@
-import { Feature as OlFeature } from 'ol';
+import OlFeature from 'ol/Feature.js';
 
 /**
  * Feature의 속성을 업데이트합니다.

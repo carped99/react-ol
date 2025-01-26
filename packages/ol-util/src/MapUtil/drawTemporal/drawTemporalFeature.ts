@@ -1,4 +1,5 @@
-import { Feature, Map } from 'ol';
+import Feature from 'ol/Feature.js';
+import Map from 'ol/Map';
 import { drawTemporal, DrawTemporalConfig, DrawTemporalLayer, DrawTemporalStyle } from './drawTemporal';
 
 /**

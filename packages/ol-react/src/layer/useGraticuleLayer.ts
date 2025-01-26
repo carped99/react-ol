@@ -1,13 +1,13 @@
+import Feature from 'ol/Feature.js';
+import { Geometry } from 'ol/geom.js';
+import Graticule, { Options } from 'ol/layer/Graticule.js';
+import VectorSource from 'ol/source/Vector.js';
 import { useDebugValue } from 'react';
-import Graticule, { Options } from 'ol/layer/Graticule';
-import { useBaseVectorLayer } from './base/useBaseVectorLayer';
-import { Feature } from 'ol';
-import { Geometry } from 'ol/geom';
-import VectorSource from 'ol/source/Vector';
-import { GraticuleLayerEvents } from './events/GraticuleLayerEvents';
-import { useEvents } from '../events';
 import { createInstanceProviderByKey, useInstance } from '../base';
+import { useEvents } from '../events';
 import { BaseVectorInstanceProperties } from './base/LayerProperties';
+import { useBaseVectorLayer } from './base/useBaseVectorLayer';
+import { GraticuleLayerEvents } from './events/GraticuleLayerEvents';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface GraticuleLayerOptions extends Options {}

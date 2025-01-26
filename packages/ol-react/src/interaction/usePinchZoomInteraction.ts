@@ -1,8 +1,7 @@
-import { PinchZoom } from 'ol/interaction';
-import { Options } from 'ol/interaction/PinchZoom';
-import { useInteraction } from './useInteraction';
-import { PinchZoomInteractionEvents } from './event';
+import PinchZoom, { Options } from 'ol/interaction/PinchZoom.js';
 import { createInstanceProviderByKey, useInstance } from '../base';
+import { PinchZoomInteractionEvents } from './event';
+import { useInteraction } from './useInteraction';
 
 /**
  * Options for the - {@link usePinchZoomInteraction} hook.

@@ -1,5 +1,5 @@
-import { Feature } from 'ol';
-import { Point } from 'ol/geom';
+import Feature from 'ol/Feature.js';
+import { Point } from 'ol/geom.js';
 import { byName } from '../byName';
 
 describe('byName', () => {

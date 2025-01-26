@@ -1,7 +1,7 @@
-import { getCenter } from 'ol/extent';
+import { Coordinate } from 'ol/coordinate.js';
+import { getCenter } from 'ol/extent.js';
 import { FeatureOrGeometry } from '../../Util/internal';
 import { findExtent } from '../findExtent';
-import { Coordinate } from 'ol/coordinate';
 
 export const findCenter = (source: FeatureOrGeometry): Coordinate | undefined => {
   const extent = findExtent(source);

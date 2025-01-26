@@ -1,8 +1,7 @@
-import { Select } from 'ol/interaction';
-import { Options } from 'ol/interaction/Select';
-import { useInteraction } from './useInteraction';
-import { SelectInteractionEvents } from './event';
+import Select, { Options } from 'ol/interaction/Select.js';
 import { createInstanceProviderByKey, useInstance } from '../base';
+import { SelectInteractionEvents } from './event';
+import { useInteraction } from './useInteraction';
 
 /**
  * Options for the - {@link useSelectInteraction} hook.

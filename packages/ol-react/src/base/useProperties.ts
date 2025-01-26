@@ -1,7 +1,7 @@
-import BaseObject from 'ol/Object';
+import BaseObject from 'ol/Object.js';
 import { useEffect } from 'react';
-import { usePrevious } from './usePrevious';
 import { equalsDeep } from '../utils';
+import { usePrevious } from './usePrevious';
 
 export interface BaseObjectOptions {
   properties?: Record<string, unknown>;

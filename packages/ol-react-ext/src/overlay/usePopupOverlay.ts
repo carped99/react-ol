@@ -1,6 +1,6 @@
-import Popup, { Options } from 'ol-ext/overlay/Popup';
-import { useMemo } from 'react';
 import { useOverlayInstance } from '@carped99/ol-react';
+import Popup, { Options } from 'ol-ext/overlay/Popup.js';
+import { useMemo } from 'react';
 
 /**
  * Options for the overlay.

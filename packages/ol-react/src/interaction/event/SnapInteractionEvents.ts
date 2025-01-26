@@ -1,5 +1,5 @@
+import { SnapEvent } from 'ol/events/SnapEvent.js';
 import { InteractionEvents } from './InteractionEvents';
-import { SnapEvent } from 'ol/events/SnapEvent';
 
 /**
  * Snap Interaction 이벤트

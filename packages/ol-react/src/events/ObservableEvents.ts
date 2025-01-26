@@ -1,4 +1,4 @@
-import Observable from 'ol/Observable';
+import Observable from 'ol/Observable.js';
 import { CustomObservableEvents } from './CustomObservableEvents';
 import { DefaultObservableEvents } from './DefaultObservableEvents';
 

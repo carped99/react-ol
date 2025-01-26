@@ -1,6 +1,6 @@
-import { Coordinate } from 'ol/coordinate';
-import Map from 'ol/Map';
-import { AnimationOptions } from 'ol/View';
+import { Coordinate } from 'ol/coordinate.js';
+import Map from 'ol/Map.js';
+import { AnimationOptions } from 'ol/View.js';
 
 /**
  * 지도의 중심점을 변경합니다.

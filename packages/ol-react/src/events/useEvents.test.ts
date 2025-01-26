@@ -1,8 +1,8 @@
 import { expect, vi } from 'vitest';
 import { renderHook } from '@testing-library/react';
-import BaseObject from 'ol/Object';
+import BaseObject from 'ol/Object.js';
 import { useEvents } from './useEvents';
-import { unByKey } from 'ol/Observable';
+import { unByKey } from 'ol/Observable.js';
 
 // 모듈을 모킹
 vi.mock('ol/Observable', () => ({

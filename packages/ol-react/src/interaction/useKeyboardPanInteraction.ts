@@ -1,8 +1,7 @@
-import { KeyboardPan } from 'ol/interaction';
-import { Options } from 'ol/interaction/KeyboardPan';
-import { useInteraction } from './useInteraction';
-import { KeyboardPanInteractionEvents } from './event';
+import KeyboardPan, { Options } from 'ol/interaction/KeyboardPan.js';
 import { createInstanceProviderByKey, useInstance } from '../base';
+import { KeyboardPanInteractionEvents } from './event';
+import { useInteraction } from './useInteraction';
 
 /**
  * Options for the - {@link useKeyboardPanInteraction} hook.

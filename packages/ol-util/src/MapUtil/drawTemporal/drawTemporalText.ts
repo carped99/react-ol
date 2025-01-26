@@ -1,8 +1,8 @@
-import { Map } from 'ol';
+import { Coordinate } from 'ol/coordinate.js';
+import { Point } from 'ol/geom.js';
+import Map from 'ol/Map.js';
+import { Options } from 'ol/style/Text.js';
 import { drawTemporal, DrawTemporalConfig, DrawTemporalLayer, DrawTemporalStyle } from './drawTemporal';
-import { Coordinate } from 'ol/coordinate';
-import { Options } from 'ol/style/Text';
-import { Point } from 'ol/geom';
 
 /**
  * 텍스트 렌더링을 위한 설정 타입

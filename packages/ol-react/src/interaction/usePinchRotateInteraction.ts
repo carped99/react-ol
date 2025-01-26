@@ -1,8 +1,7 @@
-import { PinchRotate } from 'ol/interaction';
-import { Options } from 'ol/interaction/PinchRotate';
-import { useInteraction } from './useInteraction';
-import { PinchRotateInteractionEvents } from './event';
+import PinchRotate, { Options } from 'ol/interaction/PinchRotate.js';
 import { createInstanceProviderByKey, useInstance } from '../base';
+import { PinchRotateInteractionEvents } from './event';
+import { useInteraction } from './useInteraction';
 
 /**
  * Options for the - {@link usePinchRotateInteraction} hook.

@@ -1,6 +1,6 @@
+import Layer, { Options as LayerOptions } from 'ol/layer/Layer.js';
+import { Source } from 'ol/source.js';
 import { useEffect } from 'react';
-import Layer, { Options as LayerOptions } from 'ol/layer/Layer';
-import { Source } from 'ol/source';
 import { useMapContext } from '../../context';
 
 export const useLayer = <S extends Source = Source>(layer: Layer<S, any>, options: Readonly<LayerOptions<S>>) => {

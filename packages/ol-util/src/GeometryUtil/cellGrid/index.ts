@@ -1,4 +1,4 @@
-import { Feature, GeoJsonProperties, Polygon } from 'geojson';
+import type { Feature, GeoJsonProperties, Polygon } from 'geojson';
 import { MaskInput, MaskMode } from './generator';
 
 export * from './rectangleCellGrid';

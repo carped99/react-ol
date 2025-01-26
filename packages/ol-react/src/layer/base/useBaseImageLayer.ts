@@ -1,4 +1,4 @@
-import BaseImage, { Options } from 'ol/layer/BaseImage';
+import BaseImage, { Options } from 'ol/layer/BaseImage.js';
 import { useLayer } from './useLayer';
 
 type Inferred<T extends BaseImage<any, any>> =

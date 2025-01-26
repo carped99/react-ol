@@ -1,5 +1,5 @@
-import { Feature as OlFeature } from 'ol';
-import { Geometry as OlGeometry } from 'ol/geom';
+import OlFeature from 'ol/Feature.js';
+import { Geometry as OlGeometry } from 'ol/geom.js';
 
 export type FeatureOrGeometry = OlFeature | OlGeometry | (OlFeature | OlGeometry)[];
 

@@ -1,6 +1,6 @@
-import { BBox, Feature, FeatureCollection, GeoJsonProperties, MultiPolygon, Polygon } from 'geojson';
-import { rectangleCellGridStreamAsync, rectangleCellGridStreamSync } from './generator';
 import { featureCollection } from '@turf/turf';
+import type { BBox, Feature, FeatureCollection, GeoJsonProperties, MultiPolygon, Polygon } from 'geojson';
+import { rectangleCellGridStreamAsync, rectangleCellGridStreamSync } from './generator';
 import { CellGridOptions, StreamingMode } from './index';
 
 /**

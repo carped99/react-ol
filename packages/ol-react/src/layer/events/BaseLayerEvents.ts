@@ -1,6 +1,6 @@
-import { ObjectEvent } from 'ol/Object';
-import RenderEvent from 'ol/render/Event';
-import BaseEvent from 'ol/events/Event';
+import BaseEvent from 'ol/events/Event.js';
+import { ObjectEvent } from 'ol/Object.js';
+import RenderEvent from 'ol/render/Event.js';
 import { BaseEvents } from '../../events/BaseEvents';
 
 interface BaseLayerEvents extends BaseEvents {

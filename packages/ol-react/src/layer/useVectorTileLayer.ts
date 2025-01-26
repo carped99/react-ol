@@ -1,12 +1,12 @@
+import { FeatureLike } from 'ol/Feature.js';
+import VectorTileLayer, { ExtractedFeatureType, Options } from 'ol/layer/VectorTile.js';
+import VectorTile from 'ol/source/VectorTile.js';
 import { useCallback, useDebugValue } from 'react';
-import VectorTileLayer, { ExtractedFeatureType, Options } from 'ol/layer/VectorTile';
-import { VectorTile } from 'ol/source';
-import { FeatureLike } from 'ol/Feature';
+import { useInstance, useInstanceProviderByKeys } from '../base';
+import { useEvents } from '../events';
+import { BaseVectorInstanceProperties } from './base/LayerProperties';
 import { useBaseVectorLayer } from './base/useBaseVectorLayer';
 import { VectorTileLayerEvents } from './events';
-import { useEvents } from '../events';
-import { useInstance, useInstanceProviderByKeys } from '../base';
-import { BaseVectorInstanceProperties } from './base/LayerProperties';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface VectorTileLayerOptions<

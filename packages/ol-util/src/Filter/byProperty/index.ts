@@ -1,5 +1,5 @@
-import BaseObject from 'ol/Object';
-import { TRUE } from 'ol/functions';
+import { TRUE } from 'ol/functions.js';
+import BaseObject from 'ol/Object.js';
 
 /**
  * 특정 속성의 값을 기준으로 필터링하는 함수를 생성합니다.

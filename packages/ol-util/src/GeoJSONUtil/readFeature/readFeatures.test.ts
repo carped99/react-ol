@@ -1,6 +1,6 @@
-import { Feature as OlFeature } from 'ol';
-import { LineString as OlLineString, Point as OlPoint } from 'ol/geom';
-import { Feature, FeatureCollection, LineString, Point } from 'geojson';
+import type { Feature, FeatureCollection, LineString, Point } from 'geojson';
+import OlFeature from 'ol/Feature.js';
+import { LineString as OlLineString, Point as OlPoint } from 'ol/geom.js';
 import { readFeatures } from '.';
 
 describe('readFeatures', () => {

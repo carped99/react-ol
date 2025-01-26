@@ -1,5 +1,12 @@
-import { describe, expect, it } from 'vitest';
-import { GeometryCollection, LineString, MultiLineString, MultiPoint, MultiPolygon, Point, Polygon } from 'geojson';
+import type {
+  GeometryCollection,
+  LineString,
+  MultiLineString,
+  MultiPoint,
+  MultiPolygon,
+  Point,
+  Polygon,
+} from 'geojson';
 import {
   GeometryCollection as OlGeometryCollection,
   LineString as OlLineString,
@@ -8,7 +15,8 @@ import {
   MultiPolygon as OlMultiPolygon,
   Point as OlPoint,
   Polygon as OlPolygon,
-} from 'ol/geom';
+} from 'ol/geom.js';
+import { describe, expect, it } from 'vitest';
 import { readGeometry } from './index';
 
 describe('readGeometry', () => {

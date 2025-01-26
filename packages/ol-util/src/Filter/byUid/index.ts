@@ -1,4 +1,4 @@
-import { getUid } from 'ol';
+import { getUid } from 'ol/util.js';
 
 /**
  * OpenLayers의 UID를 기준으로 아이템을 필터링하는 함수

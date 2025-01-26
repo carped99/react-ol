@@ -1,10 +1,10 @@
-import { Overlay } from 'ol';
-import { Options } from 'ol/Overlay';
-import { OverlayEvents } from './events';
-import { createInstanceProviderByKey, InstanceProperty, useInstance } from '../base';
+import Overlay, { Options } from 'ol/Overlay.js';
 import { useEffect } from 'react';
-import { useEvents } from '../events';
+import { createInstanceProviderByKey, InstanceProperty, useInstance } from '../base';
 import { useMapContext } from '../context';
+import { useEvents } from '../events';
+
+import { OverlayEvents } from './events';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface OverlayOptions extends Options {}

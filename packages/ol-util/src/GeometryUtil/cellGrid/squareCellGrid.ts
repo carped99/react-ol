@@ -1,6 +1,6 @@
-import { BBox, FeatureCollection, GeoJsonProperties, Polygon } from 'geojson';
-import { CellGridOptions } from './index';
+import type { BBox, FeatureCollection, GeoJsonProperties, Polygon } from 'geojson';
 import { rectangleCellGrid } from './rectangleCellGrid';
+import { CellGridOptions } from './index';
 
 /**
  * 정사각형 그리드 셀을 생성하는 함수

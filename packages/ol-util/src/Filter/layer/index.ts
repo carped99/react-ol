@@ -1,8 +1,8 @@
-import BaseLayer from 'ol/layer/Base';
-import VectorLayer from 'ol/layer/Vector';
-import VectorTileLayer from 'ol/layer/VectorTile';
-import VectorImageLayer from 'ol/layer/VectorImage';
-import TileLayer from 'ol/layer/Tile';
+import BaseLayer from 'ol/layer/Base.js';
+import TileLayer from 'ol/layer/Tile.js';
+import VectorLayer from 'ol/layer/Vector.js';
+import VectorImageLayer from 'ol/layer/VectorImage.js';
+import VectorTileLayer from 'ol/layer/VectorTile.js';
 import { byType } from '../byType';
 
 export * from './byFeature';

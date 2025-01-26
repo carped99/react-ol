@@ -1,6 +1,6 @@
-import { Map } from 'ol';
+import { Geometry } from 'ol/geom.js';
+import Map from 'ol/Map.js';
 import { drawTemporal, DrawTemporalConfig, DrawTemporalLayer, DrawTemporalStyle } from './drawTemporal';
-import { Geometry } from 'ol/geom';
 
 export function drawTemporalGeometry<G extends Geometry = Geometry>(
   map: Map,

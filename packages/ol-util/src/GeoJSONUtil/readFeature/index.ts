@@ -1,10 +1,9 @@
-import { Geometry as OlGeometry } from 'ol/geom';
-import { Options as GeoJSONFormatOptions } from 'ol/format/GeoJSON';
-import { ReadOptions } from 'ol/format/Feature';
-import { FeatureLike } from 'ol/Feature';
-import { Feature as OlFeature } from 'ol';
-import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson';
-import { GeoJSON } from 'ol/format';
+import type { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson';
+import OlFeature, { FeatureLike } from 'ol/Feature.js';
+import { ReadOptions } from 'ol/format/Feature.js';
+import GeoJSON, { Options as GeoJSONFormatOptions } from 'ol/format/GeoJSON.js';
+
+import { Geometry as OlGeometry } from 'ol/geom.js';
 import { ToOlGeometry } from '../typeGuards/typeMapping';
 
 export type ReadFeatureOptions<T extends FeatureLike = OlFeature<OlGeometry>> = {

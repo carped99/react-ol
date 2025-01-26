@@ -1,10 +1,10 @@
-import TileLayer from 'ol/layer/Tile';
-import Observable from 'ol/Observable';
-import VectorLayer from 'ol/layer/Vector';
-import VectorImageLayer from 'ol/layer/VectorImage';
-import VectorTileLayer from 'ol/layer/VectorTile';
-import WebGLTileLayer from 'ol/layer/WebGLTile';
-import ImageLayer from 'ol/layer/Image';
+import ImageLayer from 'ol/layer/Image.js';
+import TileLayer from 'ol/layer/Tile.js';
+import VectorLayer from 'ol/layer/Vector.js';
+import VectorImageLayer from 'ol/layer/VectorImage.js';
+import VectorTileLayer from 'ol/layer/VectorTile.js';
+import WebGLTileLayer from 'ol/layer/WebGLTile.js';
+import Observable from 'ol/Observable.js';
 import {
   ImageLayerEvents,
   VectorImageLayerEvents,

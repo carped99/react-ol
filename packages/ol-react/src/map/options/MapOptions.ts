@@ -1,4 +1,4 @@
-import { MapOptions as OLMapOptions } from 'ol/Map';
+import { MapOptions as OLMapOptions } from 'ol/Map.js';
 import { BaseObjectOptions } from '../../base/useProperties';
 import { MapEvents } from '../events';
 

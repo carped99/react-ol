@@ -1,6 +1,7 @@
-import { MapBrowserEvent, MapEvent } from 'ol';
-import RenderEvent from 'ol/render/Event';
-import { ObjectEvent } from 'ol/Object';
+import MapBrowserEvent from 'ol/MapBrowserEvent.js';
+import MapEvent from 'ol/MapEvent.js';
+import { ObjectEvent } from 'ol/Object.js';
+import RenderEvent from 'ol/render/Event.js';
 import { BaseEvents } from '../../events/BaseEvents';
 
 /**

@@ -1,4 +1,4 @@
-import { FALSE } from 'ol/functions';
+import { FALSE } from 'ol/functions.js';
 
 /**
  * 객체의 특정 속성값으로 필터링하는 함수를 생성합니다.

@@ -1,13 +1,13 @@
+import { FeatureLike } from 'ol/Feature.js';
+import { ExtractedFeatureType } from 'ol/layer/BaseVector.js';
+import VectorImageLayer, { Options } from 'ol/layer/VectorImage.js';
+import VectorSource from 'ol/source/Vector.js';
 import { useCallback, useDebugValue } from 'react';
-import VectorImageLayer, { Options } from 'ol/layer/VectorImage';
-import { FeatureLike } from 'ol/Feature';
-import VectorSource from 'ol/source/Vector';
-import { ExtractedFeatureType } from 'ol/layer/BaseVector';
-import { useBaseVectorLayer } from './base/useBaseVectorLayer';
-import { VectorImageLayerEvents } from './events';
-import { useEvents } from '../events';
 import { useInstance, useInstanceProviderByKeys } from '../base';
+import { useEvents } from '../events';
 import { BaseVectorInstanceProperties } from './base/LayerProperties';
+import { useBaseVectorLayer } from './base/useBaseVectorLayer.js';
+import { VectorImageLayerEvents } from './events';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface VectorImageLayerOptions<

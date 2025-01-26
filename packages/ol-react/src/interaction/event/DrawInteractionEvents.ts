@@ -1,5 +1,5 @@
+import { DrawEvent } from 'ol/interaction/Draw.js';
 import { InteractionEvents } from './InteractionEvents';
-import { DrawEvent } from 'ol/interaction/Draw';
 
 /**
  * Draw Interaction 이벤트

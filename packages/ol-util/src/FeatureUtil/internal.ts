@@ -1,7 +1,8 @@
-import { Geometry as OlGeometry } from 'ol/geom';
-import { Collection, Feature as OlFeature } from 'ol';
+import Collection from 'ol/Collection.js';
+import OlFeature from 'ol/Feature.js';
+import { Geometry as OlGeometry } from 'ol/geom.js';
+import VectorSource from 'ol/source/Vector.js';
 import { isCollection, isVectorSource } from './typeGuards';
-import VectorSource from 'ol/source/Vector';
 
 // 타입 정의
 export type FeatureSources<T extends OlGeometry> =

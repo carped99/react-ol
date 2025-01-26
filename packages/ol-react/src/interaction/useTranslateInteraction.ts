@@ -1,8 +1,7 @@
-import { Translate } from 'ol/interaction';
-import { Options } from 'ol/interaction/Translate';
-import { useInteraction } from './useInteraction';
-import { TranslateInteractionEvents } from './event';
+import Translate, { Options } from 'ol/interaction/Translate.js';
 import { createInstanceProviderByKey, useInstance } from '../base';
+import { TranslateInteractionEvents } from './event';
+import { useInteraction } from './useInteraction';
 
 /**
  * Options for the - {@link useTranslateInteraction} hook.

@@ -1,7 +1,7 @@
-import { Interaction } from 'ol/interaction';
-import { Class } from '../types';
-import { Map } from 'ol';
 import { default as deepEqual } from 'fast-deep-equal/es6';
+import Interaction from 'ol/interaction/Interaction.js';
+import Map from 'ol/Map.js';
+import { Class } from '../types';
 import { equalsDeep } from './equals';
 
 /**

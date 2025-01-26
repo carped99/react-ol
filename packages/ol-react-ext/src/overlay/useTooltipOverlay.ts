@@ -1,6 +1,6 @@
-import Tooltip, { Options } from 'ol-ext/overlay/Tooltip';
-import { useMemo } from 'react';
 import { useOverlayInstance } from '@carped99/ol-react';
+import Tooltip, { Options } from 'ol-ext/overlay/Tooltip.js';
+import { useMemo } from 'react';
 
 /**
  * Options for the overlay.

@@ -1,6 +1,7 @@
 import { DrawTemporalConfig, DrawTemporalLayer, DrawTemporalStyle, DrawTemporalText } from '@carped99/ol-util';
+import { Point } from 'ol/geom.js';
 import { useCallback } from 'react';
-import { Point } from 'ol/geom';
+
 import { useDrawTemporal } from './useDrawTemporal';
 
 export const useDrawTemporalText = () => {

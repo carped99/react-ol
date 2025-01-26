@@ -1,10 +1,4 @@
-import { Geolocation, Map, Overlay, View } from 'ol';
-import TileLayer from 'ol/layer/Tile';
-import VectorLayer from 'ol/layer/Vector';
-import VectorImageLayer from 'ol/layer/VectorImage';
-import VectorTileLayer from 'ol/layer/VectorTile';
-import WebGLTileLayer from 'ol/layer/WebGLTile';
-import ImageLayer from 'ol/layer/Image';
+import Geolocation from 'ol/Geolocation.js';
 import {
   DblClickDragZoom,
   DoubleClickZoom,
@@ -25,8 +19,19 @@ import {
   Select,
   Snap,
   Translate,
-} from 'ol/interaction';
-import { GeolocationEvents, MapEvents, ViewEvents } from '../map/events';
+} from 'ol/interaction.js';
+import Graticule from 'ol/layer/Graticule.js';
+import Heatmap from 'ol/layer/Heatmap.js';
+import ImageLayer from 'ol/layer/Image.js';
+import TileLayer from 'ol/layer/Tile.js';
+import VectorLayer from 'ol/layer/Vector.js';
+import VectorImageLayer from 'ol/layer/VectorImage.js';
+import VectorTileLayer from 'ol/layer/VectorTile.js';
+import WebGLTileLayer from 'ol/layer/WebGLTile.js';
+import Map from 'ol/Map.js';
+import Overlay from 'ol/Overlay.js';
+import VectorSource from 'ol/source/Vector.js';
+import View from 'ol/View.js';
 import {
   DblClickDragZoomInteractionEvents,
   DblClickZoomInteractionEvents,
@@ -56,12 +61,10 @@ import {
   VectorTileLayerEvents,
   WebGLTileLayerEvents,
 } from '../layer/events';
-import { OverlayEvents } from '../overlay/events';
-import Graticule from 'ol/layer/Graticule';
 import { GraticuleLayerEvents } from '../layer/events/GraticuleLayerEvents';
 import { TileLayerEvents } from '../layer/events/TileLayerEvents';
-import Heatmap from 'ol/layer/Heatmap';
-import VectorSource from 'ol/source/Vector';
+import { GeolocationEvents, MapEvents, ViewEvents } from '../map/events';
+import { OverlayEvents } from '../overlay/events';
 import { VectorSourceEvents } from '../source/useVectorSource';
 
 /**

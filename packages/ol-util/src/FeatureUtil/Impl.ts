@@ -1,12 +1,12 @@
-import { Feature as OlFeature } from 'ol';
+import { difference as turfDiff, featureCollection } from '@turf/turf';
+import OlFeature from 'ol/Feature.js';
+import { Options as GeoJSONFormatOptions } from 'ol/format/GeoJSON.js';
 import {
   Geometry as OlGeometry,
   LineString as OlLineString,
   MultiPolygon as OlMultiPolygon,
   Polygon as OlPolygon,
-} from 'ol/geom';
-import { difference as turfDiff, featureCollection } from '@turf/turf';
-import { Options as GeoJSONFormatOptions } from 'ol/format/GeoJSON';
+} from 'ol/geom.js';
 import { FormatOptions, readFeature, writeFeatureObject } from '../GeoJSONUtil/GeoJSONFormat';
 import { splitPolygonByLine } from '../GeometryUtil';
 

@@ -1,7 +1,7 @@
-import { Interaction } from 'ol/interaction';
+import Interaction from 'ol/interaction/Interaction.js';
 import { useEffect } from 'react';
-import { ObservableEvents, useEvents } from '../events';
 import { useMapContext } from '../context';
+import { ObservableEvents, useEvents } from '../events';
 
 /**
  * 지도에 `Interaction`을 추가하거나 제거하는 훅

@@ -1,8 +1,7 @@
-import { Draw } from 'ol/interaction';
-import { Options } from 'ol/interaction/Draw';
-import { useInteraction } from './useInteraction';
-import { DrawInteractionEvents } from './event';
+import Draw, { Options } from 'ol/interaction/Draw.js';
 import { createInstanceProviderByKey, useInstance } from '../base';
+import { DrawInteractionEvents } from './event';
+import { useInteraction } from './useInteraction';
 
 /**
  * Options for the - {@link useDrawInteraction} hook.

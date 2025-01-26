@@ -1,4 +1,4 @@
-import { ViewOptions as OLViewOptions } from 'ol/View';
+import { ViewOptions as OLViewOptions } from 'ol/View.js';
 import { BaseObjectOptions } from '../../base/useProperties';
 import { ViewEvents } from '../events';
 

@@ -1,8 +1,7 @@
-import { DragAndDrop } from 'ol/interaction';
-import { Options } from 'ol/interaction/DragAndDrop';
-import { useInteraction } from './useInteraction';
-import { DragAndDropInteractionEvents } from './event';
+import DragAndDrop, { Options } from 'ol/interaction/DragAndDrop.js';
 import { createInstanceProviderByKey, useInstance } from '../base';
+import { DragAndDropInteractionEvents } from './event';
+import { useInteraction } from './useInteraction';
 
 /**
  * Options for the - {@link useDragAndDropInteraction} hook.
