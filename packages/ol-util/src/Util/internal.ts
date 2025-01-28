@@ -1,7 +1,7 @@
 import OlFeature from 'ol/Feature.js';
 import { Geometry as OlGeometry } from 'ol/geom.js';
 
-export type FeatureOrGeometry = OlFeature | OlGeometry | (OlFeature | OlGeometry)[];
+export type FeatureOrGeometry = OlFeature | OlFeature[] | OlGeometry | OlGeometry[];
 
 /**
  * Feature 또는 Geometry에서 Geometry를 추출
