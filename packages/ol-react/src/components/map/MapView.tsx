@@ -8,7 +8,7 @@ export interface MapViewProps extends MapViewOptions {
 }
 
 export const MapView = ({ children, container, ...props }: PropsWithChildren<MapViewProps>) => {
-  const [ref] = useMapView(props);
+  const ref = useMapView(props);
   useOSMLayer();
   return (
     <div ref={ref} {...container}>

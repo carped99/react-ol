@@ -1,7 +1,7 @@
 import LayerGroup from 'ol/layer/Group.js';
 import Map, { MapOptions as OLMapOptions } from 'ol/Map.js';
 import View from 'ol/View.js';
-import { Ref, useEffect, useRef } from 'react';
+import { Ref, useCallback, useEffect, useRef } from 'react';
 import { usePrevious } from '../base';
 import { BaseObjectOptions, useProperties } from '../base/useProperties';
 import { useMapContext } from '../context';
@@ -9,7 +9,7 @@ import { useEvents } from '../events';
 import { equals, equalsByProps } from '../utils';
 import { MapEvents } from './events';
 
-export interface MapOptions extends Omit<OLMapOptions, 'target'>, MapEvents {
+export interface MapOptions extends Omit<OLMapOptions, 'target'> {
   properties?: BaseObjectOptions['properties'];
 }
 
@@ -34,42 +34,57 @@ export interface MapOptions extends Omit<OLMapOptions, 'target'>, MapEvents {
  * };
  * ```
  */
-export const useMap = (options: Readonly<MapOptions> = {}): [Ref<HTMLDivElement>, Map | undefined] => {
+export const useMap = (options: Readonly<MapOptions> = {}, events?: MapEvents): Ref<HTMLDivElement> => {
   const { setMap } = useMapContext();
 
-  // 지도를 담을 div 요소
+  // 지도 div
   const divRef = useRef<HTMLDivElement>(null);
   // 지도 객체
   const mapRef = useRef<Map>(undefined);
   // 이전 옵션
   const prevOpts = usePrevious(options);
 
-  if (!mapRef.current && divRef.current) {
-    mapRef.current = new Map({
-      target: divRef.current,
-      ...options,
-    });
-  }
+  // cleanup 함수
+  const cleanup = useCallback(() => {
+    if (mapRef.current) {
+      mapRef.current.setTarget(undefined);
+      mapRef.current.dispose();
+      mapRef.current = undefined;
+      setMap(undefined);
+    }
+  }, [setMap]);
+
+  // if (!mapRef.current && divRef.current) {
+  //   mapRef.current = new Map({
+  //     target: divRef.current,
+  //     ...options,
+  //   });
+  // }
 
   useEffect(() => {
-    if (!divRef.current) return;
+    if (!divRef.current) {
+      cleanup();
+      return;
+    }
 
     // 재생성해야만 하는 속성이 변경되었다면, 지도를 새로 생성한다.
-    if (!equalsByProps(prevOpts, options, shouldCreateKeys)) {
-      cleanupMap(mapRef.current);
+    if (!mapRef.current || !equalsByProps(prevOpts, options, shouldCreateKeys)) {
+      cleanup();
       mapRef.current = createMap(divRef.current, options);
       setMap(mapRef.current);
     } else if (mapRef.current && prevOpts !== options) {
       updateMap(mapRef.current, prevOpts, options);
     }
-  }, [prevOpts, options, setMap]);
+  }, [prevOpts, options, setMap, cleanup]);
 
+  // 속성 및 이벤트 설정
   useProperties(mapRef.current, options);
+  useEvents(mapRef.current, events);
 
-  // 이벤트를 등록한다.
-  useEvents(mapRef.current, options);
+  // cleanup on unmount
+  useEffect(() => cleanup, [cleanup]);
 
-  return [divRef, mapRef.current];
+  return divRef;
 };
 
 /**
@@ -87,18 +102,6 @@ const createMap = (div: HTMLElement, options?: MapOptions) => {
     target: div,
     ...options,
   });
-};
-
-/**
- * Map 인스턴스의 리소스를 정리합니다.
- *
- * @param map - 정리할 Map 인스턴스
- *
- * @internal
- */
-const cleanupMap = (map: Map | undefined) => {
-  map?.setTarget(undefined);
-  map?.dispose();
 };
 
 /**
