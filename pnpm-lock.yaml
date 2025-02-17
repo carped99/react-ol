@@ -178,8 +178,8 @@ importers:
   packages/ol-react-ext:
     dependencies:
       '@carped99/ol-react':
-        specifier: 0.0.1-alpha.19
-        version: 0.0.1-alpha.19(ol@10.3.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 0.0.1-alpha.22
+        version: 0.0.1-alpha.22(ol@10.3.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@carped99/ol-util':
         specifier: 0.0.1-alpha.28
         version: 0.0.1-alpha.28(ol@10.3.1)
@@ -323,8 +323,8 @@ packages:
   '@bufbuild/protobuf@2.2.3':
     resolution: {integrity: sha512-tFQoXHJdkEOSwj5tRIZSPNUuXK3RaR7T1nUrPgbYX1pUbvqqaaZAsfo+NXBPsz5rZMSKVFrgK1WL8Q/MSLvprg==}
 
-  '@carped99/ol-react@0.0.1-alpha.19':
-    resolution: {integrity: sha512-AHMUY/IPBlliQ4SuxgoRLNR5H3NyNXqfL7N6snPAjElKXzWvu9YmzL3ULonTlD6QYBimFNJ5+21enACe6o1myg==}
+  '@carped99/ol-react@0.0.1-alpha.22':
+    resolution: {integrity: sha512-dDQf9YipZZA6lrBkeG1mgUI5O7j/t5VIGX4WkS0m3qjpni+p7TIUx0+fD+YYWuaIYn6+qoYkPZFSN2b1C5I5gg==}
     engines: {node: '>=20', pnpm: '>=9'}
     peerDependencies:
       ol: '>=10'
@@ -4210,7 +4210,7 @@ snapshots:
   '@bufbuild/protobuf@2.2.3':
     optional: true
 
-  '@carped99/ol-react@0.0.1-alpha.19(ol@10.3.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@carped99/ol-react@0.0.1-alpha.22(ol@10.3.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       fast-deep-equal: 3.1.3
       ol: 10.3.1
