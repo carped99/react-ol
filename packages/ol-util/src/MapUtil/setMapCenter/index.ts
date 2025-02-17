@@ -10,6 +10,11 @@ import { AnimationOptions } from 'ol/View.js';
  */
 export const setMapCenter = (map: Map, coordinate: Coordinate, options?: Omit<AnimationOptions, 'center'>) => {
   const view = map.getView();
+
+  if (view.getAnimating()) {
+    view.cancelAnimations();
+  }
+
   if (options) {
     view.animate({
       ...options,
