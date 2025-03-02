@@ -21,9 +21,7 @@ export const useInstance = <T, P>(instanceProvider: InstanceProvider<T, P>, prop
   const prevProps = usePrevious(props, props);
 
   const instance = useMemo(() => {
-    if (instanceRef.current === undefined) {
-      instanceRef.current = instanceProvider.createInstance(props, prevProps);
-    } else if (instanceProvider.shouldCreateInstance(props, prevProps)) {
+    if (instanceRef.current == null || instanceProvider.shouldCreateInstance(props, prevProps)) {
       instanceRef.current = instanceProvider.createInstance(props, prevProps);
     } else if (instanceProvider.shouldUpdateInstance(props, prevProps)) {
       instanceProvider.updateInstance(instanceRef.current, props, prevProps);
@@ -43,25 +41,6 @@ export const useInstance = <T, P>(instanceProvider: InstanceProvider<T, P>, prop
       instanceRef.current = undefined;
     };
   }, []);
-
-  // useEffect(() => {
-  //   if (instanceRef.current) {
-  //     if (props === prevProps) {
-  //       return;
-  //     }
-  //
-  //     if (provider.shouldCreateInstance(props, prevProps)) {
-  //       instanceRef.current = provider.createInstance(props, prevProps);
-  //     } else if (provider.shouldUpdateInstance(props, prevProps)) {
-  //       provider.updateInstance(instanceRef.current, props, prevProps);
-  //     }
-  //   } else {
-  //     debug(() => `Create instance`, props);
-  //     instanceRef.current = provider.createInstance(props, prevProps);
-  //     // initialized.current = true;
-  //   }
-  //   // if (!instanceRef.current) throw new Error(`This should not be reached`);
-  // }, [props, prevProps, provider]);
 
   return instance;
 };

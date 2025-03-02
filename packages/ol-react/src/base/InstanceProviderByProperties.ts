@@ -47,7 +47,7 @@ export const createInstanceProviderByKey = <T, P extends object>(
 
       // 수정이 불가능한 속성의 값이 변경되면 객체를 재생성
       if (!property.settable && !equalsDeep(currValue, prevValue)) {
-        debug(() => `Recreate instance trigger by ${property.name}`);
+        debug(() => `Recreate instance by [${property.name}] property`);
         return true;
       }
 
@@ -56,7 +56,7 @@ export const createInstanceProviderByKey = <T, P extends object>(
         // `nullable` 속성이고 이전 값은 존재하며 현재 값이 `nullish`이면 객체를 재생성
         const result = prevValue != null && currValue == null;
         if (result) {
-          debug(() => `Recreate instance trigger by ${property.name}`);
+          debug(() => `Recreate instance by [${property.name}] property`);
           return true;
         }
       }
@@ -81,10 +81,7 @@ export const createInstanceProviderByKey = <T, P extends object>(
       const result = !equalsDeep(currValue, prevValue);
 
       if (result) {
-        debug(() => `Update instance trigger by ${property.name}`);
-      }
-
-      if (result) {
+        debug(() => `Update instance by [${property.name}]`);
         return result;
       }
     }

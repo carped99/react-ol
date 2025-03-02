@@ -8,8 +8,7 @@ import type {
   Point,
   Polygon,
 } from 'geojson';
-import { Type as OlGeometryType } from 'ol/geom/Geometry.js';
-import {
+import type {
   Geometry as OlGeometry,
   GeometryCollection as OlGeometryCollection,
   LineString as OlLineString,
@@ -38,29 +37,20 @@ export type ToOlGeometry<T extends Geometry> = T extends { type: keyof GeometryT
   : OlGeometry;
 
 /**
- * OpenLayers GeometryType을 GeoJSON Geometry로 매핑하는 타입
- */
-type OlGeometryTypeMap = Record<OlGeometryType, Geometry> & {
-  Point: Point;
-  LineString: LineString;
-  Polygon: Polygon;
-  MultiPoint: MultiPoint;
-  MultiLineString: MultiLineString;
-  MultiPolygon: MultiPolygon;
-  GeometryCollection: GeometryCollection;
-  Circle: Geometry; // OpenLayers 전용 타입
-  LinearRing: Geometry; // OpenLayers 전용 타입
-};
-
-// export type ToOlGeometryType<T extends OlGeometry> = T extends { type: keyof OlGeometryTypeMap }
-//   ? OlGeometryTypeMap[T['type']]
-//   : OlGeometry;
-
-/**
  * OpenLayers `Geometry`를 GeoJSON `Geometry`로 매핑하는 타입
  */
-export type ToGeoJSONGeometry<T extends OlGeometry> = T extends { getType(): infer R }
-  ? R extends keyof OlGeometryTypeMap
-    ? OlGeometryTypeMap[R]
-    : Geometry
-  : Geometry;
+export type ToGeoJSONGeometry<T extends OlGeometry> = T extends OlPoint
+  ? Point
+  : T extends OlLineString
+    ? LineString
+    : T extends OlPolygon
+      ? Polygon
+      : T extends OlMultiPoint
+        ? MultiPoint
+        : T extends OlMultiLineString
+          ? MultiLineString
+          : T extends OlMultiPolygon
+            ? MultiPolygon
+            : T extends OlGeometryCollection
+              ? GeometryCollection
+              : Geometry;

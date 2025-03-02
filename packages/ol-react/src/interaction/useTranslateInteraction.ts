@@ -39,7 +39,7 @@ const instanceProperties = [
   { name: 'features', settable: false },
   { name: 'layers', settable: false },
   { name: 'filter', settable: false },
-  { name: 'hitTolerance', settable: false },
+  { name: 'hitTolerance', settable: true },
 ] as const;
 
 const instanceProvider = createInstanceProviderByKey(createInstance, instanceProperties);

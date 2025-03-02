@@ -18,13 +18,13 @@ export type ReadFeatureOptions<T extends FeatureLike = OlFeature<OlGeometry>> = 
  * @param options - 변환 옵션
  * @returns OpenLayers Feature 객체
  */
-export const readFeature = <G extends Geometry = Geometry, P extends GeoJsonProperties = GeoJsonProperties>(
-  source: Feature<G, P>,
+export const readFeature = <T extends Geometry = Geometry, P extends GeoJsonProperties = GeoJsonProperties>(
+  source: Feature<T, P>,
   options?: ReadFeatureOptions,
 ) => {
   // const format = GeoJSONFormatManager.getFormat(options?.format);
   const format = new GeoJSON(options?.format);
-  return format.readFeature(source, options?.options);
+  return format.readFeature(source, options?.options) as OlFeature<ToOlGeometry<T>>;
 };
 
 /**

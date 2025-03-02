@@ -1,9 +1,9 @@
-import type { Feature, FeatureCollection, GeometryCollection } from 'geojson';
-import OlFeature from 'ol/Feature.js';
+import type { Feature, FeatureCollection } from 'geojson';
+import type OlFeature from 'ol/Feature.js';
 import { WriteOptions } from 'ol/format/Feature.js';
 import GeoJSON, { Options as GeoJSONFormatOptions } from 'ol/format/GeoJSON.js';
 
-import { Geometry as OlGeometry } from 'ol/geom.js';
+import type { Geometry as OlGeometry } from 'ol/geom.js';
 import { ToGeoJSONGeometry } from '../typeGuards/typeMapping';
 
 export type WriteFeatureOptions<T extends OlGeometry> = {
@@ -61,9 +61,7 @@ export const writeFeatures = <T extends OlGeometry>(features: OlFeature<T>[], op
 export const writeGeometry = <T extends OlGeometry>(geometry: T, options?: WriteFeatureOptions<T>) => {
   // const format = GeoJSONFormatManager.getFormat(options?.format);
   const format = new GeoJSON(options?.format);
-  return format.writeGeometryObject(geometry, options?.options) as
-    | ToGeoJSONGeometry<T>
-    | GeometryCollection<ToGeoJSONGeometry<T>>;
+  return format.writeGeometryObject(geometry, options?.options) as ToGeoJSONGeometry<T>;
 };
 
 export const writeFeatureSanitized = <T extends OlGeometry>(

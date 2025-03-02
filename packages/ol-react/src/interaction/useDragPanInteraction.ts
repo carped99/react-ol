@@ -2,6 +2,7 @@ import DragPan, { Options } from 'ol/interaction/DragPan.js';
 import { createInstanceProviderByKey, useInstance } from '../base';
 import { DragPanInteractionEvents } from './event';
 import { useInteraction } from './useInteraction';
+import { useDebugValue } from 'react';
 
 /**
  * Options for {@link useDragPanInteraction} hook.
@@ -25,6 +26,7 @@ export const useDragPanInteraction = (
   events?: DragPanInteractionEvents,
   active = true,
 ) => {
+  useDebugValue({ options, events, active });
   const instance = useInstance(instanceProvider, options);
 
   useInteraction(instance, events, active);

@@ -14,6 +14,8 @@ export const useLayer = <S extends Source = Source>(layer: Layer<S, any>, option
 
     // map 옵션이 있으면 레이어 목록에서 관리 안함
     if (options.map != null) {
+      // 여기서 해야하나?
+      layer.setMap(options.map);
       return () => {
         layer.setMap(null);
       };
@@ -25,13 +27,6 @@ export const useLayer = <S extends Source = Source>(layer: Layer<S, any>, option
       map.removeLayer(layer);
     };
   }, [map, layer, options.map]);
-
-  useEffect(() => {
-    if (layer.getSource() != options.source) {
-      console.log('===> update source', layer, options.source);
-      layer.setSource(options.source ?? null);
-    }
-  }, [layer, options.source]);
 
   return layer;
 };

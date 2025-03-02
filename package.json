@@ -68,5 +68,8 @@
     "extends": [
       "plugin:storybook/recommended"
     ]
+  },
+  "dependencies": {
+    "packages": "link:C:/Users/tykim/repos/carped99/react-ol/packages"
   }
 }
