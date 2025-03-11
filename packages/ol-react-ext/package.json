@@ -27,8 +27,8 @@
     "clean": "pnpx rimraf --glob **/node_modules **/dist"
   },
   "peerDependencies": {
-    "@carped99/ol-react": "0.0.1-alpha.19",
-    "@carped99/ol-util": "0.0.1-alpha.28",
+    "@carped99/ol-react": "0.0.1-alpha.23",
+    "@carped99/ol-util": "0.0.1-alpha.35",
     "ol": ">=10.0.0",
     "ol-ext": "^4.0.24",
     "react": ">=18",
