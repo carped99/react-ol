@@ -1,13 +1,6 @@
 version: 3
 
 tasks:
-  clean-publish:
-    desc: Clean install dependencies and build the project
-    cmds:
-      - pnpm clean
-      - pnpm install
-      - pnpm build
-
   build:
     cmds:
       - pnpm build

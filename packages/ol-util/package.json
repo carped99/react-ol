@@ -2,7 +2,7 @@
   "name": "@carped99/ol-util",
   "private": false,
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "OpenLayers Utils - Personal Use",
   "types": "./dist/index.d.ts",
   "module": "./dist/index.es.js",

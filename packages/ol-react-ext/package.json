@@ -2,7 +2,7 @@
   "name": "@carped99/ol-react-ext",
   "private": false,
   "type": "module",
-  "version": "0.0.1-alpha.11",
+  "version": "0.0.2",
   "description": "React Components for OpenLayers - Personal Use",
   "types": "./dist/index.d.ts",
   "module": "./dist/index.es.js",
@@ -27,15 +27,15 @@
     "clean": "pnpx rimraf --glob **/node_modules **/dist"
   },
   "peerDependencies": {
-    "@carped99/ol-react": "0.0.1-alpha.23",
-    "@carped99/ol-util": "0.0.1-alpha.35",
+    "@carped99/ol-react": "^0.0.2",
+    "@carped99/ol-util": "^0.0.3",
     "ol": ">=10.0.0",
-    "ol-ext": "^4.0.24",
+    "ol-ext": "^4.0.33",
     "react": ">=18",
     "react-dom": ">=18"
   },
   "devDependencies": {
-    "@types/ol-ext": "npm:@siedlerchr/types-ol-ext@^3.6.1",
+    "@types/ol-ext": "npm:@siedlerchr/types-ol-ext@^3.6.2",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "ol": "catalog:",
