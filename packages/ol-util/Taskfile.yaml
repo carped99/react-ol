@@ -1,0 +1,19 @@
+version: 3
+
+tasks:
+  clean-publish:
+    desc: Clean install dependencies and build the project
+    cmds:
+      - pnpm clean
+      - pnpm install
+      - pnpm build
+
+  publish:
+    desc: Publish package to npm registry with public access
+    cmds:
+      - pnpm publish --access public
+
+  version:patch:
+    desc: Increment patch version number
+    cmds:
+      - pnpm version patch

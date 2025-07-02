@@ -12,7 +12,7 @@ import { FeatureOrGeometry, resolveGeometry } from '../Util/internal';
 import { convertArea } from './convertUnit';
 
 interface AreaOptions extends SphereMetricOptions {
-  unit?: Area;
+  unit?: Area | 'py';
   geodesic: boolean;
   decimals?: number | undefined;
 }
